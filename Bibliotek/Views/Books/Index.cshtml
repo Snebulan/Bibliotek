@@ -1,0 +1,69 @@
+﻿@model Library.Models.ViewModels.BookIndexVM
+
+@{
+    ViewData["Title"] = "Index";
+}
+<div>
+    <h2>Böcker</h2>
+    <a asp-action="Index" class="btn btn-primary">Alla</a>
+    <a asp-action="Available" class="btn btn-primary">Tillgängliga</a>
+    <form asp-action="FilterOnAuthor" class="form-inline">
+        <div class="form-group">
+            <label asp-for="@Model.Author" class="control-label">Filtrera på författare</label>
+            <select asp-for="@Model.Author.ID" asp-items="@Model.Authors" class="form-control"></select>
+            <button type="submit" class="btn btn-primary">Filtrera</button>
+        </div>
+    </form>
+</div>
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Books.FirstOrDefault().Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Author)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Books.FirstOrDefault().ISBN)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Books.FirstOrDefault().Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Books.FirstOrDefault().BookCopeis)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Books)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Author.FullName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ISBN)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BookCopeis.Count)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
