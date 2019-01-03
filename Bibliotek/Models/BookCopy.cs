@@ -9,3 +9,4 @@ namespace Library.Models
         public Book Book { get; set; }
         public int IsAvailable { get; set; }
     }
+}
