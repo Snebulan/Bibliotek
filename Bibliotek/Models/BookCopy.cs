@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Library.Models
 {
@@ -8,5 +9,6 @@ namespace Library.Models
         public int ID { get; set; }
         public Book Book { get; set; }
         public int IsAvailable { get; set; }
+        public DateTime date { get; set; }
     }
 }
