@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Bibliotek.Models;
 
 namespace Library.Data
 {
@@ -39,6 +40,7 @@ namespace Library.Data
         public DbSet<Book> Books { get; set; }
         public DbSet<Author> Authors { get; set; }
         public DbSet<BookCopy> BookCopies { get; set; }
+        public DbSet<Bibliotek.Models.Loan> Loan { get; set; }
 
     }
 }
