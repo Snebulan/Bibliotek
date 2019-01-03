@@ -22,7 +22,7 @@ namespace Bibliotek.Controllers
         // GET: Members
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Member.ToListAsync());
+            return View(model: await _context.Members.ToListAsync());
         }
 
         // GET: Members/Details/5
@@ -33,7 +33,7 @@ namespace Bibliotek.Controllers
                 return NotFound();
             }
 
-            var member = await _context.Member
+            var member = await _context.Members
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (member == null)
             {
@@ -73,7 +73,7 @@ namespace Bibliotek.Controllers
                 return NotFound();
             }
 
-            var member = await _context.Member.FindAsync(id);
+            var member = await _context.Members.FindAsync(id);
             if (member == null)
             {
                 return NotFound();
@@ -124,7 +124,7 @@ namespace Bibliotek.Controllers
                 return NotFound();
             }
 
-            var member = await _context.Member
+            var member = await _context.Members
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (member == null)
             {
@@ -139,15 +139,15 @@ namespace Bibliotek.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var member = await _context.Member.FindAsync(id);
-            _context.Member.Remove(member);
+            var member = await _context.Members.FindAsync(id);
+            _context.Members.Remove(member);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool MemberExists(int id)
         {
-            return _context.Member.Any(e => e.ID == id);
+            return _context.Members.Any(e => e.ID == id);
         }
     }
 }
