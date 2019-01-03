@@ -1,10 +1,12 @@
-﻿using Library.Models;
+﻿using Bibliotek.Models;
+using Bibliotek.Models.ViewModels;
+using Library.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Bibliotek.Models;
+using Bibliotek.Models.ViewModels;
 
 namespace Library.Data
 {
@@ -21,6 +23,14 @@ namespace Library.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Member>().HasData(
+                new Member
+                {
+                    ID = 1,
+                    FirstName = "Fredrik",
+                    LastName = "Gustafsson"
+                }
+);
             modelBuilder.Entity<Author>().HasData(
                 new Author
                 {
@@ -40,7 +50,8 @@ namespace Library.Data
         public DbSet<Book> Books { get; set; }
         public DbSet<Author> Authors { get; set; }
         public DbSet<BookCopy> BookCopies { get; set; }
-        public DbSet<Bibliotek.Models.Loan> Loan { get; set; }
+        public DbSet<Member> Members { get; set; }
+        public DbSet<Loan> Loans { get; set; }
 
     }
 }

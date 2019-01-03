@@ -15,8 +15,6 @@ namespace Bibliotek.Models.ViewModels
         public string FirstName { get; set; }
         [Display(Name = "Efternamn")]
         public string LastName { get; set; }
-        [ForeignKey("LoanID")]
-        public int LoanID { get; set; }
-        public Loan Loan { get; set; }
+        public List<Loan> Loans { get; set; }
     }
 }
