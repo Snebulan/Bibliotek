@@ -6,6 +6,6 @@ namespace Library.Models
     {
         [Key]
         public int ID { get; set; }
-        public Book Book { get; set; }
+        public Book Book { get; set;}
+        public int IsAvailable { get; set; }
     }
-}
