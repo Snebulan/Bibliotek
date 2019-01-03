@@ -30,5 +30,15 @@ namespace Library.Services
                    Value = x.ID.ToString()
                });
         }
+        
+        /// <summary>
+        /// Lägger till en författare
+        /// </summary>
+        /// <param name="book">Författaren som ska läggas till</param>
+        public void Add(Author author)
+        {
+            _context.Add(author);
+            _context.SaveChanges();
+        }
     }
 }
