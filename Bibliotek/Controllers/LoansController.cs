@@ -22,7 +22,7 @@ namespace Bibliotek.Controllers
         // GET: Loans
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Loan.ToListAsync());
+            return View(await _context.Loans.ToListAsync());
         }
 
         // GET: Loans/Details/5
@@ -33,7 +33,7 @@ namespace Bibliotek.Controllers
                 return NotFound();
             }
 
-            var loan = await _context.Loan
+            var loan = await _context.Loans
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (loan == null)
             {
@@ -73,7 +73,7 @@ namespace Bibliotek.Controllers
                 return NotFound();
             }
 
-            var loan = await _context.Loan.FindAsync(id);
+            var loan = await _context.Loans.FindAsync(id);
             if (loan == null)
             {
                 return NotFound();
@@ -124,7 +124,7 @@ namespace Bibliotek.Controllers
                 return NotFound();
             }
 
-            var loan = await _context.Loan
+            var loan = await _context.Loans
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (loan == null)
             {
@@ -139,15 +139,15 @@ namespace Bibliotek.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var loan = await _context.Loan.FindAsync(id);
-            _context.Loan.Remove(loan);
+            var loan = await _context.Loans.FindAsync(id);
+            _context.Loans.Remove(loan);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool LoanExists(int id)
         {
-            return _context.Loan.Any(e => e.ID == id);
+            return _context.Loans.Any(e => e.ID == id);
         }
     }
 }
