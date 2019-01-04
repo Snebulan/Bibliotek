@@ -1,17 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Bibliotek.Models;
+using Bibliotek.Models.ViewModels;
+using Bibliotek.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Library.Data;
-using Library.Models;
-using Library.Services;
-using Library.Models.ViewModels;
-using Library.Services.Interfaces;
 
-namespace Library.Controllers
+namespace Bibliotek.Controllers
 {
     public class BooksController : Controller
     {

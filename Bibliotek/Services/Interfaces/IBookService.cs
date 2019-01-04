@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using Library.Models;
+﻿using Bibliotek.Models;
+using System.Collections.Generic;
 
-namespace Library.Services.Interfaces
+namespace Bibliotek.Services.Interfaces
 {
     public interface IBookService
     {

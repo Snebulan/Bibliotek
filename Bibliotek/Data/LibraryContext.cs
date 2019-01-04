@@ -1,9 +1,8 @@
 ﻿using Bibliotek.Models;
 using Bibliotek.Models.ViewModels;
-using Library.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace Library.Data
+namespace Bibliotek.Data
 {
     public class LibraryContext : DbContext
     {

@@ -1,13 +1,11 @@
-﻿using Library.Data;
-using Library.Models;
-using Library.Services.Interfaces;
+﻿using Bibliotek.Data;
+using Bibliotek.Models;
+using Bibliotek.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
-namespace Library.Services
+namespace Bibliotek.Services
 {
     public class AuthorService : IAuthorService
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Library.Models
+namespace Bibliotek.Models
 {
     public class BookCopy
     {
