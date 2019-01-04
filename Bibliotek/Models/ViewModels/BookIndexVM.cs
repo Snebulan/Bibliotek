@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Library.Models.ViewModels
+namespace Bibliotek.Models.ViewModels
 {
     public class BookIndexVM
     {

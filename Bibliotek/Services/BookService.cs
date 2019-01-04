@@ -1,12 +1,12 @@
-﻿using Library.Data;
-using Library.Models;
-using Library.Services.Interfaces;
+﻿using Bibliotek.Data;
+using Bibliotek.Models;
+using Bibliotek.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Library.Services
+namespace Bibliotek.Services
 {
     public class BookService : IBookService
     {

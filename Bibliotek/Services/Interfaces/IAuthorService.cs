@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace Library.Services.Interfaces
+namespace Bibliotek.Services.Interfaces
 {
     public interface IAuthorService
     {
