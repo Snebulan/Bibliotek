@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Bibliotek.Models.ViewModels;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Bibliotek.Models
 {
