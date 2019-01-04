@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Bibliotek.Models.ViewModels;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Bibliotek.Models
 {
@@ -9,6 +11,5 @@ namespace Bibliotek.Models
         public BookCopy Book { get; set; }
         [Display(Name = "Medlemsnummer")]
         public int MemberID { get; set; }
-        public List<Member> Member { get; set; }
     }
 }
