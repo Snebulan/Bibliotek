@@ -7,13 +7,16 @@
 <h2>Lån</h2>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Registrera Lån</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.MemberID)
+                @Html.DisplayNameFor(model => model.Member.ID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Member.FirstName)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Book)

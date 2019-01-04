@@ -11,5 +11,6 @@ namespace Bibliotek.Models
         public BookCopy Book { get; set; }
         [Display(Name = "Medlemsnummer")]
         public int MemberID { get; set; }
+        public Member Member { get; set; }
     }
 }
