@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Bibliotek.Models.ViewModels;
 using Bibliotek.Data;
+using Bibliotek.Models;
 
 namespace Bibliotek.Controllers
 {
