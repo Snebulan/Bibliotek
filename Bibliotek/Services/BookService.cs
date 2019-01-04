@@ -49,7 +49,11 @@ namespace Bibliotek.Services
         /// <returns></returns>
         public IEnumerable<Book> GetAllByAuthor(Author author)
         {
-            throw new NotImplementedException();
+            return _context.Books
+                .Include("Author")
+                .Include(x => x.BookCopeis)
+                .ToList()
+                .Where(m => m.AuthorID == author.ID);
         }
 
         /// <summary>
