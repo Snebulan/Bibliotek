@@ -13,10 +13,10 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Loans.FirstOrDefault().Member.ID)
+                @Html.DisplayNameFor(model => model.Loans.FirstOrDefault().MemberID)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Loans.FirstOrDefault().Book.ID)
+                @Html.DisplayNameFor(model => model.Loans.FirstOrDefault().BookID)
             </th>
         </tr>
     </thead>
@@ -25,10 +25,10 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Member.ID)
+                    @Html.DisplayFor(modelItem => item.MemberID)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Book.ID)
+                    @Html.DisplayFor(modelItem => item.BookID)
                 </td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |

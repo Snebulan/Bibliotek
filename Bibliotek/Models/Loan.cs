@@ -9,9 +9,9 @@ namespace Bibliotek.Models
     {
         [Key]
         public int ID { get; set; }
-        public Book Book { get; set; }
+        public int BookID { get; set; }
         [Display(Name = "Medlem")]
-        public Member Member { get; set; }
+        public int MemberID { get; set; }
         [Display(Name = "Utlåningsdatum")]
         public DateTime DateLoan { get; set; }
         [Display(Name = "Returdatum")]

@@ -29,7 +29,8 @@ namespace Bibliotek.Services
 
             foreach (var loan in loans )
             {
-                books.Add(_context.Books.FirstOrDefault(x => x.ID == loan.Book.ID));
+
+                books.Add(_context.Books.FirstOrDefault(x => x.ID == loan.BookID));
             }
 
             return books;

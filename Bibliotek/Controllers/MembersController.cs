@@ -52,6 +52,7 @@ namespace Bibliotek.Controllers
             //vm.Member = (Member)_membersService.GetDetails(id);
             vm.Member = _membersService.GetDetails(id);
             vm.Books = _membersService.GetAllMembersLoans(vm.Member.Loans);
+            //vm.Books = vm.Member.Loans.Select(x => x.BookID).ToList();
             //return View(model: _membersService.GetDetails(id));
             return View(vm);
 
