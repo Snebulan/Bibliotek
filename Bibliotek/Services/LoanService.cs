@@ -18,11 +18,5 @@ namespace Bibliotek.Services
             this._context = context;
         }
 
-        public IEnumerable<Loan> GetAllLoansForMember(int? id)
-        {
-            return _context.Loans
-                .ToList()
-                .Where(m => m.MemberID == id);
-        }
     }
 }

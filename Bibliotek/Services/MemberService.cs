@@ -19,6 +19,22 @@ namespace Bibliotek.Services
             this._context = context;
         }
 
+        public List<Book> GetAllMembersLoans(List<Loan> loans)
+        {
+            //idOfBook =  select BookID FROM Loans Where MemberID == id
+            //select Book_Name From Book Where BookId = IdOfBook
+
+
+            List<Book> books = new List<Book>();
+
+            foreach (var loan in loans )
+            {
+                books.Add(_context.Books.FirstOrDefault(x => x.ID == loan.BookID));
+            }
+
+            return books;
+        }
+
 
         //public object GetDetails(int? id)
         //{

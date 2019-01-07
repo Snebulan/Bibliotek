@@ -8,7 +8,7 @@ namespace Bibliotek.Models.ViewModels
     public class MemberDetailsVM
     {
         public Member Member { get; set; }
-        public List<Loan> Loans { get; set; }
+        public List<Book> Books { get; set; }
 
     }
 }

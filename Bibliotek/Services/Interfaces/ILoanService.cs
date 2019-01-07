@@ -5,6 +5,6 @@ namespace Bibliotek.Services.Interfaces
 {
     public interface ILoanService
     {
-        IEnumerable<Loan> GetAllLoansForMember(int? id);
+
     }
 }
