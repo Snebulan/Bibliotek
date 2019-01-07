@@ -30,7 +30,7 @@ namespace Bibliotek.Services
         {
             return _context.Loans
                 .ToList()
-                .Where(m => m.MemberID == id);
+                .Where(m => m.Member.ID == id);
         }
     }
 }
