@@ -5,23 +5,35 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Bibliotek.Models;
 using Bibliotek.Data;
+using Bibliotek.Services.Interfaces;
+using Bibliotek.Models.ViewModels;
 
 namespace Bibliotek.Controllers
 {
     public class LoansController : Controller
     {
         private readonly LibraryContext _context;
+        private readonly ILoanService _loanService;
 
-        public LoansController(LibraryContext context)
+        public LoansController(ILoanService loanService, LibraryContext context)
         {
+            this._loanService = loanService;
             _context = context;
         }
 
-        // GET: Loans
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            return View(await _context.Loans.ToListAsync());
+            var vm = new LoanIndexVM();
+            vm.Loans = _loanService.GetAll();
+
+            return View(vm);
         }
+
+        // GET: Loans
+        //public async Task<IActionResult> Index()
+        //{
+        //    return View(await _context.Loans.ToListAsync());
+        //}
 
         // GET: Loans/Details/5
         public async Task<IActionResult> Details(int? id)

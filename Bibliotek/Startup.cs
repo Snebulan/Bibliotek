@@ -35,6 +35,7 @@ namespace Bibliotek
             services.AddScoped<IBookService, BookService>();
             services.AddScoped<IAuthorService, AuthorService>();
             services.AddScoped<IMembersService, MemberService>();
+            services.AddScoped<ILoanService, LoanService>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }

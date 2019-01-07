@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Bibliotek.Models.Loan>
+﻿@model Bibliotek.Models.ViewModels.LoanIndexVM
 
 @{
     ViewData["Title"] = "Index";
@@ -13,25 +13,29 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.MemberID)
+                @Html.DisplayNameFor(model => model.Loans.FirstOrDefault().MemberID)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.BookID)
+                @Html.DisplayNameFor(model => model.Loans.FirstOrDefault().BookID)
             </th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.MemberID)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model.Loans)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MemberID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BookID)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

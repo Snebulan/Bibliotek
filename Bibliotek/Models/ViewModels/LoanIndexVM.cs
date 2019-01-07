@@ -9,5 +9,6 @@ namespace Bibliotek.Models.ViewModels
     public class LoanIndexVM
     {
         public IEnumerable<Member> Members { get; set; }
+        public IEnumerable<Loan> Loans { get; set; }
     }
 }

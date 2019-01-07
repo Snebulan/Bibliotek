@@ -18,6 +18,14 @@ namespace Bibliotek.Services
             this._context = context;
         }
 
+        public IList<Loan> GetAll()
+        {
+            return _context.Loans
+                .Include("Member")
+                //.Include(x => x.BookCopeis)
+                .ToList();
+        }
+
         public IEnumerable<Loan> GetAllLoansForMember(int? id)
         {
             return _context.Loans
