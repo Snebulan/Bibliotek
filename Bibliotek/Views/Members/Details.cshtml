@@ -30,11 +30,11 @@
 
 <table class="table">
     <tbody>
-        @foreach (var item in Model.Member.Loans)
+        @foreach (var item in Model.Books)
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.BookID)
+                    @Html.DisplayFor(modelItem => item.Title)
                 </td>
             </tr>
         }

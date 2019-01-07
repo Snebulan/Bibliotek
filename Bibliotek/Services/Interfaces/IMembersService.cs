@@ -11,5 +11,6 @@ namespace Bibliotek.Services.Interfaces
 
         //object Details(int? id);
         Member GetDetails(int? id);
+        List<Book> GetAllMembersLoans(List<Loan> loans);
     }
 }
