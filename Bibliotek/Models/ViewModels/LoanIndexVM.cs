@@ -10,5 +10,6 @@ namespace Bibliotek.Models.ViewModels
     {
         public IEnumerable<Member> Members { get; set; }
         public IEnumerable<Loan> Loans { get; set; }
+        public IEnumerable<Book> Books { get; set; }
     }
 }
