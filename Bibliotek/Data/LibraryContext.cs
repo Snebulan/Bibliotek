@@ -17,6 +17,14 @@ namespace Bibliotek.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+                modelBuilder.Entity<Loan>().HasData(
+                new Loan
+                {
+                    ID = 1,
+                    BookID = 1,
+                    MemberID = 1
+                }
+            );
             modelBuilder.Entity<Member>().HasData(
                 new Member
                 {

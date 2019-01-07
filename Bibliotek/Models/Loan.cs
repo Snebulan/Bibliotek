@@ -8,7 +8,7 @@ namespace Bibliotek.Models
     {
         [Key]
         public int ID { get; set; }
-        public BookCopy Book { get; set; }
+        public int BookID { get; set; }
         [Display(Name = "Medlemsnummer")]
         public int MemberID { get; set; }
     }

@@ -6,17 +6,24 @@ using Microsoft.EntityFrameworkCore;
 using Bibliotek.Models.ViewModels;
 using Bibliotek.Data;
 using Bibliotek.Models;
+using Bibliotek.Services.Interfaces;
 
 namespace Bibliotek.Controllers
 {
     public class MembersController : Controller
     {
-        private readonly LibraryContext _context;
+        private readonly IMembersService _membersService;
+        //private readonly ILoanService _loanService;
 
-        public MembersController(LibraryContext context)
+        public MembersController(LibraryContext context, IMembersService membersService)
         {
+            this._membersService = membersService;
+            //this._loanService = loanService;
             _context = context;
         }
+
+
+        private readonly LibraryContext _context;
 
         // GET: Members
         public async Task<IActionResult> Index()
@@ -32,14 +39,22 @@ namespace Bibliotek.Controllers
                 return NotFound();
             }
 
-            var member = await _context.Members
-                .FirstOrDefaultAsync(m => m.ID == id);
-            if (member == null)
-            {
-                return NotFound();
-            }
+            //
+            //var member = await _context.Members
+            //    .Include(x => x.Loans)
+            //    .FirstOrDefaultAsync(m => m.ID == id);
+            //if (member == null)
+            //{
+            //    return NotFound();
+            //}
 
-            return View(member);
+            var vm = new MemberDetailsVM();
+            //vm.Member = (Member)_membersService.GetDetails(id);
+            vm.Member = _membersService.GetDetails(id);
+
+            //return View(model: _membersService.GetDetails(id));
+            return View(vm);
+
         }
 
         // GET: Members/Create
