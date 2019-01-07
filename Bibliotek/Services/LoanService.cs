@@ -21,7 +21,7 @@ namespace Bibliotek.Services
         public IList<Loan> GetAll()
         {
             return _context.Loans
-                .Include("Member")
+                //.Include("Member")
                 //.Include(x => x.BookCopeis)
                 .ToList();
         }
