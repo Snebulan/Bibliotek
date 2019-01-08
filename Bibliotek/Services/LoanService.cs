@@ -40,6 +40,7 @@ namespace Bibliotek.Services
         public void Add(Loan loan)
         {
             loan.Member = _context.Members.Find(loan.Member.ID);
+            loan.Book = _context.Books.Find(loan.Book.ID);
             _context.Add(loan);
             _context.SaveChanges();
         }
