@@ -1,4 +1,5 @@
 ﻿using Bibliotek.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,5 +13,10 @@ namespace Bibliotek.Services.Interfaces
         //object Details(int? id);
         Member GetDetails(int? id);
         List<Book> GetAllMembersLoans(List<Loan> loans);
+        /// <summary>
+        /// Hämtar en SelectList av alla medlemmar
+        /// </summary>
+        /// <returns></returns>
+        IEnumerable<SelectListItem> GetSelectListItems();
     }
 }

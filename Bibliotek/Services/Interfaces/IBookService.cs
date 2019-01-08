@@ -1,4 +1,5 @@
 ﻿using Bibliotek.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
 
 namespace Bibliotek.Services.Interfaces
@@ -38,6 +39,11 @@ namespace Bibliotek.Services.Interfaces
         /// <param name="author">Författare vars böcker ska hämtas</param>
         /// <returns></returns>
         IEnumerable<Book> GetAllByAuthor(Author author);
+        /// <summary>
+        /// Listar alla böcker som är tillgängliga
+        /// </summary>
+        /// <returns></returns>
+        IEnumerable<SelectListItem> GetAvailableListItems();
         /// <summary>
         /// Hämtar alla böcker som är tillgängliga
         /// </summary>

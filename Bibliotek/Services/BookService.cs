@@ -1,6 +1,7 @@
 ﻿using Bibliotek.Data;
 using Bibliotek.Models;
 using Bibliotek.Services.Interfaces;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -40,6 +41,25 @@ namespace Bibliotek.Services
                 .Include(x => x.BookCopeis)
                 .ToList()
                 .Where(x => IsAvailable(x));
+        }
+        /// <summary>
+        /// Hämtar en SelectList av alla tillgängliga böcker.
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<SelectListItem> GetAvailableListItems()
+        {
+            return _context.Books.ToList().OrderBy(x => x.Author).Select(x =>
+               new SelectListItem
+               {
+                   Text = $"{x.Author}  {x.Title}",
+                   Value = x.ID.ToString()
+               });
+
+            //return _context.Books
+            //    .Include("Author")
+            //    .Include(x => x.BookCopeis)
+            //    .ToList()
+            //    .Where(x => IsAvailable(x));
         }
 
         /// <summary>

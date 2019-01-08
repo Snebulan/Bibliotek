@@ -16,5 +16,10 @@ namespace Bibliotek.Models
         [Display(Name = "Efternamn")]
         public string LastName { get; set; }
         public List<Loan> Loans { get; set; }
+
+        public string FullName
+        {
+            get { return FirstName + " " + LastName; }
+        }
     }
 }

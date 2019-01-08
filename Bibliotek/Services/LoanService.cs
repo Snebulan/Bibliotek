@@ -32,5 +32,17 @@ namespace Bibliotek.Services
                 .ToList()
                 .Where(m => m.MemberID== id);
         }
+
+        /// <summary>
+        /// Lägger till ett lån
+        /// </summary>
+        /// <param name="loan">Lånet som ska läggas till</param>
+        public void Add(Loan loan)
+        {
+            loan.Member = _context.Members.Find(loan.Member.ID);
+            loan.Book = _context.Books.Find(loan.Book.ID);
+            _context.Add(loan);
+            _context.SaveChanges();
+        }
     }
 }

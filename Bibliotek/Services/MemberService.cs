@@ -2,6 +2,7 @@
 using Bibliotek.Models;
 using Bibliotek.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -35,8 +36,19 @@ namespace Bibliotek.Services
 
             return books;
         }
-
-
+        /// <summary>
+        /// Hämtar en SelectList av alla medlemmar.
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<SelectListItem> GetSelectListItems()
+        {
+            return _context.Members.ToList().OrderBy(x => x.FirstName).Select(x =>
+               new SelectListItem
+               {
+                   Text = $"{x.FirstName}  {x.LastName}",
+                   Value = x.ID.ToString()
+               });
+        }
         //public object GetDetails(int? id)
         //{
         //    return _context.Members
