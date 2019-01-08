@@ -25,10 +25,10 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.MemberID)
+                    @Html.DisplayFor(modelItem => item.Member.ID)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.BookID)
+                    @Html.DisplayFor(modelItem => item.Book.ID)
                 </td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
