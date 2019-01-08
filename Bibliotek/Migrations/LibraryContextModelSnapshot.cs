@@ -15,7 +15,7 @@ namespace Bibliotek.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.1-rtm-30846")
+                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -71,11 +71,9 @@ namespace Bibliotek.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("BookID");
+                    b.Property<int>("BookID");
 
                     b.Property<int>("IsAvailable");
-
-                    b.Property<DateTime>("date");
 
                     b.HasKey("ID");
 
@@ -99,8 +97,6 @@ namespace Bibliotek.Migrations
                     b.Property<int>("MemberID");
 
                     b.HasKey("ID");
-
-                    b.HasIndex("BookID");
 
                     b.HasIndex("MemberID");
 
@@ -136,17 +132,17 @@ namespace Bibliotek.Migrations
 
             modelBuilder.Entity("Bibliotek.Models.BookCopy", b =>
                 {
-                    b.HasOne("Bibliotek.Models.Book", "Book")
+                    b.HasOne("Bibliotek.Models.Book")
                         .WithMany("BookCopeis")
-                        .HasForeignKey("BookID");
+                        .HasForeignKey("BookID")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Bibliotek.Models.Loan", b =>
                 {
                     b.HasOne("Bibliotek.Models.Book", "Book")
                         .WithMany()
-                        .HasForeignKey("BookID")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("BookID");
 
                     b.HasOne("Bibliotek.Models.Member", "Member")
                         .WithMany("Loans")
