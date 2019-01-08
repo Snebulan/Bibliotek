@@ -95,7 +95,7 @@ namespace Bibliotek.Services
         {
             var book = _context.Books.Find(id);
             var bookCopies = _context.BookCopies
-                .Where(x => x.Book == book);
+                .Where(x => x.BookID == book.ID);
             _context.BookCopies.RemoveRange(bookCopies);
             _context.Books.Remove(book);
             _context.SaveChanges();
@@ -119,6 +119,37 @@ namespace Bibliotek.Services
         public bool BookExists(int id)
         {
             return _context.Books.Any(e => e.ID == id);
+        }
+
+        public string RemoveCopy(int id)
+        {
+            string success;
+            try
+            {
+                var bookCopy = _context.BookCopies
+                    .Where(x => x.BookID == id && x.IsAvailable == 1)
+                    .FirstOrDefault();
+                    _context.BookCopies.Remove(bookCopy);
+                    _context.SaveChanges();
+                success = "true";
+                return success;
+            }
+            catch (ArgumentNullException)
+            {
+                success = "false";
+                return success;
+            }
+
+        }
+
+        public string AddCopy(int id)
+        {
+            string adSuccess;
+            BookCopy copy = new BookCopy { BookID = id, IsAvailable = 1 };
+            _context.BookCopies.Add(copy);
+            _context.SaveChanges();
+            adSuccess = "true";
+            return adSuccess;
         }
     }
 }

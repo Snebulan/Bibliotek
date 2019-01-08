@@ -4,14 +4,16 @@ using Bibliotek.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Bibliotek.Migrations
 {
     [DbContext(typeof(LibraryContext))]
-    partial class LibraryContextModelSnapshot : ModelSnapshot
+    [Migration("20190108092356_again")]
+    partial class again
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -74,6 +76,8 @@ namespace Bibliotek.Migrations
                     b.Property<int>("BookID");
 
                     b.Property<int>("IsAvailable");
+
+                    b.Property<DateTime>("date");
 
                     b.HasKey("ID");
 

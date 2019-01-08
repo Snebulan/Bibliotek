@@ -7,8 +7,8 @@ namespace Bibliotek.Models
     {
         [Key]
         public int ID { get; set; }
-        public Book Book { get; set; }
+        //public Book Book { get; set; }
+        public int BookID { get; set; }
         public int IsAvailable { get; set; }
-        public DateTime date { get; set; }
     }
 }

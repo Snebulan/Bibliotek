@@ -54,5 +54,7 @@ namespace Bibliotek.Services.Interfaces
         /// </summary>
         /// <param name="book">Boken som ska uppdateras</param>
         void Update(Book book);
+        string RemoveCopy(int id);
+        string AddCopy(int id);
     }
 }

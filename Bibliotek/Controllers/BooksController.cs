@@ -76,7 +76,22 @@ namespace Bibliotek.Controllers
 
             return View(book);
         }
-
+        [HttpGet, ActionName("RemoveCopy")]
+        public IActionResult RemoveCopy(int id)
+        {
+            string success =_bookService.RemoveCopy(id);
+            //bool test = false;
+            TempData["data"] = success;
+            return RedirectToAction(nameof(Index), new { success });
+            //return RedirectToAction(nameof(Index))
+        }
+        [HttpGet, ActionName("AddCopy")]
+        public IActionResult AddCopy(int id)
+        {
+            string adSuccess = _bookService.AddCopy(id);
+            TempData["addSuccess"] = adSuccess;
+            return RedirectToAction(nameof(Index));
+        }
         /// <summary>
         /// Visar en sida för att skapa en bok
         /// </summary>
