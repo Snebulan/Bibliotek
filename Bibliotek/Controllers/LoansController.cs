@@ -14,10 +14,14 @@ namespace Bibliotek.Controllers
     {
         private readonly LibraryContext _context;
         private readonly ILoanService _loanService;
+        private readonly IMembersService _memberService;
+        private readonly IBookService _bookService;
 
-        public LoansController(ILoanService loanService, LibraryContext context)
+        public LoansController(ILoanService loanService, IMembersService memberService, IBookService bookService, LibraryContext context)
         {
             this._loanService = loanService;
+            this._memberService = memberService;
+            this._bookService = bookService;
             _context = context;
         }
 
@@ -25,7 +29,8 @@ namespace Bibliotek.Controllers
         {
             var vm = new LoanIndexVM();
             vm.Loans = _loanService.GetAll();
-
+            vm.Books = _bookService.GetAvailableListItems();
+            vm.Members = _memberService.GetSelectListItems();
             return View(vm);
         }
 
@@ -56,6 +61,9 @@ namespace Bibliotek.Controllers
         // GET: Loans/Create
         public IActionResult Create()
         {
+            ViewBag.Members = _memberService.GetSelectListItems();
+            ViewBag.Books = _bookService.GetAvailableListItems();
+
             return View();
         }
 
@@ -64,17 +72,29 @@ namespace Bibliotek.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,MemberID")] Loan loan)
+        //public async Task<IActionResult> Create([Bind("ID,MemberID")] Loan loan)
+        public IActionResult Create(Loan loan)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(loan);
-                await _context.SaveChangesAsync();
+                _loanService.Add(loan);
+                //_context.Add(loan);
+                //await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(loan);
         }
-
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public IActionResult Create(Book book)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        _bookService.Add(book);
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    return View(book);
+        //}
         // GET: Loans/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {

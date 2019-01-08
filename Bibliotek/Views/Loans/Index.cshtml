@@ -13,29 +13,35 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Loans.FirstOrDefault().MemberID)
+                @Html.DisplayNameFor(model => model.Member.FirstOrDefault().ID)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Loans.FirstOrDefault().BookID)
+                @Html.DisplayNameFor(model => model.Member.FirstOrDefault().FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Book.FirstOrDefault().Title)
             </th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model.Loans)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.MemberID)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.BookID)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
-                </td>
-            </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Member.ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Member.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Book.Title)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+            </td>
+        </tr>
         }
     </tbody>
 </table>
