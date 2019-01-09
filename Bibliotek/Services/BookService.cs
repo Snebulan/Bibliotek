@@ -128,7 +128,8 @@ namespace Bibliotek.Services
         /// <returns>true om boken finns tillgänglig</returns>
         public bool IsAvailable(Book book)
         {
-            throw new NotImplementedException();
+            var available = _context.BookCopies.Any(x => x.BookID == book.ID && x.IsAvailable > 0);
+            return available;
         }
 
         /// <summary>
