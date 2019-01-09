@@ -4,11 +4,21 @@
     ViewData["Title"] = "Index";
 }
 
-<h2>Lån</h2>
-
-<p>
+<div>
+    <h2>Lån</h2>
+    <form asp-action="FilterOnMember" class="form-inline">
+        <div class="form-group">
+            <label asp-for="@Model.Member" class="control-label">Filtrera på medlem</label>
+            <select asp-for="@Model.NewMember.ID" asp-items="@Model.Members" class="form-control"></select>
+            <button type="submit" class="btn btn-primary">Filtrera</button>
+            <a asp-action="Index" class="btn btn-primary">Visa Alla</a>
+        </div>
+    </form>
+</div>
+<br />
+<div class="form-group">
     <a asp-action="Create" class="btn btn-primary">Registrera Lån</a>
-</p>
+</div>
 <table class="table">
     <thead>
         <tr>
@@ -32,28 +42,28 @@
     <tbody>
         @foreach (var item in Model.Loans)
         {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Member.ID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Member.FullName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Book.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateLoan)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateReturn)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
-            </td>
-        </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Member.ID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Member.FullName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Book.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateLoan)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateReturn)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                </td>
+            </tr>
         }
     </tbody>
 </table>

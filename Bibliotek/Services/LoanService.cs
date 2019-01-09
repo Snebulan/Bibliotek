@@ -32,7 +32,18 @@ namespace Bibliotek.Services
                 .ToList()
                 .Where(m => m.MemberID== id);
         }
-
+        /// <summary>
+        /// Hämtar alla böcker från angiven författare
+        /// </summary>
+        /// <param name="author">Författare vars böcker ska hämtas</param>
+        /// <returns></returns>
+        public IEnumerable<Loan> GetAllByMember(Member member)
+        {
+            return _context.Loans
+                .Include("Member")
+                .ToList()
+                .Where(m => m.MemberID == member.ID);
+        }
         /// <summary>
         /// Lägger till ett lån
         /// </summary>

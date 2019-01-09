@@ -41,6 +41,12 @@ namespace Bibliotek.Controllers
         //}
 
         // GET: Loans/Details/5
+        public IActionResult FilterOnMember(LoanIndexVM vm)
+        {
+            vm.Loans = _loanService.GetAllLoansForMember(vm.NewMember.ID);
+            vm.Members = _memberService.GetSelectListItems();
+            return View("Index", vm);
+        }
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)

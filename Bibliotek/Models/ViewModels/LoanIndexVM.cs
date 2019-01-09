@@ -15,6 +15,7 @@ namespace Bibliotek.Models.ViewModels
         public IEnumerable<SelectListItem> Members { get; set; }
         public IEnumerable<SelectListItem> Books { get; set; }
 
+        public Member NewMember { get; set; } = new Member();
 
     }
 }
