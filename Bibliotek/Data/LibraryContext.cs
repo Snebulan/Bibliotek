@@ -32,7 +32,8 @@ namespace Bibliotek.Data
                 {
                     ID = 1,
                     FirstName = "Fredrik",
-                    LastName = "Gustafsson"
+                    LastName = "Gustafsson",
+                    PersonNumber = "19720921-2013"
                 }
 );
             modelBuilder.Entity<Author>().HasData(

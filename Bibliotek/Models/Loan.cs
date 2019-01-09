@@ -10,7 +10,7 @@ namespace Bibliotek.Models
         [Key]
         public int ID { get; set; }
         public int BookID { get; set; }
-        public Book Book { get; set; }
+        //public Book Book { get; set; }
         [Display(Name = "Medlem")]
         public int MemberID { get; set; }
         public Member Member { get; set; }

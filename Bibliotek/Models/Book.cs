@@ -13,10 +13,10 @@ namespace Bibliotek.Models
         public string ISBN { get; set; }
         [Display(Name = "Titel")]
         [StringLength(30, MinimumLength = 3, ErrorMessage = "Titeln måste bestå av minst 3 och max 30 tecken")]
-        [Required(ErrorMessage = "Du måste ange en titel")]
+        [Required]
         public string  Title { get; set; }
         [Display(Name = "Författare")]
-        [Required]
+        //[Required]
         public int AuthorID { get; set; }
         public Author Author { get; set; }
         [Display(Name="Beskrivning")]
