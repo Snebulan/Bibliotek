@@ -76,7 +76,7 @@ namespace Bibliotek.Controllers
 
             return View(book);
         }
-        [HttpGet, ActionName("RemoveCopy")]
+        //[HttpGet, ActionName("RemoveCopy")]
         public IActionResult RemoveCopy(int id)
         {
             string success =_bookService.RemoveCopy(id);
@@ -85,7 +85,7 @@ namespace Bibliotek.Controllers
             return RedirectToAction(nameof(Index), new { success });
             //return RedirectToAction(nameof(Index))
         }
-        [HttpGet, ActionName("AddCopy")]
+        //[HttpGet, ActionName("AddCopy")]
         public IActionResult AddCopy(int id)
         {
             string adSuccess = _bookService.AddCopy(id);
