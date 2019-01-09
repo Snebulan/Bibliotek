@@ -14,9 +14,9 @@ namespace Bibliotek.Models
         [Display(Name = "Medlem")]
         public int MemberID { get; set; }
         public Member Member { get; set; }
-        [Display(Name = "Utlåningsdatum")]
+        [Display(Name = "Utlånad")]
         public DateTime DateLoan { get; set; }
-        [Display(Name = "Returdatum")]
+        [Display(Name = "Returnerad")]
         public DateTime DateReturn { get; set; }
     }
 }
