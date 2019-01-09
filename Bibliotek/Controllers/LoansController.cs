@@ -72,7 +72,6 @@ namespace Bibliotek.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Create([Bind("ID,MemberID")] Loan loan)
         public IActionResult Create(Loan loan)
         {
             if (ModelState.IsValid)
@@ -84,18 +83,7 @@ namespace Bibliotek.Controllers
             }
             return View(loan);
         }
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public IActionResult Create(Book book)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        _bookService.Add(book);
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    return View(book);
-        //}
-        // GET: Loans/Edit/5
+
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
