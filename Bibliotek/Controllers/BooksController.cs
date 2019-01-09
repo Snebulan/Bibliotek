@@ -111,11 +111,17 @@ namespace Bibliotek.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(Book book)
         {
+            if (!ModelState.IsValid)
+            {
+                ViewBag.Authors = _authorService.GetSelectListItems();
+                return View();
+            }
             if (ModelState.IsValid)
             {
                 _bookService.Add(book);
                 return RedirectToAction(nameof(Index));
             }
+
             return View(book);
         }
 
