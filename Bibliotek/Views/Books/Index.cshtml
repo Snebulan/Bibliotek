@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Index";
+
 }
 <div>
     <h2>Böcker</h2>
@@ -18,6 +19,26 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+
+@if ((string)TempData["data"] == "true")
+{
+    <div class="alert alert-success" role="alert">
+        <p>Boken är avregistrerad.</p>
+    </div>
+}
+@if ((string)TempData["data"] == "false")
+{
+    <div class="alert alert-danger" role="alert">
+        <p><strong>Nu blev det fel!</strong> Kontrollera så att boken du vill avregistrera inte är utlånad eller att det finn någon bok att avregistrera.</p>
+    </div>
+}
+@if ((string)TempData["addSuccess"] == "true")
+{
+    <div class="alert alert-success" role="alert">
+        <p>Boken är registrerad.</p>
+    </div>
+}
+
 <table class="table">
     <thead>
         <tr>
@@ -57,6 +78,12 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.BookCopeis.Count)
+                </td>
+                <td>
+                    <a asp-action="AddCopy" asp-route-id="@item.ID"><img src="~/images/plus.png" height="15" /></a>
+                </td>
+                <td>
+                    <a asp-action="RemoveCopy" asp-route-id="@item.ID"><img src="~/images/less.png" height="15" /></a>
                 </td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |

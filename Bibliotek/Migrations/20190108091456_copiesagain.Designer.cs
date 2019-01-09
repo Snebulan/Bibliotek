@@ -4,18 +4,20 @@ using Bibliotek.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Bibliotek.Migrations
 {
     [DbContext(typeof(LibraryContext))]
-    partial class LibraryContextModelSnapshot : ModelSnapshot
+    [Migration("20190108091456_copiesagain")]
+    partial class copiesagain
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
+                .HasAnnotation("ProductVersion", "2.1.3-rtm-32065")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -71,9 +73,11 @@ namespace Bibliotek.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("BookID");
+                    b.Property<int?>("BookID");
 
                     b.Property<int>("IsAvailable");
+
+                    b.Property<DateTime>("date");
 
                     b.HasKey("ID");
 
@@ -132,19 +136,14 @@ namespace Bibliotek.Migrations
 
             modelBuilder.Entity("Bibliotek.Models.BookCopy", b =>
                 {
-                    b.HasOne("Bibliotek.Models.Book")
+                    b.HasOne("Bibliotek.Models.Book", "Book")
                         .WithMany("BookCopeis")
-                        .HasForeignKey("BookID")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("BookID");
                 });
 
             modelBuilder.Entity("Bibliotek.Models.Loan", b =>
                 {
-                    b.HasOne("Bibliotek.Models.Book", "Book")
-                        .WithMany()
-                        .HasForeignKey("BookID");
-
-                    b.HasOne("Bibliotek.Models.Member", "Member")
+                    b.HasOne("Bibliotek.Models.Member")
                         .WithMany("Loans")
                         .HasForeignKey("MemberID")
                         .OnDelete(DeleteBehavior.Cascade);
