@@ -33,14 +33,7 @@ namespace Bibliotek.Controllers
             vm.Members = _memberService.GetSelectListItems();
             return View(vm);
         }
-
-        // GET: Loans
-        //public async Task<IActionResult> Index()
-        //{
-        //    return View(await _context.Loans.ToListAsync());
-        //}
-
-        // GET: Loans/Details/5
+        
         public IActionResult FilterOnMember(LoanIndexVM vm)
         {
             vm.Loans = _loanService.GetAllLoansForMember(vm.NewMember.ID);
@@ -88,6 +81,15 @@ namespace Bibliotek.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View(loan);
+        }
+
+        
+        public IActionResult Return()
+        {
+            ViewBag.Members = _memberService.GetSelectListItems();
+            //ViewBag.Loans = _loanService.GetMemberLoanListItems();
+
+            return View();
         }
 
         public async Task<IActionResult> Edit(int? id)

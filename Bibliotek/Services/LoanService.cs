@@ -1,6 +1,7 @@
 ﻿using Bibliotek.Data;
 using Bibliotek.Models;
 using Bibliotek.Services.Interfaces;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -24,6 +25,16 @@ namespace Bibliotek.Services
                 //.Include("Member")
                 //.Include(x => x.BookCopeis)
                 .ToList();
+        }
+
+        public IEnumerable<SelectListItem> GetMemberLoanListItems()
+        {
+            return _context.Books.ToList().OrderBy(x => x.Author).Select(x =>
+               new SelectListItem
+               {
+                   Text = $"{x.Author}  {x.Title}",
+                   Value = x.ID.ToString()
+               });
         }
 
         public IEnumerable<Loan> GetAllLoansForMember(int? id)
@@ -50,8 +61,8 @@ namespace Bibliotek.Services
         /// <param name="loan">Lånet som ska läggas till</param>
         public void Add(Loan loan)
         {
-            loan.Member = _context.Members.Find(loan.Member.ID);
-            loan.Book = _context.Books.Find(loan.Book.ID);
+            //loan.Member = _context.Members.Find(loan.Member.ID);
+            //loan.Book = _context.Books.Find(loan.Book.ID);
             loan.DateLoan = DateTime.Now;
             
             _context.Add(loan);

@@ -18,6 +18,7 @@
 <br />
 <div class="form-group">
     <a asp-action="Create" class="btn btn-primary">Registrera Lån</a>
+    <a asp-action="Return" class="btn btn-primary">Returnera Lån</a>
 </div>
 <table class="table">
     <thead>
@@ -50,7 +51,7 @@
                     @Html.DisplayFor(modelItem => item.Member.FullName)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Book.Title)
+                    @Html.DisplayFor(modelItem => item.BookID)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.DateLoan)
