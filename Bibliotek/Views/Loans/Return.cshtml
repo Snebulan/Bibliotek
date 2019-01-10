@@ -1,0 +1,46 @@
+﻿@model Bibliotek.Models.Loan
+
+@{
+    ViewData["Title"] = "Return";
+}
+
+<h2>Return</h2>
+
+<h4>Loan</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Return">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="BookID" class="control-label"></label>
+                <select asp-for="BookID" class ="form-control" asp-items="ViewBag.BookID"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="MemberID" class="control-label"></label>
+                <select asp-for="MemberID" class ="form-control" asp-items="ViewBag.MemberID"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="DateLoan" class="control-label"></label>
+                <input asp-for="DateLoan" class="form-control" />
+                <span asp-validation-for="DateLoan" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DateReturn" class="control-label"></label>
+                <input asp-for="DateReturn" class="form-control" />
+                <span asp-validation-for="DateReturn" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

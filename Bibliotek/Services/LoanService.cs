@@ -1,6 +1,7 @@
 ﻿using Bibliotek.Data;
 using Bibliotek.Models;
 using Bibliotek.Services.Interfaces;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -23,6 +24,16 @@ namespace Bibliotek.Services
             return _context.Loans
 
                 .ToList();
+        }
+
+        public IEnumerable<SelectListItem> GetMemberLoanListItems()
+        {
+            return _context.Books.ToList().OrderBy(x => x.Author).Select(x =>
+               new SelectListItem
+               {
+                   Text = $"{x.Author}  {x.Title}",
+                   Value = x.ID.ToString()
+               });
         }
 
         public IEnumerable<Loan> GetAllLoansForMember(int? id)

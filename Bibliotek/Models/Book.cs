@@ -23,5 +23,7 @@ namespace Bibliotek.Models
         public string Description { get; set; }
         [Display(Name ="Kopior")]
         public ICollection<BookCopy> BookCopeis { get; set; }
+    
+        
     }
 }
