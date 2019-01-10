@@ -15,7 +15,7 @@ namespace Bibliotek.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
+                .HasAnnotation("ProductVersion", "2.1.3-rtm-32065")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -50,7 +50,9 @@ namespace Bibliotek.Migrations
 
                     b.Property<string>("ISBN");
 
-                    b.Property<string>("Title");
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(30);
 
                     b.HasKey("ID");
 
@@ -113,12 +115,15 @@ namespace Bibliotek.Migrations
 
                     b.Property<string>("LastName");
 
+                    b.Property<string>("PersonNumber")
+                        .IsRequired();
+
                     b.HasKey("ID");
 
                     b.ToTable("Members");
 
                     b.HasData(
-                        new { ID = 1, FirstName = "Fredrik", LastName = "Gustafsson" }
+                        new { ID = 1, FirstName = "Fredrik", LastName = "Gustafsson", PersonNumber = "19720921-2013" }
                     );
                 });
 
@@ -140,10 +145,6 @@ namespace Bibliotek.Migrations
 
             modelBuilder.Entity("Bibliotek.Models.Loan", b =>
                 {
-                    b.HasOne("Bibliotek.Models.Book", "Book")
-                        .WithMany()
-                        .HasForeignKey("BookID");
-
                     b.HasOne("Bibliotek.Models.Member", "Member")
                         .WithMany("Loans")
                         .HasForeignKey("MemberID")

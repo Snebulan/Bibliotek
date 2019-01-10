@@ -7,6 +7,7 @@ using Bibliotek.Models.ViewModels;
 using Bibliotek.Data;
 using Bibliotek.Models;
 using Bibliotek.Services.Interfaces;
+using Microsoft.EntityFrameworkCore.Internal;
 
 namespace Bibliotek.Controllers
 {
@@ -69,8 +70,15 @@ namespace Bibliotek.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,FirstName,LastName,LoanID")] Member member)
+        public async Task<IActionResult> Create([Bind("ID,FirstName,LastName,PersonNumber")] Member member)
         {
+            //bool contactExists = _context.Members.Any(x => x.PersonNumber.Equals(member.PersonNumber));
+            if (_context.Members.Any(x => x.PersonNumber.Equals(member.PersonNumber)))
+            {
+                TempData["fail"] = "fail";
+                return View(member);
+
+            }
             if (ModelState.IsValid)
             {
                 _context.Add(member);
