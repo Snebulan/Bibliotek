@@ -30,12 +30,6 @@ namespace Bibliotek.Services
                 .ToList();
         }
 
-        public IList<Book> GetAllToLoans()
-        {
-            return _context.Books
-
-                .ToList();
-        }
 
         /// <summary>
         /// Hämtar alla böcker som är tillgängliga

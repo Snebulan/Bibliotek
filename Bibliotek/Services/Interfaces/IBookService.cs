@@ -33,7 +33,6 @@ namespace Bibliotek.Services.Interfaces
         /// </summary>
         /// <returns>en lista av alla böcker</returns>
         IList<Book> GetAll();
-        IList<Book> GetAllToLoans();
 
         /// <summary>
         /// Hämtar alla böcker från angiven författare
