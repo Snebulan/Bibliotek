@@ -29,7 +29,9 @@ namespace Bibliotek.Controllers
         {
             var vm = new LoanIndexVM();
             vm.Loans = _loanService.GetAll();
-            vm.Books = _bookService.GetAvailableListItems();
+
+            //vm.Book = _bookService.GetAll();
+            vm.Books = _bookService.GetAll();
             vm.Members = _memberService.GetSelectListItems();
             return View(vm);
         }

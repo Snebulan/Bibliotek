@@ -13,6 +13,8 @@
     <Compile Remove="Migrations\20190109094020_personalnumber.Designer.cs" />
     <Compile Remove="Migrations\20190109095522_fredrik1.cs" />
     <Compile Remove="Migrations\20190109095522_fredrik1.Designer.cs" />
+    <Compile Remove="Migrations\20190109132815_fredrik03.cs" />
+    <Compile Remove="Migrations\20190109132815_fredrik03.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
