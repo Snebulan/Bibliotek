@@ -41,6 +41,12 @@ namespace Bibliotek.Controllers
             vm.Members = _memberService.GetSelectListItems();
             return View("Index", vm);
         }
+        public IActionResult FilterOnMemberReturn(LoanReturnVM vm)
+        {
+            vm.Loans = _loanService.GetAllLoansForMember(vm.SelectMember.ID);
+            vm.Members = _memberService.GetSelectListItems();
+            return View("Return", vm);
+        }
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -87,10 +93,23 @@ namespace Bibliotek.Controllers
         
         public IActionResult Return()
         {
-            ViewBag.Members = _memberService.GetSelectListItems();
-            //ViewBag.Loans = _loanService.GetMemberLoanListItems();
+            var vm = new LoanReturnVM();
+            //ViewBag.Members = _memberService.GetSelectListItems();
+            ViewBag.Loans = _loanService.GetMemberLoanListItems();
+            vm.Members = _memberService.GetSelectListItems();
+            return View(vm);
+        }
 
-            return View();
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Return(Loan loan)
+        {
+            if (ModelState.IsValid)
+            {
+                _loanService.Return(loan);
+                return RedirectToAction(nameof(Index));
+            }
+            return View(loan);
         }
 
         public async Task<IActionResult> Edit(int? id)

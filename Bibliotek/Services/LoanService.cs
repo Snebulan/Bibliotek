@@ -28,10 +28,10 @@ namespace Bibliotek.Services
 
         public IEnumerable<SelectListItem> GetMemberLoanListItems()
         {
-            return _context.Books.ToList().OrderBy(x => x.Author).Select(x =>
+            return _context.Loans.ToList().OrderBy(x => x.BookID).Select(x =>
                new SelectListItem
                {
-                   Text = $"{x.Author}  {x.Title}",
+                   //Text = $"{x.Author}  {x.Title}",
                    Value = x.ID.ToString()
                });
         }
@@ -44,9 +44,9 @@ namespace Bibliotek.Services
         }
 
         /// <summary>
-        /// Hämtar alla böcker från angiven författare
+        /// Hämtar alla lån från angiven medlem
         /// </summary>
-        /// <param name="author">Författare vars böcker ska hämtas</param>
+        /// <param name="author">Medlem vars lån ska hämtas</param>
         /// <returns></returns>
         public IEnumerable<Loan> GetAllByMember(Member member)
         {
@@ -65,6 +65,15 @@ namespace Bibliotek.Services
             loan.DateLoan = DateTime.Now;
            
             
+            _context.Add(loan);
+            _context.SaveChanges();
+        }
+
+        public void Return(Loan loan)
+        {
+
+            loan.DateReturn = DateTime.Now;
+
             _context.Add(loan);
             _context.SaveChanges();
         }
