@@ -42,6 +42,7 @@ namespace Bibliotek.Services
                 .ToList()
                 .Where(m => m.MemberID== id);
         }
+
         /// <summary>
         /// Hämtar alla lån från angiven medlem
         /// </summary>
@@ -62,6 +63,7 @@ namespace Bibliotek.Services
         {
 
             loan.DateLoan = DateTime.Now;
+           
             
             _context.Add(loan);
             _context.SaveChanges();

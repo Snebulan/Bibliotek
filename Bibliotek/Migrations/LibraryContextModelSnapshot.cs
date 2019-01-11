@@ -94,7 +94,7 @@ namespace Bibliotek.Migrations
 
                     b.Property<DateTime>("DateLoan");
 
-                    b.Property<DateTime>("DateReturn");
+                    b.Property<DateTime?>("DateReturn");
 
                     b.Property<int>("MemberID");
 

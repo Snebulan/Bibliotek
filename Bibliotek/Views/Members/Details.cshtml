@@ -4,9 +4,6 @@
     ViewData["Title"] = "Details";
 }
 
-@{
-
-}
 <h2>Details</h2>
 
 <div>
@@ -29,16 +26,34 @@
 </div>
 
 <table class="table">
+    <thead>
+        <tr>
+            <th>
+                <p>Aktiva lån</p>
+            </th>
+            <th>
+                <p>Datum för lån:</p>
+            </th>
+        </tr>
+    </thead>
     <tbody>
         @foreach (var item in Model.Books)
         {
             <tr>
+
                 <td>
                     @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.Loans.FirstOrDefault(x => x.BookID == item.ID).DateLoan)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.Loans.FirstOrDefault(x => x.BookID == item.ID).DateReturn)
                 </td>
             </tr>
         }
     </tbody>
+
 </table>
 
 
