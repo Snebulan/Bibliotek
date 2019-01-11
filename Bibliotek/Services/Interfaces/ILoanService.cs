@@ -17,7 +17,7 @@ namespace Bibliotek.Services.Interfaces
         /// Returnerar ett lån
         /// </summary>
         /// <param name="loan">Lånet som ska returneras</param>
-        void Return(Loan loan);
+        void ReturnLoan(int id);
         /// <summary>
         /// Hämtar alla lån
         /// </summary>

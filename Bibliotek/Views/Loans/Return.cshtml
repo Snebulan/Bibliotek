@@ -33,7 +33,25 @@
             </th>
         </tr>
     </thead>
-    
+    <tbody>
+        @foreach (var item in Model.Loans)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(model => model.Book.FirstOrDefault(x => x.ID == item.BookID).Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateLoan)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateReturn)
+                </td>
+                <td>
+                    <a asp-action="Return" asp-route-id="@item.ID" class="btn btn-danger">Returnera</a>
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>
 
 @section Scripts {

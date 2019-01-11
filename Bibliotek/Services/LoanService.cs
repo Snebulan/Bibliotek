@@ -67,13 +67,16 @@ namespace Bibliotek.Services
             _context.SaveChanges();
         }
 
-        public void Return(Loan loan)
+        public void ReturnLoan(int id)
         {
-
-            loan.DateReturn = DateTime.Now;
-
-            _context.Add(loan);
+            var returnBook = _context.Loans
+                .FirstOrDefault(x => x.ID == id);
+                DateTime returnDate = DateTime.Now;
+            _context.Loans.Update(returnBook);
             _context.SaveChanges();
+            //loan.DateReturn = DateTime.Now;
+
+            //_context.Add(loan);
         }
     }
 }

@@ -33,7 +33,7 @@ namespace Bibliotek.Controllers
             vm.Members = _memberService.GetSelectListItems();
             return View(vm);
         }
-        
+
         public IActionResult FilterOnMember(LoanIndexVM vm)
         {
             vm.Loans = _loanService.GetAllLoansForMember(vm.NewMember.ID);
@@ -44,6 +44,7 @@ namespace Bibliotek.Controllers
         public IActionResult FilterOnMemberReturn(LoanReturnVM vm)
         {
             vm.Loans = _loanService.GetAllLoansForMember(vm.SelectMember.ID);
+            vm.Book = _bookService.GetAll();
             vm.Members = _memberService.GetSelectListItems();
             return View("Return", vm);
         }
@@ -90,27 +91,31 @@ namespace Bibliotek.Controllers
             return View(loan);
         }
 
-        
-        public IActionResult Return()
+
+        public IActionResult Return(int id)
         {
+            _loanService.ReturnLoan(id);
             var vm = new LoanReturnVM();
-            //ViewBag.Members = _memberService.GetSelectListItems();
-            ViewBag.Loans = _loanService.GetMemberLoanListItems();
+            vm.Loans = _loanService.GetAll();
+            vm.Book = _bookService.GetAll();
             vm.Members = _memberService.GetSelectListItems();
-            return View(vm);
+            return RedirectToAction(nameof(Index));
+            //return View(vm);
+
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Return(Loan loan)
-        {
-            if (ModelState.IsValid)
-            {
-                _loanService.Return(loan);
-                return RedirectToAction(nameof(Index));
-            }
-            return View(loan);
-        }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public IActionResult Return(Loan loan)
+        //{
+
+        //    //if (ModelState.IsValid)
+        //    //{
+        //        _loanService.ReturnLoan(loan);
+        //        return RedirectToAction(nameof(Index));
+        //    //}
+        //    //return View(loan);
+        //}
 
         public async Task<IActionResult> Edit(int? id)
         {
