@@ -9,6 +9,7 @@ namespace Bibliotek.Models.ViewModels
     {
         public Member Member { get; set; }
         public List<Book> Books { get; set; }
+        public List<Loan> Loans { get; set; }
 
     }
 }

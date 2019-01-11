@@ -14,11 +14,13 @@ namespace Bibliotek.Controllers
     public class MembersController : Controller
     {
         private readonly IMembersService _membersService;
+        private readonly ILoanService _loanService;
         //private readonly ILoanService _loanService;
 
-        public MembersController(LibraryContext context, IMembersService membersService)
+        public MembersController(LibraryContext context, IMembersService membersService, ILoanService loanService)
         {
             this._membersService = membersService;
+            this._loanService = loanService;
             //this._loanService = loanService;
             _context = context;
         }
@@ -33,7 +35,7 @@ namespace Bibliotek.Controllers
         }
 
         // GET: Members/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public IActionResult Details(int? id)
         {
             if (id == null)
             {
@@ -53,6 +55,8 @@ namespace Bibliotek.Controllers
             //vm.Member = (Member)_membersService.GetDetails(id);
             vm.Member = _membersService.GetDetails(id);
             vm.Books = _membersService.GetAllMembersLoans(vm.Member.Loans);
+            vm.Loans = _loanService.GetAllLoansForMember(id).ToList();
+            //vm.Loans = _loanService.GetAll().ToList();
             //vm.Books = vm.Member.Loans.Select(x => x.BookID).ToList();
             //return View(model: _membersService.GetDetails(id));
             return View(vm);
