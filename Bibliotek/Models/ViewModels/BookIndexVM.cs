@@ -10,7 +10,8 @@ namespace Bibliotek.Models.ViewModels
     {
         public IEnumerable<Book> Books { get; set; }
         public IEnumerable<SelectListItem> Authors { get; set; }
-
+        public BookCopy BokCopies { get; set; }
         public Author Author { get; set; } = new Author();
+        public Loan Loans { get; set; }
     }
 }

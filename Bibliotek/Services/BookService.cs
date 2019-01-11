@@ -49,10 +49,11 @@ namespace Bibliotek.Services
         /// <returns></returns>
         public IEnumerable<SelectListItem> GetAvailableListItems()
         {
-            return _context.Books.ToList().OrderBy(x => x.Author).Select(x =>
+            var availableBooks = GetAvailable();
+            return availableBooks.ToList().Select(x =>
                new SelectListItem
                {
-                   Text = $"{x.Author}  {x.Title}",
+                   Text = $"{x.Author.FullName} : {x.Title}",
                    Value = x.ID.ToString()
                });
 
