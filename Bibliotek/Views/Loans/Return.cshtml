@@ -16,7 +16,7 @@
     </div>
 </form>
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" class="btn btn-primary">Tillbaka</a>
 </div>
 
 <table class="table">
@@ -47,7 +47,7 @@
                     @Html.DisplayFor(modelItem => item.DateReturn)
                 </td>
                 <td>
-                    <a asp-action="Return" asp-route-id="@item.ID" class="btn btn-danger">Returnera</a>
+                    <a asp-action="ReturnAction" asp-route-id="@item.ID" class="btn btn-danger">Returnera</a>
                 </td>
             </tr>
         }

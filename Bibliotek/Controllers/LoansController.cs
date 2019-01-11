@@ -92,30 +92,29 @@ namespace Bibliotek.Controllers
         }
 
 
-        public IActionResult Return(int id)
+        public IActionResult Return(Loan loan)
         {
-            _loanService.ReturnLoan(id);
+            
             var vm = new LoanReturnVM();
             vm.Loans = _loanService.GetAll();
             vm.Book = _bookService.GetAll();
             vm.Members = _memberService.GetSelectListItems();
-            return RedirectToAction(nameof(Index));
-            //return View(vm);
+            return View(vm);
 
         }
 
         //[HttpPost]
         //[ValidateAntiForgeryToken]
-        //public IActionResult Return(Loan loan)
-        //{
+        public IActionResult ReturnAction(int id)
+        {
 
-        //    //if (ModelState.IsValid)
-        //    //{
-        //        _loanService.ReturnLoan(loan);
-        //        return RedirectToAction(nameof(Index));
-        //    //}
-        //    //return View(loan);
-        //}
+            if (ModelState.IsValid)
+            {
+                _loanService.ReturnLoan(id);
+                return RedirectToAction(nameof(Return));
+            }
+            return View();
+        }
 
         public async Task<IActionResult> Edit(int? id)
         {
