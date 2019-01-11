@@ -23,6 +23,8 @@ namespace Bibliotek.Services.Interfaces
         /// </summary>
         /// <returns>en lista av alla lån</returns>
         IList<Loan> GetAll();
+        IList<Loan> GetActiveLoans();
         IEnumerable<SelectListItem> GetMemberLoanListItems();
+        IEnumerable<Loan> GetAllActiveLoansForMember(int? id);
     }
 }

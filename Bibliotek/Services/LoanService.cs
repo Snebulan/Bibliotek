@@ -40,7 +40,7 @@ namespace Bibliotek.Services
         {
             return _context.Loans
                 .ToList()
-                .Where(m => m.MemberID== id);
+                .Where(m => m.MemberID == id);
         }
 
         /// <summary>
@@ -75,12 +75,12 @@ namespace Bibliotek.Services
 
         public void ReturnLoan(int id)
         {
-            
+
             var returnBook = _context.Loans
                 .FirstOrDefault(x => x.ID == id);
-                returnBook.DateReturn = DateTime.Now;
-                _context.Loans.Update(returnBook);
-                _context.SaveChanges();
+            returnBook.DateReturn = DateTime.Now;
+            _context.Loans.Update(returnBook);
+            _context.SaveChanges();
             //loan.DateReturn = DateTime.Now;
 
             //_context.Add(loan);
@@ -105,6 +105,18 @@ namespace Bibliotek.Services
         public DateTime ReturnDate(DateTime loaned)
         {
             return loaned.AddDays(14).Date;
+        }
+
+        public IList<Loan> GetActiveLoans()
+        {
+            return _context.Loans.Where(x => x.DateReturn == null).ToList();
+        }
+
+        public IEnumerable<Loan> GetAllActiveLoansForMember(int? id)
+        {
+            return _context.Loans.Where(x => x.DateReturn == null)
+                .ToList()
+                .Where(m => m.MemberID == id);
         }
     }
 }

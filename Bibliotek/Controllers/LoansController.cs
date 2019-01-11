@@ -43,7 +43,7 @@ namespace Bibliotek.Controllers
         }
         public IActionResult FilterOnMemberReturn(LoanReturnVM vm)
         {
-            vm.Loans = _loanService.GetAllLoansForMember(vm.SelectMember.ID);
+            vm.Loans = _loanService.GetAllActiveLoansForMember(vm.SelectMember.ID);
             vm.Book = _bookService.GetAll();
             vm.Members = _memberService.GetSelectListItems();
             return View("Return", vm);
@@ -92,11 +92,11 @@ namespace Bibliotek.Controllers
         }
 
 
-        public IActionResult Return(Loan loan)
+        public IActionResult Return()
         {
             
             var vm = new LoanReturnVM();
-            vm.Loans = _loanService.GetAll();
+            vm.Loans = _loanService.GetActiveLoans();
             vm.Book = _bookService.GetAll();
             vm.Members = _memberService.GetSelectListItems();
             return View(vm);

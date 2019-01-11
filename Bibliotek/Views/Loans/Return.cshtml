@@ -28,9 +28,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.Loans.FirstOrDefault().DateLoan)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Loans.FirstOrDefault().DateReturn)
-            </th>
         </tr>
     </thead>
     <tbody>
@@ -42,9 +39,6 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.DateLoan)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DateReturn)
                 </td>
                 <td>
                     <a asp-action="ReturnAction" asp-route-id="@item.ID" class="btn btn-danger">Returnera</a>
