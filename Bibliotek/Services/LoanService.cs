@@ -61,21 +61,26 @@ namespace Bibliotek.Services
         /// <param name="loan">Lånet som ska läggas till</param>
         public void Add(Loan loan)
         {
-
+            var bookCopy = _context.BookCopies.
+                FirstOrDefault(x => x.BookID == loan.BookID && x.IsAvailable == 1);
+            bookCopy.IsAvailable = 0;
             loan.DateLoan = DateTime.Now;
-           
-            
+
+
+
+            _context.BookCopies.Update(bookCopy);
             _context.Add(loan);
             _context.SaveChanges();
         }
 
         public void ReturnLoan(int id)
         {
+            
             var returnBook = _context.Loans
                 .FirstOrDefault(x => x.ID == id);
-                DateTime returnDate = DateTime.Now;
-            _context.Loans.Update(returnBook);
-            _context.SaveChanges();
+                returnBook.DateReturn = DateTime.Now;
+                _context.Loans.Update(returnBook);
+                _context.SaveChanges();
             //loan.DateReturn = DateTime.Now;
 
             //_context.Add(loan);

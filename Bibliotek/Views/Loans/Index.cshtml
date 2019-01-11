@@ -49,7 +49,7 @@
                     @Html.DisplayFor(model => model.Book.FirstOrDefault(x => x.ID == item.BookID).Title)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.DateLoan)
+                    @item.DateLoan.Date.ToShortDateString()
                 </td>
                 <td>
                     @{ var color = "red";
