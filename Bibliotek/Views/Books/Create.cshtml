@@ -22,11 +22,17 @@
                 <input asp-for="Title" class="form-control" />
                 <span asp-validation-for="Title" class="text-danger"></span>
             </div>
+
             <div>
                 <label asp-for="Author" class="control-label"></label>
                 <select asp-for="Author.ID" asp-items="ViewBag.Authors" class="form-control"></select>
             </div>
-
+            @if ((string)TempData["Fail"] == "Fail")
+            {
+                <div class="alert alert-danger" role="alert">
+                    <p><strong>Nu blev det fel!</strong>En författare måste väljas!!</p>
+                </div>
+            }
             <div class="form-group">
                 <label asp-for="Description" class="control-label"></label>
                 <input asp-for="Description" class="form-control" />

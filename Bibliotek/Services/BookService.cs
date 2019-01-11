@@ -94,10 +94,11 @@ namespace Bibliotek.Services
         /// <param name="book">Boken som ska läggas till</param>
         public void Add(Book book)
         {
-            book.Author = _context.Authors.Find(book.Author.ID);
-            _context.Add(book);
-            _context.SaveChanges();
+                book.Author = _context.Authors.Find(book.Author.ID);
+                _context.Add(book);
+                _context.SaveChanges();
         }
+
 
         /// <summary>
         /// Uppdaterar en bok

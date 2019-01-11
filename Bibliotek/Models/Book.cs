@@ -16,7 +16,7 @@ namespace Bibliotek.Models
         [Required]
         public string  Title { get; set; }
         [Display(Name = "Författare")]
-        //[Required]
+        [Required]
         public int AuthorID { get; set; }
         public Author Author { get; set; }
         [Display(Name="Beskrivning")]

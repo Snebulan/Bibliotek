@@ -118,8 +118,18 @@ namespace Bibliotek.Controllers
             }
             if (ModelState.IsValid)
             {
-                _bookService.Add(book);
-                return RedirectToAction(nameof(Index));
+                try
+                {
+                    _bookService.Add(book);
+                    return RedirectToAction(nameof(Index));
+                }
+                catch (System.Exception)
+                {
+                    TempData["Fail"] = "Fail";
+                    //Request.Headers.
+                    return RedirectToAction(nameof(Create),(book));
+                }
+
             }
 
             return View(book);
