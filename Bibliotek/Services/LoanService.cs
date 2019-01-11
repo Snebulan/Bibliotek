@@ -88,5 +88,26 @@ namespace Bibliotek.Services
             _context.SaveChanges();
             
         }
+
+        /// <summary>
+        /// Räknar dagar mellan datum
+        /// </summary>
+        /// <param name="loaned"></param>
+        /// <param name="returned"></param>
+        /// <returns></returns>
+        public double GetDaysLeft(DateTime loaned, DateTime returned)
+        {
+            return (returned - loaned).TotalDays;
+        }
+
+        /// <summary>
+        /// Returnerar datumet när boken senast ska lämnas in
+        /// </summary>
+        /// <param name="loaned"></param>
+        /// <returns></returns>
+        public DateTime ReturnDate(DateTime loaned)
+        {
+            return loaned.AddDays(14).Date;
+        }
     }
 }
