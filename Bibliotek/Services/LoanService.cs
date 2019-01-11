@@ -75,15 +75,18 @@ namespace Bibliotek.Services
 
         public void ReturnLoan(int id)
         {
-
             var returnBook = _context.Loans
                 .FirstOrDefault(x => x.ID == id);
-            returnBook.DateReturn = DateTime.Now;
-            _context.Loans.Update(returnBook);
-            _context.SaveChanges();
-            //loan.DateReturn = DateTime.Now;
+                returnBook.DateReturn = DateTime.Now;
 
-            //_context.Add(loan);
+            var bookCopy = _context.BookCopies.
+                FirstOrDefault(x => x.BookID == returnBook.BookID);
+                bookCopy.IsAvailable = 1;
+
+            _context.Loans.Update(returnBook);
+            _context.BookCopies.Update(bookCopy);    
+            _context.SaveChanges();
+            
         }
 
         /// <summary>
