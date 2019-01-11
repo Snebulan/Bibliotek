@@ -23,6 +23,9 @@
     <thead>
         <tr>
             <th>
+                @Html.DisplayNameFor(model => model.Loans.FirstOrDefault().MemberID)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Book.FirstOrDefault().Title)
             </th>
             <th>
@@ -36,20 +39,23 @@
     <tbody>
         @foreach (var item in Model.Loans)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(model => model.Book.FirstOrDefault(x => x.ID == item.BookID).Title)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DateLoan)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DateReturn)
-                </td>
-                <td>
-                    <a asp-action="ReturnAction" asp-route-id="@item.ID" class="btn btn-danger">Returnera</a>
-                </td>
-            </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Member.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Book.FirstOrDefault(x => x.ID == item.BookID).Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateLoan)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateReturn)
+            </td>
+            <td>
+                <a asp-action="ReturnAction" asp-route-id="@item.ID" class="btn btn-danger">Returnera</a>
+            </td>
+        </tr>
         }
     </tbody>
 </table>

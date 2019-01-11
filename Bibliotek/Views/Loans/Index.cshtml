@@ -9,7 +9,7 @@
     <form asp-action="FilterOnMember" class="form-inline">
         <div class="form-group">
             <label asp-for="@Model.Member" class="control-label">Filtrera på medlem</label>
-            <select asp-for="@Model.NewMember.ID" asp-items="@Model.Members" class="form-control"></select>
+            <select asp-for="@Model.SelectMember.ID" asp-items="@Model.Members" class="form-control"></select>
             <button type="submit" class="btn btn-primary">Filtrera</button>
             <a asp-action="Index" class="btn btn-primary">Visa Alla</a>
         </div>

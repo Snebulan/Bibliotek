@@ -36,7 +36,7 @@ namespace Bibliotek.Controllers
 
         public IActionResult FilterOnMember(LoanIndexVM vm)
         {
-            vm.Loans = _loanService.GetAllLoansForMember(vm.NewMember.ID);
+            vm.Loans = _loanService.GetAllLoansForMember(vm.SelectMember.ID);
             vm.Book = _bookService.GetAll();
             vm.Members = _memberService.GetSelectListItems();
             return View("Index", vm);
