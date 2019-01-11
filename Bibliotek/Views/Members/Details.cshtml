@@ -34,6 +34,9 @@
             <th>
                 <p>Datum för lån:</p>
             </th>
+            <th>
+                <p>Status</p>
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -48,6 +51,14 @@
                     @Html.DisplayFor(model => model.Loans.FirstOrDefault(x => x.BookID == item.ID).DateLoan)
                 </td>
                 <td>
+                    @{ var color = "red";
+                        string returnDate = $"Inlämnas senast: {Model.Loans.FirstOrDefault(x => x.BookID == item.ID).DateLoan.Date.AddDays(14).ToShortDateString()}";
+                        if (Model.Loans.FirstOrDefault(x => x.BookID == item.ID).DateReturn != null)
+                        {
+                            color = "green";
+                        }
+                    }
+                    <span class="glyphicon glyphicon-book @color" title="@returnDate"></span>
                     @Html.DisplayFor(model => model.Loans.FirstOrDefault(x => x.BookID == item.ID).DateReturn)
                 </td>
             </tr>

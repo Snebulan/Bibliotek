@@ -24,9 +24,6 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Member.FirstOrDefault().ID)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Loans.FirstOrDefault().MemberID)
             </th>
             <th>
@@ -36,7 +33,7 @@
                 @Html.DisplayNameFor(model => model.Loans.FirstOrDefault().DateLoan)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Loans.FirstOrDefault().DateReturn)
+                Status
             </th>
         </tr>
     </thead>
@@ -45,20 +42,24 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Member.ID)
-                </td>
-                <td>
                     @Html.DisplayFor(modelItem => item.Member.FullName)
                 </td>
                 <td>
-                    
+
                     @Html.DisplayFor(model => model.Book.FirstOrDefault(x => x.ID == item.BookID).Title)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.DateLoan)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.DateReturn)
+                    @{ var color = "red";
+                        string returnDate = $"Inlämnas senast: {item.DateLoan.Date.AddDays(14).ToShortDateString()}";
+                        if (item.DateReturn != null)
+                        {
+                            color = "green";
+                        }
+                    }
+                    <span class="glyphicon glyphicon-book @color" title="@returnDate"></span>
                 </td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
