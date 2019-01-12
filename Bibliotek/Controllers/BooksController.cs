@@ -127,7 +127,7 @@ namespace Bibliotek.Controllers
                 {
                     TempData["Fail"] = "Fail";
                     //Request.Headers.
-                    return RedirectToAction(nameof(Create),(book));
+                    return View(book);
                 }
 
             }

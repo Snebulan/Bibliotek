@@ -72,10 +72,15 @@ namespace Bibliotek.Services
         public IEnumerable<Book> GetAllByAuthor(Author author)
         {
             return _context.Books
-                .Include("Author")
-                .Include(x => x.BookCopeis)
-                .ToList()
-                .Where(m => m.AuthorID == author.ID);
+            .Include("Author")
+            .Include(x => x.BookCopeis)
+            .ToList()
+            .Where(x => IsAvailable(x) && x.AuthorID == author.ID);
+            //return _context.Books
+            //    .Include("Author")
+            //    .Include(x => x.BookCopeis)
+            //    .ToList()
+            //    .Where(m => m.AuthorID == author.ID && m.ID == _context.BookCopies.Where(z => z.ID).Where(_context.BookCopies.Where(u => u.IsAvailable == 1)));
         }
 
         /// <summary>
