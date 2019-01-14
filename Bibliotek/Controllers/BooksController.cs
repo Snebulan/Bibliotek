@@ -143,6 +143,7 @@ namespace Bibliotek.Controllers
         {
 
             var book = _bookService.Get(id);
+            ViewBag.Authors = _authorService.GetSelectListItems();
             if (book == null)
             {
                 return NotFound();

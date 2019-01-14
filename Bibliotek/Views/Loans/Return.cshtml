@@ -10,20 +10,18 @@
             <h2 style="margin: 15px;">Returnera Lån</h2>
         </div>
     </div>
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-8 table-filter">
-                <a asp-action="Index" class="btn btn-primary"><i class="glyphicon glyphicon-chevron-left"></i> Tillbaka</a>
-            </div>
-            <div class="col-sm-4 table-filter">
-                <form asp-action="FilterOnMemberReturn" class="form-inline">
-                    <div class="form-group">
-                        <label asp-for="@Model.Member" class="control-label">Filtrera på medlem</label>
-                        <select asp-for="@Model.SelectMember.ID" asp-items="@Model.Members" class="form-control"></select>
-                        <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-filter"></i></button>
-                    </div>
-                </form>
-            </div>
+    <div class="row">
+        <div class="col-sm-8 table-filter">
+            <a asp-action="Index" class="btn btn-primary"><i class="glyphicon glyphicon-chevron-left"></i> Tillbaka</a>
+        </div>
+        <div class="col-sm-4 table-filter">
+            <form asp-action="FilterOnMemberReturn" class="form-inline">
+                <div class="form-group pull-right">
+                    <label asp-for="@Model.Member" class="control-label">Filtrera på medlem</label>
+                    <select asp-for="@Model.SelectMember.ID" asp-items="@Model.Members" class="form-control"></select>
+                    <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-filter"></i></button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -59,7 +57,7 @@
                     @Html.DisplayFor(modelItem => item.DateReturn)
                 </td>
                 <td>
-                    <a asp-action="ReturnAction" asp-route-id="@item.ID" class="btn btn-danger">Returnera</a>
+                    <a asp-action="ReturnAction" asp-route-id="@item.ID" class="btn btn-danger btn-sm">Returnera</a>
                 </td>
             </tr>
         }
