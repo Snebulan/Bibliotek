@@ -38,5 +38,11 @@ namespace Bibliotek.Services
             _context.Add(author);
             _context.SaveChanges();
         }
+
+        public Author GetAuthor(int? id)
+        {
+            return _context.Authors.FirstOrDefault(x => x.ID == id);
+        }
+
     }
 }

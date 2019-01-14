@@ -33,13 +33,14 @@ namespace Bibliotek.Services.Interfaces
         /// </summary>
         /// <returns>en lista av alla böcker</returns>
         IList<Book> GetAll();
+        IEnumerable<Book> GetAllByAuthor(Author author);
 
         /// <summary>
         /// Hämtar alla böcker från angiven författare
         /// </summary>
         /// <param name="author">Författare vars böcker ska hämtas</param>
         /// <returns></returns>
-        IEnumerable<Book> GetAllByAuthor(Author author);
+        IEnumerable<Book> GetAvailableByAuthor(Author author);
         /// <summary>
         /// Listar alla böcker som är tillgängliga
         /// </summary>

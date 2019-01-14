@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Bibliotek.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Bibliotek.Services.Interfaces
@@ -10,5 +11,6 @@ namespace Bibliotek.Services.Interfaces
         /// </summary>
         /// <returns></returns>
         IEnumerable<SelectListItem> GetSelectListItems();
+        Author GetAuthor(int? id);
     }
 }

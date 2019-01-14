@@ -1,0 +1,36 @@
+﻿@model Bibliotek.Models.Author
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Är du säker på att du vill radera denna Författare?</h3>
+<div class="alert alert-danger" role="alert">
+    <p><strong>OBS!</strong> Om du raderar författaren kommer även alla böcker och lån som är kopplade till denna författare att raderas!</p>
+</div>
+<div>
+    <h4>Författare</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.LastName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="ID" />
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>

@@ -50,7 +50,7 @@ namespace Bibliotek.Controllers
         /// <returns>Books/Index</returns>
         public IActionResult FilterOnAuthor(BookIndexVM vm)
         {
-            vm.Books = _bookService.GetAllByAuthor(vm.Author);
+            vm.Books = _bookService.GetAvailableByAuthor(vm.Author);
             vm.Authors = _authorService.GetSelectListItems();
             return View("Index", vm);
         }
@@ -76,16 +76,16 @@ namespace Bibliotek.Controllers
 
             return View(book);
         }
-        //[HttpGet, ActionName("RemoveCopy")]
+
+
         public IActionResult RemoveCopy(int id)
         {
             string success =_bookService.RemoveCopy(id);
-            //bool test = false;
             TempData["data"] = success;
             return RedirectToAction(nameof(Index), new { success });
-            //return RedirectToAction(nameof(Index))
+
         }
-        //[HttpGet, ActionName("AddCopy")]
+
         public IActionResult AddCopy(int id)
         {
             string adSuccess = _bookService.AddCopy(id);
@@ -126,7 +126,6 @@ namespace Bibliotek.Controllers
                 catch (System.Exception)
                 {
                     TempData["Fail"] = "Fail";
-                    //Request.Headers.
                     return View(book);
                 }
 

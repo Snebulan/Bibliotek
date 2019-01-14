@@ -69,7 +69,7 @@ namespace Bibliotek.Services
         /// </summary>
         /// <param name="author">Författare vars böcker ska hämtas</param>
         /// <returns></returns>
-        public IEnumerable<Book> GetAllByAuthor(Author author)
+        public IEnumerable<Book> GetAvailableByAuthor(Author author)
         {
             return _context.Books
             .Include("Author")
@@ -81,6 +81,16 @@ namespace Bibliotek.Services
             //    .Include(x => x.BookCopeis)
             //    .ToList()
             //    .Where(m => m.AuthorID == author.ID && m.ID == _context.BookCopies.Where(z => z.ID).Where(_context.BookCopies.Where(u => u.IsAvailable == 1)));
+        }
+
+        public IEnumerable<Book> GetAllByAuthor(Author author)
+        {
+            return _context.Books
+            .Include("Author")
+            .Include(x => x.BookCopeis)
+            .ToList()
+            .Where(x => x.AuthorID == author.ID).ToList();
+            
         }
 
         /// <summary>

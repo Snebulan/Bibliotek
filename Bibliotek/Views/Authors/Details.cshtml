@@ -1,0 +1,27 @@
+﻿@model Bibliotek.Models.ViewModels.AuthorDetailsVM
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Författare</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Författare:
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Author.FullName)
+        </dd>
+    </dl>
+    @foreach (var book in Model.Books)
+    {
+    <p> @Html.DisplayFor(modelItem => book.Title)</p>
+    }
+</div>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>

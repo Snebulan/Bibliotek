@@ -84,8 +84,6 @@ namespace Bibliotek.Controllers
             if (ModelState.IsValid)
             {
                 _loanService.Add(loan);
-                //_context.Add(loan);
-                //await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(loan);
