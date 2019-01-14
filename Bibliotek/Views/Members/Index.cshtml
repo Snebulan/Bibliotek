@@ -4,12 +4,15 @@
     ViewData["Title"] = "Index";
 }
 
-<h2>Index</h2>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
+<div class="table-title">
+    <div class="row">
+        <h2 style="margin: 15px;">Medlemmar</h2>
+    </div>
+</div>
+<div class="table-filter container">
+    <a asp-action="Create" class="btn btn-success"><i class="glyphicon glyphicon-book"></i> Lägg till</a>
+</div>
+<table class="table table-striped">
     <thead>
         <tr>
             <th>

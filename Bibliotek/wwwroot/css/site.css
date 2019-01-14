@@ -47,3 +47,15 @@ body {
 .green {
     color:green;
 }
+
+.table-title {
+    background: #4b5366;
+    border-radius: 3px 3px 0 0;
+    color: #fff;
+    margin-top: 20px;
+    padding: 16px 25px 16px 25px;
+}
+
+.table-filter {
+    margin: 10px 0 10px 0;
+}

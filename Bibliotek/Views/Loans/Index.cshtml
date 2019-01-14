@@ -5,68 +5,77 @@
 }
 
 <div>
-    <h2>Lån</h2>
-    <form asp-action="FilterOnMember" class="form-inline">
-        <div class="form-group">
-            <label asp-for="@Model.Member" class="control-label">Filtrera på medlem</label>
-            <select asp-for="@Model.SelectMember.ID" asp-items="@Model.Members" class="form-control"></select>
-            <button type="submit" class="btn btn-primary">Filtrera</button>
-            <a asp-action="Index" class="btn btn-primary">Visa Alla</a>
+    <div class="table-title">
+        <div class="row">
+            <h2 style="margin: 15px;">Lån</h2>
         </div>
-    </form>
-</div>
-<br />
-<div class="form-group">
-    <a asp-action="Create" class="btn btn-primary">Registrera Lån</a>
-    <a asp-action="Return" class="btn btn-primary">Returnera Lån</a>
-</div>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Loans.FirstOrDefault().MemberID)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Book.FirstOrDefault().Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Loans.FirstOrDefault().DateLoan)
-            </th>
-            <th>
-                Status
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.Loans)
-        {
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-7 table-filter">
+                <a asp-action="Create" class="btn btn-success">Registrera Lån</a>
+                <a asp-action="Return" class="btn btn-danger">Returnera Lån</a>
+            </div>
+            <div class="col-sm-5 table-filter">
+                <form asp-action="FilterOnMember" class="form-inline">
+                    <div class="form-group">
+                        <label asp-for="@Model.Member" class="control-label">Filtrera på medlem</label>
+                        <select asp-for="@Model.SelectMember.ID" asp-items="@Model.Members" class="form-control"></select>
+                        <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-filter"></i></button>
+                        <a asp-action="Index" class="btn btn-info">Visa Alla</a>
+                    </div>
+                </form>
+            </div>
+            <br />
+        </div>
+    </div>
+    <table class="table table-striped">
+        <thead>
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Member.FullName)
-                </td>
-                <td>
-
-                    @Html.DisplayFor(model => model.Book.FirstOrDefault(x => x.ID == item.BookID).Title)
-                </td>
-                <td>
-                    @item.DateLoan.Date.ToShortDateString()
-                </td>
-                <td>
-                    @{ var color = "red";
-                        string returnDate = $"Inlämnas senast: {item.DateLoan.Date.AddDays(14).ToShortDateString()}";
-                        if (item.DateReturn != null)
-                        {
-                            color = "green";
-                        }
-                    }
-                    <span class="glyphicon glyphicon-book @color" title="@returnDate"></span>
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
-                </td>
+                <th>
+                    @Html.DisplayNameFor(model => model.Loans.FirstOrDefault().MemberID)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Book.FirstOrDefault().Title)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Loans.FirstOrDefault().DateLoan)
+                </th>
+                <th>
+                    Status
+                </th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Loans)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Member.FullName)
+                    </td>
+                    <td>
+
+                        @Html.DisplayFor(model => model.Book.FirstOrDefault(x => x.ID == item.BookID).Title)
+                    </td>
+                    <td>
+                        @item.DateLoan.Date.ToShortDateString()
+                    </td>
+                    <td>
+                        @{ var color = "red";
+                            string returnDate = $"Inlämnas senast: {item.DateLoan.Date.AddDays(14).ToShortDateString()}";
+                            if (item.DateReturn != null)
+                            {
+                                color = "green";
+                            }
+                        }
+                        <span class="glyphicon glyphicon-book @color" title="@returnDate"></span>
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
