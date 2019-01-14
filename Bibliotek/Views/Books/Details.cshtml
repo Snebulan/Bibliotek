@@ -4,17 +4,25 @@
     ViewData["Title"] = "Details";
 }
 
-<h2>Details</h2>
-
-<div>
-    <h4>Book</h4>
-    <hr />
+<div class="table-title">
+    <div class="row">
+        <h2 style="margin: 15px;">Detaljer för Bok</h2>
+    </div>
+</div>
+<br />
+<div class="container">
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.ISBN)
         </dt>
         <dd>
             @Html.DisplayFor(model => model.ISBN)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.AuthorID)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Author.FullName)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Title)
@@ -29,8 +37,8 @@
             @Html.DisplayFor(model => model.Description)
         </dd>
     </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.ID">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <div class="form-group">
+        <a asp-action="Index" class="btn btn-primary"><i class="glyphicon glyphicon-chevron-left"></i> Tillbaka</a>
+        <a asp-action="Edit" asp-route-id="@Model.ID" class="btn btn-warning"><i class="glyphicon glyphicon-edit"></i> Redigera</a>
+    </div>
 </div>

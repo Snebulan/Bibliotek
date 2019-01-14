@@ -90,7 +90,8 @@ namespace Bibliotek.Services
         /// <returns></returns>
         public Book Get(int? id)
         {
-            return _context.Books.FirstOrDefault(m => m.ID == id);
+            return _context.Books.Include(x => x.Author).FirstOrDefault(m => m.ID == id);
+
         }
 
         /// <summary>
