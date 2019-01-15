@@ -48,21 +48,22 @@ namespace Bibliotek.Controllers
             vm.Members = _memberService.GetSelectListItems();
             return View("Return", vm);
         }
-        public async Task<IActionResult> Details(int? id)
+        public IActionResult Details(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
+            var vm = new LoanDetailsVM();
+            vm.Book = _bookService.GetAll();
+            vm.Loan = _loanService.Get(id);
 
-            var loan = await _context.Loans
-                .FirstOrDefaultAsync(m => m.ID == id);
-            if (loan == null)
+            if (vm.Loan == null)
             {
                 return NotFound();
             }
 
-            return View(loan);
+            return View(vm);
         }
 
         // GET: Loans/Create
@@ -89,20 +90,15 @@ namespace Bibliotek.Controllers
             return View(loan);
         }
 
-
         public IActionResult Return()
         {
-            
             var vm = new LoanReturnVM();
             vm.Loans = _loanService.GetActiveLoans();
             vm.Book = _bookService.GetAll();
             vm.Members = _memberService.GetSelectListItems();
             return View(vm);
-
         }
 
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
         public IActionResult ReturnAction(int id)
         {
 
@@ -120,7 +116,8 @@ namespace Bibliotek.Controllers
             {
                 return NotFound();
             }
-
+            ViewBag.Books = _bookService.GetAvailableListItems();
+            ViewBag.Members = _memberService.GetSelectListItems();
             var loan = await _context.Loans.FindAsync(id);
             if (loan == null)
             {
@@ -165,31 +162,32 @@ namespace Bibliotek.Controllers
         }
 
         // GET: Loans/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public IActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
-
-            var loan = await _context.Loans
-                .FirstOrDefaultAsync(m => m.ID == id);
-            if (loan == null)
+            var vm = new LoanDeleteVM();
+            vm.Book = _bookService.GetAll();
+            vm.Loan = _loanService.Get(id);
+            if (vm.Loan == null)
             {
                 return NotFound();
             }
-
-            return View(loan);
+            return View(vm);
         }
 
-        // POST: Loans/Delete/5
+        /// <summary>
+        /// Tar bort ett lån
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public IActionResult DeleteConfirmed(int id)
         {
-            var loan = await _context.Loans.FindAsync(id);
-            _context.Loans.Remove(loan);
-            await _context.SaveChangesAsync();
+            _loanService.Delete(id);
             return RedirectToAction(nameof(Index));
         }
 

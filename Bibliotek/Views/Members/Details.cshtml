@@ -4,71 +4,57 @@
     ViewData["Title"] = "Details";
 }
 
-<h2>Details</h2>
-
-<div>
-    <h4>Member</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Member.FirstName)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Member.FirstName)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Member.LastName)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Member.LastName)
-        </dd>
-    </dl>
+<div class="table-title">
+    <div class="row">
+        <h2 style="margin: 15px;">Detaljer för Medlem</h2>
+    </div>
 </div>
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                <p>Aktiva lån</p>
-            </th>
-            <th>
-                <p>Datum för lån:</p>
-            </th>
-            <th>
-                <p>Status</p>
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.Books)
-        {
+<br />
+<div>
+    <p><h4><strong>Namn: </strong>@Html.DisplayFor(model => model.Member.FullName)</h4></p>
+    <br />
+    <table class="table table-striped">
+        <thead class="table-head">
             <tr>
-
-                <td>
-                    @Html.DisplayFor(modelItem => item.Title)
-                </td>
-                <td>
-                    @Model.Loans.FirstOrDefault(x => x.BookID == item.ID).DateLoan.Date.Date.ToShortDateString()
-                </td>
-                <td>
-                    @{ var color = "red";
-                        string returnDate = $"Inlämnas senast: {Model.Loans.FirstOrDefault(x => x.BookID == item.ID).DateLoan.Date.AddDays(14).ToShortDateString()}";
-                        if (Model.Loans.FirstOrDefault(x => x.BookID == item.ID).DateReturn != null)
-                        {
-                            color = "green";
-                        }
-                    }
-                    <span class="glyphicon glyphicon-book @color" title="@returnDate"></span>
-                    @Html.DisplayFor(model => model.Loans.FirstOrDefault(x => x.BookID == item.ID).DateReturn)
-                </td>
+                <th>
+                    <p>Aktiva lån</p>
+                </th>
+                <th>
+                    <p>Datum för lån:</p>
+                </th>
+                <th class="text-center">
+                    <p>Status</p>
+                </th>
             </tr>
-        }
-    </tbody>
-
-</table>
-
-
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Member.ID">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Books)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td>
+                        @Model.Loans.FirstOrDefault(x => x.BookID == item.ID).DateLoan.Date.Date.ToShortDateString()
+                    </td>
+                    <td class="text-center">
+                        @{ var color = "red";
+                            string returnDate = $"Inlämnas senast: {Model.Loans.FirstOrDefault(x => x.BookID == item.ID).DateLoan.Date.AddDays(14).ToShortDateString()}";
+                            if (Model.Loans.FirstOrDefault(x => x.BookID == item.ID).DateReturn != null)
+                            {
+                                color = "green";
+                            }
+                        }
+                        <span class="glyphicon glyphicon-book @color" title="@returnDate"></span>
+                        @Html.DisplayFor(model => model.Loans.FirstOrDefault(x => x.BookID == item.ID).DateReturn)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>
+<div class="form-group">
+    <a asp-action="Index" class="btn btn-primary"><i class="glyphicon glyphicon-chevron-left"></i> Tillbaka</a>
+    <a asp-action="Edit" asp-route-id="@Model.Member.ID" class="btn btn-warning"><i class="glyphicon glyphicon-edit"></i> Redigera</a>
+</div>
+

@@ -48,7 +48,7 @@
 }
 
 <table class="table table-striped">
-    <thead class="">
+    <thead class="table-head">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Books.FirstOrDefault().Title)
@@ -67,7 +67,8 @@
             </th>
             <th>
             </th>
-            <th>
+            <th class="text-center">
+                <i class="glyphicon glyphicon-cog"></i>
             </th>
         </tr>
     </thead>
@@ -92,8 +93,6 @@
                 </td>
                 <td>
                     <a asp-action="AddCopy" asp-route-id="@item.ID"><img src="~/images/plus.png" height="15" /></a>
-                </td>
-                <td>
                     <a asp-action="RemoveCopy" asp-route-id="@item.ID"><img src="~/images/less.png" height="15" /></a>
                 </td>
                 <td>

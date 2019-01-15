@@ -29,7 +29,7 @@
     </div>
 </div>
 <table class="table table-striped">
-    <thead>
+    <thead class="table-head">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Loans.FirstOrDefault().MemberID)
@@ -40,8 +40,11 @@
             <th>
                 @Html.DisplayNameFor(model => model.Loans.FirstOrDefault().DateLoan)
             </th>
-            <th>
+            <th class="text-center">
                 Status
+            </th>
+            <th class="text-center">
+                <i class="glyphicon glyphicon-cog"></i>
             </th>
         </tr>
     </thead>
@@ -59,7 +62,7 @@
                 <td>
                     @item.DateLoan.Date.ToShortDateString()
                 </td>
-                <td>
+                <td class="text-center">
                     @{ var color = "red";
                         string returnDate = $"Inlämnas senast: {item.DateLoan.Date.AddDays(14).ToShortDateString()}";
                         if (item.DateReturn != null)
@@ -69,7 +72,7 @@
                     }
                     <span class="glyphicon glyphicon-book @color" title="@returnDate"></span>
                 </td>
-                <td>
+                <td class="text-center">
                     <a asp-action="Edit" asp-route-id="@item.ID" class="btn btn-warning btn-xs"><i class="glyphicon glyphicon-edit"></i></a>
                     <a asp-action="Details" asp-route-id="@item.ID" class="btn btn-info btn-xs"><i class="glyphicon glyphicon-list-alt"></i></a>
                     <a asp-action="Delete" asp-route-id="@item.ID" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-trash"></i></a>
