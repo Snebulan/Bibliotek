@@ -47,9 +47,16 @@ namespace Bibliotek.Services
         /// Hämtar en SelectList av alla tillgängliga böcker.
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<SelectListItem> GetAvailableListItems()
+        public IEnumerable<SelectListItem> GetAvailableListItems(int? id)
         {
-            var availableBooks = GetAvailable();
+            var availableBooks = GetAvailable().ToList();
+            if (id != null)
+            {
+                var currentLoan = _context.Loans.FirstOrDefault(z => z.ID == id);
+                var currentBook = _context.Books.FirstOrDefault(x => x.ID == currentLoan.BookID);
+                availableBooks.Add(currentBook);
+            }
+
             return availableBooks.ToList().Select(x =>
                new SelectListItem
                {

@@ -27,10 +27,14 @@ namespace Bibliotek.Controllers
 
         public IActionResult Index()
         {
-            var vm = new LoanIndexVM();
-            vm.Loans = _loanService.GetAll();
-            vm.Book = _bookService.GetAll();
-            vm.Members = _memberService.GetSelectListItems();
+            var vm = new LoanIndexVM
+            {
+                Loans = _loanService.GetAll(),
+                Book = _bookService.GetAll(),
+                Members = _memberService.GetSelectListItems()
+            };
+            ViewBag.Debt = _loanService.LoanOverdue(vm.Loans);
+            vm.TotalDebt = _loanService.GetTotalDebt(vm.Loans);
             return View(vm);
         }
 
@@ -39,6 +43,8 @@ namespace Bibliotek.Controllers
             vm.Loans = _loanService.GetAllLoansForMember(vm.SelectMember.ID);
             vm.Book = _bookService.GetAll();
             vm.Members = _memberService.GetSelectListItems();
+            ViewBag.Debt = _loanService.LoanOverdue(vm.Loans);
+            vm.TotalDebt = _loanService.GetTotalDebt(vm.Loans);
             return View("Index", vm);
         }
         public IActionResult FilterOnMemberReturn(LoanReturnVM vm)
@@ -116,7 +122,8 @@ namespace Bibliotek.Controllers
             {
                 return NotFound();
             }
-            ViewBag.Books = _bookService.GetAvailableListItems();
+            
+            ViewBag.Books = _bookService.GetAvailableListItems(id);
             ViewBag.Members = _memberService.GetSelectListItems();
             var loan = await _context.Loans.FindAsync(id);
             if (loan == null)
@@ -131,7 +138,7 @@ namespace Bibliotek.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,MemberID")] Loan loan)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,MemberID,BookID,DateLoan")] Loan loan)
         {
             if (id != loan.ID)
             {
@@ -142,8 +149,7 @@ namespace Bibliotek.Controllers
             {
                 try
                 {
-                    _context.Update(loan);
-                    await _context.SaveChangesAsync();
+                    _loanService.Update(loan);
                 }
                 catch (DbUpdateConcurrencyException)
                 {

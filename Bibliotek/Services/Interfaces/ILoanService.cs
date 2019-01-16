@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Bibliotek.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -19,6 +20,11 @@ namespace Bibliotek.Services.Interfaces
         /// <param name="id">ID på lånet som ska tas bort</param>
         void Delete(int id);
         /// <summary>
+        /// Uppdaterar ett lån
+        /// </summary>
+        /// <param name="loan">Lånet som ska uppdateras</param>
+        void Update(Loan loan);
+        /// <summary>
         /// Returnerar ett lån
         /// </summary>
         /// <param name="loan">Lånet som ska returneras</param>
@@ -37,5 +43,7 @@ namespace Bibliotek.Services.Interfaces
         IList<Loan> GetActiveLoans();
         IEnumerable<SelectListItem> GetMemberLoanListItems();
         IEnumerable<Loan> GetAllActiveLoansForMember(int? id);
+        IEnumerable<string> LoanOverdue(IEnumerable<Loan> loans);
+        double GetTotalDebt(IEnumerable<Loan> loans);
     }
 }

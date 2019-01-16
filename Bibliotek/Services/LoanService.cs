@@ -22,7 +22,6 @@ namespace Bibliotek.Services
         public IList<Loan> GetAll()
         {
             return _context.Loans
-
                 .ToList();
         }
 
@@ -86,8 +85,35 @@ namespace Bibliotek.Services
         public void Delete(int id)
         {
             var loan = _context.Loans.Find(id);
+            var bookCopy = _context.BookCopies.
+                FirstOrDefault(x => x.BookID == loan.BookID && x.IsAvailable == 0);
+            bookCopy.IsAvailable = 1;
             _context.Loans.Remove(loan);
             _context.SaveChanges();
+        }
+        /// <summary>
+        /// Uppdaterar ett lån
+        /// </summary>
+        /// <param name="loan">Lånet som ska uppdateras</param>
+        public void Update(Loan loan)
+        {
+            var bookCopy = _context.BookCopies.AsNoTracking().
+                FirstOrDefault(x => x.BookID == loan.BookID && x.IsAvailable == 1);
+            if (bookCopy != null)
+            {
+                var orginBookId = _context.Loans.AsNoTracking().FirstOrDefault(x => x.ID == loan.ID);
+                var bookCopyOrgin = _context.BookCopies.FirstOrDefault(x => x.BookID == orginBookId.BookID && x.IsAvailable == 0);
+                bookCopyOrgin.IsAvailable = 1;
+                _context.BookCopies.Update(bookCopyOrgin);
+
+
+                bookCopy.IsAvailable = 0;
+                _context.BookCopies.Update(bookCopy);
+                _context.Loans.Update(loan);
+                _context.SaveChanges();
+            }
+            
+            
         }
         /// <summary>
         /// Returnerar ett lån
@@ -97,16 +123,16 @@ namespace Bibliotek.Services
         {
             var returnBook = _context.Loans
                 .FirstOrDefault(x => x.ID == id);
-                returnBook.DateReturn = DateTime.Now;
+            returnBook.DateReturn = DateTime.Now;
 
             var bookCopy = _context.BookCopies.
                 FirstOrDefault(x => x.BookID == returnBook.BookID);
-                bookCopy.IsAvailable = 1;
+            bookCopy.IsAvailable = 1;
 
             _context.Loans.Update(returnBook);
-            _context.BookCopies.Update(bookCopy);    
+            _context.BookCopies.Update(bookCopy);
             _context.SaveChanges();
-            
+
         }
 
         /// <summary>
@@ -117,7 +143,7 @@ namespace Bibliotek.Services
         /// <returns></returns>
         public double GetDaysLeft(DateTime loaned, DateTime returned)
         {
-            return (returned - loaned).TotalDays;
+            return (returned - loaned.AddDays(14)).TotalDays;
         }
 
         /// <summary>
@@ -128,6 +154,52 @@ namespace Bibliotek.Services
         public DateTime ReturnDate(DateTime loaned)
         {
             return loaned.AddDays(14).Date;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="loaned"></param>
+        /// <returns></returns>
+        public IEnumerable<string> LoanOverdue(IEnumerable<Loan> loans)
+        {
+            List<string> h = new List<string>();
+            foreach (var loan in loans)
+            {
+                if ((loan.DateReturn.HasValue && loan.DateReturn.Value.Date < loan.DateLoan.AddDays(14).Date) ||
+                    loan.DateReturn == null && loan.DateLoan.AddDays(14) < DateTime.Now)
+                {
+                    var days = Math.Abs((loan.DateLoan.AddDays(14).Date - DateTime.Now.Date).TotalDays);
+                    var debt = Math.Abs(Math.Ceiling((loan.DateLoan.AddDays(14).Date - DateTime.Now).TotalDays * 12));
+                    h.Add($"{days} dagar för sen, {debt}:-");
+                }
+                else
+                {
+                    h.Add("I tid");
+                }
+            }
+            return h;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="loans"></param>
+        /// <returns></returns>
+        public double GetTotalDebt(IEnumerable<Loan> loans)
+        {
+            List<double> debts = new List<double>();
+            foreach (var loan in loans)
+            {
+                if ((loan.DateReturn.HasValue && loan.DateReturn.Value.Date < loan.DateLoan.AddDays(14).Date) ||
+                    loan.DateReturn == null && loan.DateLoan.AddDays(14) < DateTime.Now)
+                {
+                    var days = Math.Abs((loan.DateLoan.AddDays(14).Date - DateTime.Now.Date).TotalDays);
+                    var debt = Math.Abs(Math.Ceiling((loan.DateLoan.AddDays(14).Date - DateTime.Now).TotalDays * 12));
+                    debts.Add(debt);
+                }
+            }
+            return debts.Sum();
         }
 
         public IList<Loan> GetActiveLoans()

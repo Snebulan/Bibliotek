@@ -15,6 +15,7 @@
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="ID" />
+            <input type="hidden" asp-for="DateLoan" />
             <div class="form-group">
                 <label asp-for="MemberID" class="control-label"></label>
                 <select asp-for="MemberID" asp-items="ViewBag.Members" class="form-control"></select>
@@ -26,7 +27,7 @@
             <br />
             <div class="form-group">
                 <a asp-action="Index" class="btn btn-primary"><i class="glyphicon glyphicon-chevron-left"></i> Tillbaka</a>
-                <button type="submit" value="Skapa" class="btn btn-success"><i class="glyphicon glyphicon-saved"></i> Spara</button>
+                <button type="submit" value="Spara" class="btn btn-success"><i class="glyphicon glyphicon-saved"></i> Spara</button>
             </div>
         </form>
     </div>
