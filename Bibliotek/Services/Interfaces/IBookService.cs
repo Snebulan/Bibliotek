@@ -45,7 +45,7 @@ namespace Bibliotek.Services.Interfaces
         /// Listar alla böcker som är tillgängliga
         /// </summary>
         /// <returns></returns>
-        IEnumerable<SelectListItem> GetAvailableListItems();
+        IEnumerable<SelectListItem> GetAvailableListItems(int? id = null);
         /// <summary>
         /// Hämtar alla böcker som är tillgängliga
         /// </summary>
