@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Bibliotek.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -42,5 +43,7 @@ namespace Bibliotek.Services.Interfaces
         IList<Loan> GetActiveLoans();
         IEnumerable<SelectListItem> GetMemberLoanListItems();
         IEnumerable<Loan> GetAllActiveLoansForMember(int? id);
+        IEnumerable<string> LoanOverdue(IEnumerable<Loan> loans);
+        double GetTotalDebt(IEnumerable<Loan> loans);
     }
 }
