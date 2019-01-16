@@ -64,5 +64,6 @@ namespace Bibliotek.Services.Interfaces
         void Update(Book book);
         string RemoveCopy(int id);
         string AddCopy(int id);
+        void RemoveBookAndLoans(int id);
     }
 }

@@ -1,8 +1,11 @@
-﻿using Bibliotek.Models;
+﻿using Bibliotek.Data;
+using Bibliotek.Models;
 using Bibliotek.Models.ViewModels;
 using Bibliotek.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Bibliotek.Controllers
 {
@@ -111,6 +114,7 @@ namespace Bibliotek.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(Book book)
         {
+
             if (!ModelState.IsValid)
             {
                 ViewBag.Authors = _authorService.GetSelectListItems();
@@ -214,7 +218,16 @@ namespace Bibliotek.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(int id)
         {
-            _bookService.Delete(id);
+            try
+            {
+                _bookService.RemoveBookAndLoans(id);
+            }
+            catch (System.Exception)
+            {
+
+                throw;
+            }
+            
             return RedirectToAction(nameof(Index));
         }
     }

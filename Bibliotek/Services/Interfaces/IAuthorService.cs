@@ -12,5 +12,6 @@ namespace Bibliotek.Services.Interfaces
         /// <returns></returns>
         IEnumerable<SelectListItem> GetSelectListItems();
         Author GetAuthor(int? id);
+        void DeleteAuthorAndConnectedItems(int id);
     }
 }

@@ -49,15 +49,16 @@ namespace Bibliotek.Controllers
         }
 
         // GET: Authors/Delete
-        public async Task<IActionResult> Delete(int? id)
+        public IActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var author = await _context.Authors
-                .FirstOrDefaultAsync(m => m.ID == id);
+            //var author = await _context.Authors
+            //    .FirstOrDefaultAsync(m => m.ID == id);
+            Author author = _authorService.GetAuthor(id);
             if (author == null)
             {
                 return NotFound();
@@ -69,22 +70,13 @@ namespace Bibliotek.Controllers
         // POST: Authors/Delete
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public IActionResult DeleteConfirmed(int id)
         {
-            var books = _context.Books.Where(y => y.AuthorID == id);
-            List<Loan> deletedLoans = new List<Loan>();
-            foreach (var book in books)
-            {
-                deletedLoans.Add(_context.Loans.FirstOrDefault(x => x.BookID == book.ID));
-            }
+            _authorService.DeleteAuthorAndConnectedItems(id);
 
-            _context.RemoveRange(deletedLoans);
-            var author = await _context.Authors.FindAsync(id);
-            _context.Authors.Remove(author);
-            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-       
+
         // GET: Authors/Edit/
         public async Task<IActionResult> Edit(int? id)
         {
@@ -117,7 +109,12 @@ namespace Bibliotek.Controllers
             {
                 try
                 {
-                    _context.Update(author);
+                    if (string.IsNullOrEmpty(author.FirstName) || string.IsNullOrEmpty(author.LastName))
+                    {
+                        TempData["Fail"] = "Fail";
+                        return View(author);
+                    }
+                        _context.Update(author);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -143,13 +140,18 @@ namespace Bibliotek.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ID,FirstName,LastName")] Author author)
         {
+            if (string.IsNullOrEmpty(author.FirstName) || string.IsNullOrEmpty(author.LastName))
+            {
+                TempData["Fail"] = "Fail";
+                return View(author);
+            }
             if (ModelState.IsValid)
             {
                 _context.Add(author);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(author);
+            return View();
         }
 
         private bool AuthorExists(int id)

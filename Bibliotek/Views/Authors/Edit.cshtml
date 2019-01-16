@@ -8,6 +8,12 @@
 
 <h4>Author</h4>
 <hr />
+@if ((string)TempData["Fail"] == "Fail")
+{
+    <div class="alert alert-danger" role="alert">
+        <p><strong>Nu blev det fel!</strong> Ett förnamn och efternamn måste anges!</p>
+    </div>
+}
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">

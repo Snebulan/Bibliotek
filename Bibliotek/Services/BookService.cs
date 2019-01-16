@@ -191,5 +191,22 @@ namespace Bibliotek.Services
             adSuccess = "true";
             return adSuccess;
         }
+
+        public void RemoveBookAndLoans(int id)
+        {
+            var books = _context.Books.Where(y => y.ID == id);
+            List<Loan> deletedLoans = new List<Loan>();
+            foreach (var book in books)
+            {
+                deletedLoans.Add(_context.Loans.FirstOrDefault(x => x.BookID == book.ID));
+            }
+
+            if (_context.Loans.Any())
+            {
+                _context.RemoveRange(deletedLoans);
+            }
+            Delete(id);
+            _context.SaveChangesAsync();
+        }
     }
 }
