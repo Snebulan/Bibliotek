@@ -44,9 +44,13 @@
                 <th>
                     Status
                 </th>
+                <th>
+                    Skuld
+                </th>
             </tr>
         </thead>
         <tbody>
+            @{ int i = 0; }
             @foreach (var item in Model.Loans)
             {
                 <tr>
@@ -61,7 +65,8 @@
                         @item.DateLoan.Date.ToShortDateString()
                     </td>
                     <td>
-                        @{ var color = "red";
+                        @{
+                            var color = "red";
                             string returnDate = $"Inlämnas senast: {item.DateLoan.Date.AddDays(14).ToShortDateString()}";
                             if (item.DateReturn != null)
                             {
@@ -71,11 +76,24 @@
                         <span class="glyphicon glyphicon-book @color" title="@returnDate"></span>
                     </td>
                     <td>
+                        @ViewBag.Debt[i]
+                    </td>
+                    <td>
                         <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
                         <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
                         <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
                     </td>
                 </tr>
-            }
+                                i++;
+                            }
+            <tr>
+                <th colspan="4">
+                    Total skuld:
+                </th>
+                <th>
+                    @Model.TotalDebt:-
+                </th>
+            </tr>
         </tbody>
     </table>
+</div>

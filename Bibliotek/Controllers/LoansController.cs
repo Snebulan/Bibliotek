@@ -27,10 +27,14 @@ namespace Bibliotek.Controllers
 
         public IActionResult Index()
         {
-            var vm = new LoanIndexVM();
-            vm.Loans = _loanService.GetAll();
-            vm.Book = _bookService.GetAll();
-            vm.Members = _memberService.GetSelectListItems();
+            var vm = new LoanIndexVM
+            {
+                Loans = _loanService.GetAll(),
+                Book = _bookService.GetAll(),
+                Members = _memberService.GetSelectListItems()
+            };
+            ViewBag.Debt = _loanService.LoanOverdue(vm.Loans);
+            vm.TotalDebt = _loanService.GetTotalDebt(vm.Loans);
             return View(vm);
         }
 
@@ -39,6 +43,8 @@ namespace Bibliotek.Controllers
             vm.Loans = _loanService.GetAllLoansForMember(vm.SelectMember.ID);
             vm.Book = _bookService.GetAll();
             vm.Members = _memberService.GetSelectListItems();
+            ViewBag.Debt = _loanService.LoanOverdue(vm.Loans);
+            vm.TotalDebt = _loanService.GetTotalDebt(vm.Loans);
             return View("Index", vm);
         }
         public IActionResult FilterOnMemberReturn(LoanReturnVM vm)
@@ -94,11 +100,13 @@ namespace Bibliotek.Controllers
 
         public IActionResult Return()
         {
-            
-            var vm = new LoanReturnVM();
-            vm.Loans = _loanService.GetActiveLoans();
-            vm.Book = _bookService.GetAll();
-            vm.Members = _memberService.GetSelectListItems();
+
+            var vm = new LoanReturnVM
+            {
+                Loans = _loanService.GetActiveLoans(),
+                Book = _bookService.GetAll(),
+                Members = _memberService.GetSelectListItems()
+            };
             return View(vm);
 
         }
