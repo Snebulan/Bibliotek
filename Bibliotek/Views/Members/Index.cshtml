@@ -13,7 +13,7 @@
     <a asp-action="Create" class="btn btn-success"><i class="glyphicon glyphicon-book"></i> Lägg till</a>
 </div>
 <table class="table table-striped">
-    <thead>
+    <thead class="table-head">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.FirstName)
@@ -23,6 +23,9 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.PersonNumber)
+            </th>
+            <th class="text-center">
+                <i class="glyphicon glyphicon-cog"></i>
             </th>
         </tr>
     </thead>
@@ -38,7 +41,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.PersonNumber)
             </td>
-            <td>
+            <td class="text-center">
                 <a asp-action="Edit" asp-route-id="@item.ID" class="btn btn-warning btn-xs"><i class="glyphicon glyphicon-edit"></i></a>
                 <a asp-action="Details" asp-route-id="@item.ID" class="btn btn-info btn-xs"><i class="glyphicon glyphicon-list-alt"></i></a>
                 <a asp-action="Delete" asp-route-id="@item.ID" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-trash"></i></a>

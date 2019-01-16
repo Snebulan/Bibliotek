@@ -56,12 +56,6 @@ namespace Bibliotek.Services
                    Text = $"{x.Author.FullName} : {x.Title}",
                    Value = x.ID.ToString()
                });
-
-            //return _context.Books
-            //    .Include("Author")
-            //    .Include(x => x.BookCopeis)
-            //    .ToList()
-            //    .Where(x => IsAvailable(x));
         }
 
         /// <summary>
