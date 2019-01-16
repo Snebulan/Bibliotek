@@ -55,6 +55,9 @@ body {
     margin-top: 20px;
     padding: 16px 25px 16px 25px;
 }
+.table-title-h2{
+    margin: 15px;
+}
 
 .table-filter {
     margin: 10px 0 10px 0;
