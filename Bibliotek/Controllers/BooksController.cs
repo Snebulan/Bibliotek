@@ -165,9 +165,13 @@ namespace Bibliotek.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit(int id, Book book)
         {
+            if (!ModelState.IsValid)
+            {
+                ViewBag.Authors = _authorService.GetSelectListItems();
+                return View(book);
+            }
             if (ModelState.IsValid)
             {
-               
                 try
                 {
                     _bookService.Update(book);

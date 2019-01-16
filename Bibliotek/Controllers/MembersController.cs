@@ -96,7 +96,7 @@ namespace Bibliotek.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,FirstName,LastName,LoanID")] Member member)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,FirstName,LastName,LoanID,PersonNumber")] Member member)
         {
             if (id != member.ID)
             {
@@ -107,6 +107,12 @@ namespace Bibliotek.Controllers
             {
                 try
                 {
+                    if (_membersService.CheckPersonNumber(id, member) == true)
+                    {
+                        TempData["Fail"] = "Fail";
+                        return RedirectToAction(nameof(Edit));
+                    }
+
                     _context.Update(member);
                     await _context.SaveChangesAsync();
                 }

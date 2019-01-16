@@ -120,7 +120,8 @@ namespace Bibliotek.Controllers
             {
                 return NotFound();
             }
-            ViewBag.Books = _bookService.GetAvailableListItems();
+            
+            ViewBag.Books = _bookService.GetAvailableListItems(id);
             ViewBag.Members = _memberService.GetSelectListItems();
             var loan = await _context.Loans.FindAsync(id);
             if (loan == null)
@@ -135,7 +136,7 @@ namespace Bibliotek.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,MemberID")] Loan loan)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,MemberID,BookID,DateLoan")] Loan loan)
         {
             if (id != loan.ID)
             {
@@ -146,8 +147,7 @@ namespace Bibliotek.Controllers
             {
                 try
                 {
-                    _context.Update(loan);
-                    await _context.SaveChangesAsync();
+                    _loanService.Update(loan);
                 }
                 catch (DbUpdateConcurrencyException)
                 {

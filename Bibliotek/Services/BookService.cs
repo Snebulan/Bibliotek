@@ -47,9 +47,16 @@ namespace Bibliotek.Services
         /// Hämtar en SelectList av alla tillgängliga böcker.
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<SelectListItem> GetAvailableListItems()
+        public IEnumerable<SelectListItem> GetAvailableListItems(int? id)
         {
-            var availableBooks = GetAvailable();
+            var availableBooks = GetAvailable().ToList();
+            if (id != null)
+            {
+                var currentLoan = _context.Loans.FirstOrDefault(z => z.ID == id);
+                var currentBook = _context.Books.FirstOrDefault(x => x.ID == currentLoan.BookID);
+                availableBooks.Add(currentBook);
+            }
+
             return availableBooks.ToList().Select(x =>
                new SelectListItem
                {
@@ -104,7 +111,7 @@ namespace Bibliotek.Services
         /// <param name="book">Boken som ska läggas till</param>
         public void Add(Book book)
         {
-                book.Author = _context.Authors.Find(book.Author.ID);
+                book.Author = _context.Authors.FirstOrDefault(x => x.ID == book.AuthorID);
                 _context.Add(book);
                 _context.SaveChanges();
         }
@@ -116,6 +123,7 @@ namespace Bibliotek.Services
         /// <param name="book">Boken som ska uppdateras</param>
         public void Update(Book book)
         {
+
             _context.Update(book);
             _context.SaveChanges();
         }

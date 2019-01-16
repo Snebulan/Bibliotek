@@ -20,6 +20,11 @@ namespace Bibliotek.Services.Interfaces
         /// <param name="id">ID på lånet som ska tas bort</param>
         void Delete(int id);
         /// <summary>
+        /// Uppdaterar ett lån
+        /// </summary>
+        /// <param name="loan">Lånet som ska uppdateras</param>
+        void Update(Loan loan);
+        /// <summary>
         /// Returnerar ett lån
         /// </summary>
         /// <param name="loan">Lånet som ska returneras</param>

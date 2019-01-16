@@ -18,5 +18,6 @@ namespace Bibliotek.Services.Interfaces
         /// </summary>
         /// <returns></returns>
         IEnumerable<SelectListItem> GetSelectListItems();
+        bool CheckPersonNumber(int id, Member member);
     }
 }

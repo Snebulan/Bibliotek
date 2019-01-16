@@ -109,12 +109,11 @@ namespace Bibliotek.Controllers
             {
                 try
                 {
-                    if (string.IsNullOrEmpty(author.FirstName) || string.IsNullOrEmpty(author.LastName))
+                    if (!ModelState.IsValid)
                     {
-                        TempData["Fail"] = "Fail";
                         return View(author);
                     }
-                        _context.Update(author);
+                    _context.Update(author);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -140,7 +139,7 @@ namespace Bibliotek.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ID,FirstName,LastName")] Author author)
         {
-            if (string.IsNullOrEmpty(author.FirstName) || string.IsNullOrEmpty(author.LastName))
+            if (!ModelState.IsValid)
             {
                 TempData["Fail"] = "Fail";
                 return View(author);
