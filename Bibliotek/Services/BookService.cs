@@ -104,7 +104,7 @@ namespace Bibliotek.Services
         /// <param name="book">Boken som ska läggas till</param>
         public void Add(Book book)
         {
-                book.Author = _context.Authors.Find(book.Author.ID);
+                book.Author = _context.Authors.FirstOrDefault(x => x.ID == book.AuthorID);
                 _context.Add(book);
                 _context.SaveChanges();
         }
@@ -116,6 +116,7 @@ namespace Bibliotek.Services
         /// <param name="book">Boken som ska uppdateras</param>
         public void Update(Book book)
         {
+
             _context.Update(book);
             _context.SaveChanges();
         }
