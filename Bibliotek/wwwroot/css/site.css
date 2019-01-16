@@ -59,3 +59,11 @@ body {
 .table-filter {
     margin: 10px 0 10px 0;
 }
+
+.table-head {
+    background: #e2e2e2;
+}
+
+.dl-horizontal dt {
+    text-align: left;
+}

@@ -56,12 +56,6 @@ namespace Bibliotek.Services
                    Text = $"{x.Author.FullName} : {x.Title}",
                    Value = x.ID.ToString()
                });
-
-            //return _context.Books
-            //    .Include("Author")
-            //    .Include(x => x.BookCopeis)
-            //    .ToList()
-            //    .Where(x => IsAvailable(x));
         }
 
         /// <summary>
@@ -69,7 +63,7 @@ namespace Bibliotek.Services
         /// </summary>
         /// <param name="author">Författare vars böcker ska hämtas</param>
         /// <returns></returns>
-        public IEnumerable<Book> GetAllByAuthor(Author author)
+        public IEnumerable<Book> GetAvailableByAuthor(Author author)
         {
             return _context.Books
             .Include("Author")
@@ -83,6 +77,16 @@ namespace Bibliotek.Services
             //    .Where(m => m.AuthorID == author.ID && m.ID == _context.BookCopies.Where(z => z.ID).Where(_context.BookCopies.Where(u => u.IsAvailable == 1)));
         }
 
+        public IEnumerable<Book> GetAllByAuthor(Author author)
+        {
+            return _context.Books
+            .Include("Author")
+            .Include(x => x.BookCopeis)
+            .ToList()
+            .Where(x => x.AuthorID == author.ID).ToList();
+            
+        }
+
         /// <summary>
         /// Hämtar en bok utifrån dess ID
         /// </summary>
@@ -90,7 +94,8 @@ namespace Bibliotek.Services
         /// <returns></returns>
         public Book Get(int? id)
         {
-            return _context.Books.FirstOrDefault(m => m.ID == id);
+            return _context.Books.Include(x => x.Author).FirstOrDefault(m => m.ID == id);
+
         }
 
         /// <summary>
@@ -179,6 +184,23 @@ namespace Bibliotek.Services
             _context.SaveChanges();
             adSuccess = "true";
             return adSuccess;
+        }
+
+        public void RemoveBookAndLoans(int id)
+        {
+            var books = _context.Books.Where(y => y.ID == id);
+            List<Loan> deletedLoans = new List<Loan>();
+            foreach (var book in books)
+            {
+                deletedLoans.Add(_context.Loans.FirstOrDefault(x => x.BookID == book.ID));
+            }
+
+            if (_context.Loans.Any())
+            {
+                _context.RemoveRange(deletedLoans);
+            }
+            Delete(id);
+            _context.SaveChangesAsync();
         }
     }
 }

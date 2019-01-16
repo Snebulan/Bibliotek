@@ -1,8 +1,11 @@
-﻿using Bibliotek.Models;
+﻿using Bibliotek.Data;
+using Bibliotek.Models;
 using Bibliotek.Models.ViewModels;
 using Bibliotek.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Bibliotek.Controllers
 {
@@ -50,7 +53,7 @@ namespace Bibliotek.Controllers
         /// <returns>Books/Index</returns>
         public IActionResult FilterOnAuthor(BookIndexVM vm)
         {
-            vm.Books = _bookService.GetAllByAuthor(vm.Author);
+            vm.Books = _bookService.GetAvailableByAuthor(vm.Author);
             vm.Authors = _authorService.GetSelectListItems();
             return View("Index", vm);
         }
@@ -76,16 +79,16 @@ namespace Bibliotek.Controllers
 
             return View(book);
         }
-        //[HttpGet, ActionName("RemoveCopy")]
+
+
         public IActionResult RemoveCopy(int id)
         {
             string success =_bookService.RemoveCopy(id);
-            //bool test = false;
             TempData["data"] = success;
             return RedirectToAction(nameof(Index), new { success });
-            //return RedirectToAction(nameof(Index))
+
         }
-        //[HttpGet, ActionName("AddCopy")]
+
         public IActionResult AddCopy(int id)
         {
             string adSuccess = _bookService.AddCopy(id);
@@ -111,6 +114,7 @@ namespace Bibliotek.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(Book book)
         {
+
             if (!ModelState.IsValid)
             {
                 ViewBag.Authors = _authorService.GetSelectListItems();
@@ -126,7 +130,6 @@ namespace Bibliotek.Controllers
                 catch (System.Exception)
                 {
                     TempData["Fail"] = "Fail";
-                    //Request.Headers.
                     return View(book);
                 }
 
@@ -144,6 +147,7 @@ namespace Bibliotek.Controllers
         {
 
             var book = _bookService.Get(id);
+            ViewBag.Authors = _authorService.GetSelectListItems();
             if (book == null)
             {
                 return NotFound();
@@ -214,7 +218,16 @@ namespace Bibliotek.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(int id)
         {
-            _bookService.Delete(id);
+            try
+            {
+                _bookService.RemoveBookAndLoans(id);
+            }
+            catch (System.Exception)
+            {
+
+                throw;
+            }
+            
             return RedirectToAction(nameof(Index));
         }
     }

@@ -10,22 +10,20 @@
             <h2 style="margin: 15px;">Böcker</h2>
         </div>
     </div>
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-6 table-filter">
-                <a asp-action="Create" class="btn btn-success"><i class="glyphicon glyphicon-book"></i> Lägg till</a>
-            </div>
-            <div class="col-sm-6 table-filter">
-                <form asp-action="FilterOnAuthor" class="form-inline">
-                    <div class="form-group">
-                        <a asp-action="Index" class="btn btn-info">Visa alla</a>
-                        <a asp-action="Available" class="btn btn-info">Tillgängliga</a>
-                        <label asp-for="@Model.Author" class="control-label">Filtrera på författare</label>
-                        <select asp-for="@Model.Author.ID" asp-items="@Model.Authors" class="form-control"></select>
-                        <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-filter"></i></button>
-                    </div>
-                </form>
-            </div>
+    <div class="row">
+        <div class="col-sm-6 table-filter">
+            <a asp-action="Create" class="btn btn-success"><i class="glyphicon glyphicon-book"></i> Lägg till</a>
+        </div>
+        <div class="col-sm-6 table-filter">
+            <form asp-action="FilterOnAuthor" class="form-inline">
+                <div class="form-group pull-right">
+                    <label asp-for="@Model.Author" class="control-label">Filtrera på författare</label>
+                    <select asp-for="@Model.Author.ID" asp-items="@Model.Authors" class="form-control"></select>
+                    <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-filter"></i></button>
+                    <a asp-action="Index" class="btn btn-info">Visa alla</a>
+                    <a asp-action="Available" class="btn btn-info">Tillgängliga</a>
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -50,7 +48,7 @@
 }
 
 <table class="table table-striped">
-    <thead class="">
+    <thead class="table-head">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Books.FirstOrDefault().Title)
@@ -69,7 +67,8 @@
             </th>
             <th>
             </th>
-            <th>
+            <th class="text-center">
+                <i class="glyphicon glyphicon-cog"></i>
             </th>
         </tr>
     </thead>
@@ -94,14 +93,12 @@
                 </td>
                 <td>
                     <a asp-action="AddCopy" asp-route-id="@item.ID"><img src="~/images/plus.png" height="15" /></a>
-                </td>
-                <td>
                     <a asp-action="RemoveCopy" asp-route-id="@item.ID"><img src="~/images/less.png" height="15" /></a>
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                    <a asp-action="Edit" asp-route-id="@item.ID" class="btn btn-warning btn-xs"><i class="glyphicon glyphicon-edit"></i></a>
+                    <a asp-action="Details" asp-route-id="@item.ID" class="btn btn-info btn-xs"><i class="glyphicon glyphicon-list-alt"></i></a>
+                    <a asp-action="Delete" asp-route-id="@item.ID" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-trash"></i></a>
                 </td>
             </tr>
         }

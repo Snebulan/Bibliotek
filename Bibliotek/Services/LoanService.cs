@@ -55,6 +55,15 @@ namespace Bibliotek.Services
                 .Where(m => m.MemberID == member.ID);
         }
         /// <summary>
+        /// Hämtar ett lån utifrån dess ID
+        /// </summary>
+        /// <param name="id">ID på lånet som ska hämtas</param>
+        /// <returns></returns>
+        public Loan Get(int? id)
+        {
+            return _context.Loans.Include(x => x.Member).FirstOrDefault(m => m.ID == id);
+        }
+        /// <summary>
         /// Lägger till ett lån
         /// </summary>
         /// <param name="loan">Lånet som ska läggas till</param>
@@ -65,13 +74,24 @@ namespace Bibliotek.Services
             bookCopy.IsAvailable = 0;
             loan.DateLoan = DateTime.Now;
 
-
-
             _context.BookCopies.Update(bookCopy);
             _context.Add(loan);
             _context.SaveChanges();
         }
-
+        /// <summary>
+        /// Tar bort ett lån eligt ID
+        /// </summary>
+        /// <param name="id">ID på lånet som ska tas bort</param>
+        public void Delete(int id)
+        {
+            var loan = _context.Loans.Find(id);
+            _context.Loans.Remove(loan);
+            _context.SaveChanges();
+        }
+        /// <summary>
+        /// Returnerar ett lån
+        /// </summary>
+        /// <param name="loan">Lånet som ska returneras</param>
         public void ReturnLoan(int id)
         {
             var returnBook = _context.Loans

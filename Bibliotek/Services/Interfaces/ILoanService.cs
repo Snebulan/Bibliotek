@@ -15,6 +15,11 @@ namespace Bibliotek.Services.Interfaces
         /// <param name="loan">Lånet som ska läggas till</param>
         void Add(Loan loan);
         /// <summary>
+        /// Tar bort ett lån givet dess ID
+        /// </summary>
+        /// <param name="id">ID på lånet som ska tas bort</param>
+        void Delete(int id);
+        /// <summary>
         /// Returnerar ett lån
         /// </summary>
         /// <param name="loan">Lånet som ska returneras</param>
@@ -24,6 +29,12 @@ namespace Bibliotek.Services.Interfaces
         /// </summary>
         /// <returns>en lista av alla lån</returns>
         IList<Loan> GetAll();
+        /// <summary>
+        /// Hämtar ett lån utifrån dess ID
+        /// </summary>
+        /// <param name="id">ID på lånet som ska hämtas</param>
+        /// <returns></returns>
+        Loan Get(int? id);
         IList<Loan> GetActiveLoans();
         IEnumerable<SelectListItem> GetMemberLoanListItems();
         IEnumerable<Loan> GetAllActiveLoansForMember(int? id);

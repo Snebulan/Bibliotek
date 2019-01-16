@@ -21,11 +21,8 @@ namespace Bibliotek.Controllers
         {
             this._membersService = membersService;
             this._loanService = loanService;
-            //this._loanService = loanService;
             _context = context;
         }
-
-
         private readonly LibraryContext _context;
 
         // GET: Members
@@ -41,26 +38,11 @@ namespace Bibliotek.Controllers
             {
                 return NotFound();
             }
-
-            //
-            //var member = await _context.Members
-            //    .Include(x => x.Loans)
-            //    .FirstOrDefaultAsync(m => m.ID == id);
-            //if (member == null)
-            //{
-            //    return NotFound();
-            //}
-
             var vm = new MemberDetailsVM();
-            //vm.Member = (Member)_membersService.GetDetails(id);
             vm.Member = _membersService.GetDetails(id);
             vm.Books = _membersService.GetAllMembersLoans(vm.Member.Loans);
             vm.Loans = _loanService.GetAllLoansForMember(id).ToList();
-            //vm.Loans = _loanService.GetAll().ToList();
-            //vm.Books = vm.Member.Loans.Select(x => x.BookID).ToList();
-            //return View(model: _membersService.GetDetails(id));
             return View(vm);
-
         }
 
         // GET: Members/Create
@@ -76,7 +58,6 @@ namespace Bibliotek.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ID,FirstName,LastName,PersonNumber")] Member member)
         {
-            //bool contactExists = _context.Members.Any(x => x.PersonNumber.Equals(member.PersonNumber));
             if (_context.Members.Any(x => x.PersonNumber.Equals(member.PersonNumber)))
             {
                 TempData["fail"] = "fail";
@@ -143,34 +124,34 @@ namespace Bibliotek.Controllers
             return View(member);
         }
 
-        // GET: Members/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
+// GET: Members/Delete/5
+public async Task<IActionResult> Delete(int? id)
+{
+    if (id == null)
+    {
+        return NotFound();
+    }
 
-            var member = await _context.Members
-                .FirstOrDefaultAsync(m => m.ID == id);
-            if (member == null)
-            {
-                return NotFound();
-            }
+    var member = await _context.Members
+        .FirstOrDefaultAsync(m => m.ID == id);
+    if (member == null)
+    {
+        return NotFound();
+    }
 
-            return View(member);
-        }
+    return View(member);
+}
 
-        // POST: Members/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var member = await _context.Members.FindAsync(id);
-            _context.Members.Remove(member);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
+// POST: Members/Delete/5
+[HttpPost, ActionName("Delete")]
+[ValidateAntiForgeryToken]
+public async Task<IActionResult> DeleteConfirmed(int id)
+{
+    var member = await _context.Members.FindAsync(id);
+    _context.Members.Remove(member);
+    await _context.SaveChangesAsync();
+    return RedirectToAction(nameof(Index));
+}
 
         private bool MemberExists(int id)
         {

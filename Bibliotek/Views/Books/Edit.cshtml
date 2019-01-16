@@ -4,10 +4,12 @@
     ViewData["Title"] = "Edit";
 }
 
-<h2>Edit</h2>
-
-<h4>Book</h4>
-<hr />
+<div class="table-title">
+    <div class="row">
+        <h2 style="margin: 15px;">Redigera Bok</h2>
+    </div>
+</div>
+<br />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
@@ -19,24 +21,26 @@
                 <span asp-validation-for="ISBN" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="AuthorID" class="control-label"></label>
+                <select asp-for="AuthorID" asp-items="ViewBag.Authors" class="form-control"></select>
+            </div>
+            <div class="form-group">
                 <label asp-for="Title" class="control-label"></label>
                 <input asp-for="Title" class="form-control" />
                 <span asp-validation-for="Title" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
+                <textarea asp-for="Description" class="form-control"></textarea>
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
+            <br />
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <a asp-action="Index" class="btn btn-primary"><i class="glyphicon glyphicon-chevron-left"></i> Tillbaka</a>
+                <button type="submit" value="Skapa" class="btn btn-success"><i class="glyphicon glyphicon-saved"></i> Spara</button>
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {
