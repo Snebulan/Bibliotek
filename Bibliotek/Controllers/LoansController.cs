@@ -27,12 +27,10 @@ namespace Bibliotek.Controllers
 
         public IActionResult Index()
         {
-            var vm = new LoanIndexVM
-            {
-                Loans = _loanService.GetAll(),
-                Book = _bookService.GetAll(),
-                Members = _memberService.GetSelectListItems()
-            };
+            var vm = new LoanIndexVM();
+            vm.Loans = _loanService.GetAll();
+            vm.Book = _bookService.GetAll();
+            vm.Members = _memberService.GetSelectListItems();
             ViewBag.Debt = _loanService.LoanOverdue(vm.Loans);
             vm.TotalDebt = _loanService.GetTotalDebt(vm.Loans);
             return View(vm);

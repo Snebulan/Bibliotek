@@ -12,12 +12,15 @@ namespace Bibliotek.Models
         [Key]
         public int ID { get; set; }
         [Required(ErrorMessage ="Du måste ange personnummer")]
+        //[Editable(false)]
         [RegularExpression(@"^[0-9]{6}[-][0-9]{4}$",
                    ErrorMessage = "Ange personnummer i följande format: ååmmdd-xxxx")]
         [Display(Name = "Personnummer")]
         public string PersonNumber { get; set; }
+        [Required(ErrorMessage ="Du måste ange förnamn")]
         [Display(Name = "Förnamn")]
         public string FirstName { get; set; }
+        [Required(ErrorMessage = "Du måste ange efternamn")]
         [Display(Name = "Efternamn")]
         public string LastName { get; set; }
         public List<Loan> Loans { get; set; }

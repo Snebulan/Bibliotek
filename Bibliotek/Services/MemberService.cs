@@ -63,5 +63,18 @@ namespace Bibliotek.Services
                 .Include(x => x.Loans)
                 .FirstOrDefault(m => m.ID == id);
         }
+
+
+        public bool CheckPersonNumber(int id, Member member)
+        {
+            bool personNumberChanged = false;
+            var originalMember = _context.Members.AsNoTracking().FirstOrDefault(x => x.ID == id);
+            if (originalMember.PersonNumber != member.PersonNumber)
+            {
+                personNumberChanged = true;
+
+            }
+            return personNumberChanged;
+        }
     }
 }
