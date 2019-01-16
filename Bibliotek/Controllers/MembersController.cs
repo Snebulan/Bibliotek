@@ -42,6 +42,8 @@ namespace Bibliotek.Controllers
             vm.Member = _membersService.GetDetails(id);
             vm.Books = _membersService.GetAllMembersLoans(vm.Member.Loans);
             vm.Loans = _loanService.GetAllLoansForMember(id).ToList();
+            ViewBag.Debt = _loanService.LoanOverdue(vm.Loans);
+            vm.TotalDebt = _loanService.GetTotalDebt(vm.Loans);
             return View(vm);
         }
 
@@ -124,34 +126,34 @@ namespace Bibliotek.Controllers
             return View(member);
         }
 
-// GET: Members/Delete/5
-public async Task<IActionResult> Delete(int? id)
-{
-    if (id == null)
-    {
-        return NotFound();
-    }
+        // GET: Members/Delete/5
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
 
-    var member = await _context.Members
-        .FirstOrDefaultAsync(m => m.ID == id);
-    if (member == null)
-    {
-        return NotFound();
-    }
+            var member = await _context.Members
+                .FirstOrDefaultAsync(m => m.ID == id);
+            if (member == null)
+            {
+                return NotFound();
+            }
 
-    return View(member);
-}
+            return View(member);
+        }
 
-// POST: Members/Delete/5
-[HttpPost, ActionName("Delete")]
-[ValidateAntiForgeryToken]
-public async Task<IActionResult> DeleteConfirmed(int id)
-{
-    var member = await _context.Members.FindAsync(id);
-    _context.Members.Remove(member);
-    await _context.SaveChangesAsync();
-    return RedirectToAction(nameof(Index));
-}
+        // POST: Members/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var member = await _context.Members.FindAsync(id);
+            _context.Members.Remove(member);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
 
         private bool MemberExists(int id)
         {

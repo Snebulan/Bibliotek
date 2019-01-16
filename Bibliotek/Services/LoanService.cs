@@ -143,7 +143,7 @@ namespace Bibliotek.Services
                     loan.DateReturn == null && loan.DateLoan.AddDays(14) < DateTime.Now)
                 {
                     var days = Math.Abs((loan.DateLoan.AddDays(14).Date - DateTime.Now.Date).TotalDays);
-                    var debt = Math.Abs(Math.Ceiling((loan.DateLoan.AddDays(14).Date - DateTime.Now).TotalDays * 12));
+                    var debt = Math.Abs(Math.Ceiling((loan.DateLoan.AddDays(14).Date - DateTime.Now.Date).TotalDays * 12));
                     h.Add($"{days} dagar för sen, {debt}:-");
                 }
                 else

@@ -25,9 +25,13 @@
                 <th class="text-center">
                     <p>Status</p>
                 </th>
+                <th>
+                    <p>Skuld</p>
+                </th>
             </tr>
         </thead>
         <tbody>
+            @{ int i = 0; }
             @foreach (var item in Model.Books)
             {
                 <tr>
@@ -48,8 +52,20 @@
                         <span class="glyphicon glyphicon-book @color" title="@returnDate"></span>
                         @Html.DisplayFor(model => model.Loans.FirstOrDefault(x => x.BookID == item.ID).DateReturn)
                     </td>
+                    <td>
+                        @ViewBag.Debt[i]
+                    </td>
                 </tr>
+                i++;
             }
+            <tr>
+                <th colspan="3">
+                    Total skuld:
+                </th>
+                <th>
+                    @Model.TotalDebt:-
+                </th>
+            </tr>
         </tbody>
     </table>
 </div>
