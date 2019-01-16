@@ -112,8 +112,8 @@ namespace Bibliotek.Services
                 _context.Loans.Update(loan);
                 _context.SaveChanges();
             }
-            
-            
+
+
         }
         /// <summary>
         /// Returnerar ett lån
@@ -163,22 +163,29 @@ namespace Bibliotek.Services
         /// <returns></returns>
         public IEnumerable<string> LoanOverdue(IEnumerable<Loan> loans)
         {
-            List<string> h = new List<string>();
+            List<string> ListOfDebts = new List<string>();
             foreach (var loan in loans)
             {
                 if ((loan.DateReturn.HasValue && loan.DateReturn.Value.Date < loan.DateLoan.AddDays(14).Date) ||
-                    loan.DateReturn == null && loan.DateLoan.AddDays(14) < DateTime.Now)
+                    loan.DateReturn == null && loan.DateLoan.AddDays(14).Date < DateTime.Now.Date)
                 {
                     var days = Math.Abs((loan.DateLoan.AddDays(14).Date - DateTime.Now.Date).TotalDays);
                     var debt = Math.Abs(Math.Ceiling((loan.DateLoan.AddDays(14).Date - DateTime.Now.Date).TotalDays * 12));
-                    h.Add($"{days} dagar för sen, {debt}:-");
+                    if (days == 1)
+                    {
+                        ListOfDebts.Add($"{days} dag för sen, {debt}:-");
+                    }
+                    else
+                    {
+                        ListOfDebts.Add($"{days} dagar för sen, {debt}:-");
+                    }
                 }
                 else
                 {
-                    h.Add("I tid");
+                    ListOfDebts.Add("I tid");
                 }
             }
-            return h;
+            return ListOfDebts;
         }
 
         /// <summary>
