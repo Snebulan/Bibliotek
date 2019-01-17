@@ -6,37 +6,36 @@
 
 <div class="table-title">
     <div class="row">
-        <h2 style="margin: 15px;">Radera Lån</h2>
-        <h4 style="margin: 15px;">Är du säker på att du vill radera detta lån?</h4>
+        <h2 class="table-title-h2">Radera Lån</h2>
+        <h4 class="table-title-h2">Är du säker på att du vill radera detta lån?</h4>
     </div>
 </div>
 <br />
-<table>
-    <tbody>
-        <tr>
-            <td>
-                <strong>
-                    @Html.DisplayNameFor(model => model.Loan.MemberID):
-                    <br />
-                    @Html.DisplayNameFor(model => model.Book.FirstOrDefault().Title):
-                    <br />
-                    @Html.DisplayNameFor(model => model.Loan.DateLoan):
-                </strong>
-            </td>
-            <td>
-                @Html.DisplayFor(model => model.Loan.Member.FullName)
-                <br>
-                @Html.DisplayFor(model => model.Book.FirstOrDefault(x => x.ID == model.Loan.BookID).Title)
-                <br>
-                @Html.DisplayFor(model => model.Loan.DateLoan)
-            </td>
-        </tr>
-    </tbody>
-</table>
-<br />
-<form asp-action="Delete">
-    <input type="hidden" asp-for="Loan.ID" />
-    <a asp-action="Index" class="btn btn-primary"><i class="glyphicon glyphicon-chevron-left"></i> Tillbaka</a>
-    <button type="submit" value="Delete" class="btn btn-danger"><i class="glyphicon glyphicon-trash"></i> Radera</button>
-</form>
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Loan.MemberID)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Loan.Member.FullName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Book.FirstOrDefault().Title)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Book.FirstOrDefault(x => x.ID == model.Loan.BookID).Title)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Loan.DateLoan)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Loan.DateLoan)
+        </dd>
+    </dl>
 
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Loan.ID" />
+        <a asp-action="Index" class="btn btn-primary"><i class="glyphicon glyphicon-chevron-left"></i> Tillbaka</a>
+        <button type="submit" value="Delete" class="btn btn-danger"><i class="glyphicon glyphicon-trash"></i> Radera</button>
+    </form>
+</div>

@@ -14,8 +14,7 @@ namespace Bibliotek.Models.ViewModels
         public IEnumerable<Book> Books { get; set; }
         public IEnumerable<SelectListItem> Members { get; set; }
         public Member SelectMember { get; set; } = new Member();
-
-        public IEnumerable<string> Debt { get; set; }
+        
         public double TotalDebt { get; set; }
 
     }

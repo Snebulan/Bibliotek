@@ -7,7 +7,7 @@
 <div>
     <div class="table-title">
         <div class="row">
-            <h2 style="margin: 15px;">Lån</h2>
+            <h2 class="table-title-h2">Lån</h2>
         </div>
     </div>
     <div class="row">
@@ -80,18 +80,18 @@
                     @ViewBag.Debt[i]
                 </td>
                 <td class="text-center">
-                    <a asp-action="Edit" asp-route-id="@item.ID" class="btn btn-warning btn-xs"><i class="glyphicon glyphicon-edit"></i></a>
-                    <a asp-action="Details" asp-route-id="@item.ID" class="btn btn-info btn-xs"><i class="glyphicon glyphicon-list-alt"></i></a>
-                    <a asp-action="Delete" asp-route-id="@item.ID" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-trash"></i></a>
+                    <a asp-action="Edit" asp-route-id="@item.ID" class="btn btn-warning btn-xs" title="Redigera"><i class="glyphicon glyphicon-edit"></i></a>
+                    <a asp-action="Details" asp-route-id="@item.ID" class="btn btn-info btn-xs" title="Detaljer"><i class="glyphicon glyphicon-list-alt"></i></a>
+                    <a asp-action="Delete" asp-route-id="@item.ID" class="btn btn-danger btn-xs" title="Radera"><i class="glyphicon glyphicon-trash"></i></a>
                 </td>
             </tr>
             i++;
         }
         <tr>
-            <th colspan="4">
+            <th class="table-head" colspan="4">
                 Total skuld:
             </th>
-            <th>
+            <th class="table-head" colspan="2">
                 @Model.TotalDebt:-
             </th>
         </tr>
