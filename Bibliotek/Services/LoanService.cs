@@ -89,7 +89,11 @@ namespace Bibliotek.Services
             var loan = _context.Loans.Find(id);
             var bookCopy = _context.BookCopies.
                 FirstOrDefault(x => x.BookID == loan.BookID && x.IsAvailable == 0);
-            bookCopy.IsAvailable = 1;
+            if (loan.DateReturn == null)
+            {
+                bookCopy.IsAvailable = 1;
+            }
+            
             _context.Loans.Remove(loan);
             _context.SaveChanges();
         }
