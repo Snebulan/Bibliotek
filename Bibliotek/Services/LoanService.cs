@@ -207,8 +207,11 @@ namespace Bibliotek.Services
                 if ((loan.DateReturn.HasValue && loan.DateReturn.Value.Date < loan.DateLoan.AddDays(14).Date) ||
                     loan.DateReturn == null && loan.DateLoan.AddDays(14) < DateTime.Now)
                 {
-                    var days = Math.Abs((loan.DateLoan.AddDays(14).Date - DateTime.Now.Date).TotalDays);
-                    var debt = Math.Abs(Math.Ceiling((loan.DateLoan.AddDays(14).Date - DateTime.Now).TotalDays * 12));
+                    //var days = Math.Abs((loan.DateLoan.AddDays(14).Date - DateTime.Now.Date).TotalDays);
+                    //var debt = Math.Abs(Math.Ceiling((loan.DateLoan.AddDays(14).Date - DateTime.Now).TotalDays * 12));
+
+                    double temp1 = (DateTime.Now.Date - loan.DateLoan.Date).TotalDays - 14;
+                    var debt = temp1 * 12;
                     debts.Add(debt);
                 }
             }
