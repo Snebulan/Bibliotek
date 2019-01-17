@@ -19,22 +19,24 @@ namespace Bibliotek.Services
             this._context = context;
         }
 
+        //Listar alla lån
         public IList<Loan> GetAll()
         {
             return _context.Loans
                 .ToList();
         }
 
+        //?
         public IEnumerable<SelectListItem> GetMemberLoanListItems()
         {
             return _context.Loans.ToList().OrderBy(x => x.BookID).Select(x =>
                new SelectListItem
                {
-                   //Text = $"{x.Author}  {x.Title}",
                    Value = x.ID.ToString()
                });
         }
 
+        //Hämtar alla lån för vald medlem
         public IEnumerable<Loan> GetAllLoansForMember(int? id)
         {
             return _context.Loans
@@ -47,13 +49,13 @@ namespace Bibliotek.Services
         /// </summary>
         /// <param name="author">Medlem vars lån ska hämtas</param>
         /// <returns></returns>
-        public IEnumerable<Loan> GetAllByMember(Member member)
-        {
-            return _context.Loans
-                .Include("Member")
-                .ToList()
-                .Where(m => m.MemberID == member.ID);
-        }
+        //public IEnumerable<Loan> GetAllByMember(Member member)
+        //{
+        //    return _context.Loans
+        //        .Include("Member")
+        //        .ToList()
+        //        .Where(m => m.MemberID == member.ID);
+        //}
         /// <summary>
         /// Hämtar ett lån utifrån dess ID
         /// </summary>
@@ -202,11 +204,13 @@ namespace Bibliotek.Services
             return debts.Sum();
         }
 
+        //Hämtar alla lån som inte är returnerade
         public IList<Loan> GetActiveLoans()
         {
             return _context.Loans.Where(x => x.DateReturn == null).ToList();
         }
 
+        //Hämtar alla lån som inte är returnerade på vald medlem
         public IEnumerable<Loan> GetAllActiveLoansForMember(int? id)
         {
             return _context.Loans.Where(x => x.DateReturn == null)

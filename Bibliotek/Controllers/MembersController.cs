@@ -73,7 +73,7 @@ namespace Bibliotek.Controllers
             return View(member);
         }
 
-        // GET: Members/Edit/5
+        // GET: Members/Edit
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -130,7 +130,7 @@ namespace Bibliotek.Controllers
             return View(member);
         }
 
-// GET: Members/Delete/5
+// GET: Members/Delete
 public async Task<IActionResult> Delete(int? id)
 {
     if (id == null)
@@ -148,7 +148,7 @@ public async Task<IActionResult> Delete(int? id)
     return View(member);
 }
 
-// POST: Members/Delete/5
+// POST: Members/Delete
 [HttpPost, ActionName("Delete")]
 [ValidateAntiForgeryToken]
 public async Task<IActionResult> DeleteConfirmed(int id)

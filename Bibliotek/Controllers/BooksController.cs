@@ -80,7 +80,7 @@ namespace Bibliotek.Controllers
             return View(book);
         }
 
-
+        //Tar bort exemplar av en bok
         public IActionResult RemoveCopy(int id)
         {
             string success =_bookService.RemoveCopy(id);
@@ -89,6 +89,7 @@ namespace Bibliotek.Controllers
 
         }
 
+        //Lägger till exemplar av en bok
         public IActionResult AddCopy(int id)
         {
             string adSuccess = _bookService.AddCopy(id);

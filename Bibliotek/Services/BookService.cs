@@ -77,21 +77,16 @@ namespace Bibliotek.Services
             .Include(x => x.BookCopeis)
             .ToList()
             .Where(x => IsAvailable(x) && x.AuthorID == author.ID);
-            //return _context.Books
-            //    .Include("Author")
-            //    .Include(x => x.BookCopeis)
-            //    .ToList()
-            //    .Where(m => m.AuthorID == author.ID && m.ID == _context.BookCopies.Where(z => z.ID).Where(_context.BookCopies.Where(u => u.IsAvailable == 1)));
         }
 
+        //Hämtar alla böcker av vald författare
         public IEnumerable<Book> GetAllByAuthor(Author author)
         {
             return _context.Books
             .Include("Author")
             .Include(x => x.BookCopeis)
             .ToList()
-            .Where(x => x.AuthorID == author.ID).ToList();
-            
+            .Where(x => x.AuthorID == author.ID).ToList();    
         }
 
         /// <summary>
@@ -123,7 +118,6 @@ namespace Bibliotek.Services
         /// <param name="book">Boken som ska uppdateras</param>
         public void Update(Book book)
         {
-
             _context.Update(book);
             _context.SaveChanges();
         }
@@ -184,6 +178,7 @@ namespace Bibliotek.Services
 
         }
 
+        //Lägger till ett exemplar av vald bok
         public string AddCopy(int id)
         {
             string adSuccess;
@@ -194,6 +189,7 @@ namespace Bibliotek.Services
             return adSuccess;
         }
 
+        //Tar bort vald bok och alla lån knutna till vald bok
         public void RemoveBookAndLoans(int id)
         {
             var books = _context.Books.Where(y => y.ID == id);

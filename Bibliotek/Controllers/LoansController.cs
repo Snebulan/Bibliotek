@@ -25,6 +25,7 @@ namespace Bibliotek.Controllers
             _context = context;
         }
 
+        //Visar all lån
         public IActionResult Index()
         {
             var vm = new LoanIndexVM
@@ -38,6 +39,7 @@ namespace Bibliotek.Controllers
             return View(vm);
         }
 
+        //Visat alla lån till en medlem
         public IActionResult FilterOnMember(LoanIndexVM vm)
         {
             vm.Loans = _loanService.GetAllLoansForMember(vm.SelectMember.ID);
@@ -47,6 +49,8 @@ namespace Bibliotek.Controllers
             vm.TotalDebt = _loanService.GetTotalDebt(vm.Loans);
             return View("Index", vm);
         }
+
+
         public IActionResult FilterOnMemberReturn(LoanReturnVM vm)
         {
             vm.Loans = _loanService.GetAllActiveLoansForMember(vm.SelectMember.ID);
@@ -54,6 +58,8 @@ namespace Bibliotek.Controllers
             vm.Members = _memberService.GetSelectListItems();
             return View("Return", vm);
         }
+
+        //Visa detaljer på valt lån
         public IActionResult Details(int? id)
         {
             if (id == null)
@@ -96,6 +102,7 @@ namespace Bibliotek.Controllers
             return View(loan);
         }
 
+        //Visar lån att returnera
         public IActionResult Return()
         {
             var vm = new LoanReturnVM();
@@ -105,6 +112,7 @@ namespace Bibliotek.Controllers
             return View(vm);
         }
 
+        //Returnerar lån
         public IActionResult ReturnAction(int id)
         {
 
@@ -116,6 +124,7 @@ namespace Bibliotek.Controllers
             return View();
         }
 
+        //Redigerar lån
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -138,7 +147,7 @@ namespace Bibliotek.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,MemberID,BookID,DateLoan")] Loan loan)
+        public IActionResult Edit(int id, [Bind("ID,MemberID,BookID,DateLoan")] Loan loan)
         {
             if (id != loan.ID)
             {
@@ -167,7 +176,7 @@ namespace Bibliotek.Controllers
             return View(loan);
         }
 
-        // GET: Loans/Delete/5
+        // GET: Loans/Delete
         public IActionResult Delete(int? id)
         {
             if (id == null)

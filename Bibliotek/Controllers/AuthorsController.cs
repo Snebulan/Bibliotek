@@ -28,7 +28,7 @@ namespace Bibliotek.Controllers
         {
             return View(await _context.Authors.ToListAsync());
         }
-        // GET: Members/Details/5
+        // GET: Members/Details/
         public IActionResult Details(int? id)
         {
             if (id == null)
@@ -38,8 +38,6 @@ namespace Bibliotek.Controllers
             var vm = new AuthorDetailsVM();
             vm.Author = _authorService.GetAuthor(id);
             vm.Books = _bookService.GetAllByAuthor(vm.Author).ToList();
-            //vm.Books = _membersService.GetAllMembersLoans(vm.Member.Loans);
-            //vm.Loans = _loanService.GetAllLoansForMember(id).ToList();
             return View(vm);
         }
         // GET: Authors/Create
@@ -55,15 +53,11 @@ namespace Bibliotek.Controllers
             {
                 return NotFound();
             }
-
-            //var author = await _context.Authors
-            //    .FirstOrDefaultAsync(m => m.ID == id);
             Author author = _authorService.GetAuthor(id);
             if (author == null)
             {
                 return NotFound();
             }
-
             return View(author);
         }
 
@@ -84,7 +78,6 @@ namespace Bibliotek.Controllers
             {
                 return NotFound();
             }
-
             var author = await _context.Authors.FindAsync(id);
             if (author == null)
             {
@@ -153,6 +146,7 @@ namespace Bibliotek.Controllers
             return View();
         }
 
+       
         private bool AuthorExists(int id)
         {
             return _context.Authors.Any(e => e.ID == id);

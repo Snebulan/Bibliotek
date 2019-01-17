@@ -44,25 +44,26 @@ namespace Bibliotek.Services
             return _context.Authors.FirstOrDefault(x => x.ID == id);
         }
 
+        //Raderar Författare och alla object tillhörande författare
         public void DeleteAuthorAndConnectedItems (int id)
         {
-            var books = _context.Books.Where(y => y.AuthorID == id);
+            var books = _context.Books.Where(y => y.AuthorID == id );
             List<Loan> deletedLoans = new List<Loan>();
             foreach (var book in books)
             {
-                deletedLoans.Add(_context.Loans.FirstOrDefault(x => x.BookID == book.ID));
+                var loans = _context.Loans.Where(x => x.BookID == book.ID);
+                if (loans != null)
+                {
+                    deletedLoans.AddRange(loans);
+                }
             }
-
-            if (_context.Loans.Any())
+            if (deletedLoans.Any())
             {
                 _context.RemoveRange(deletedLoans);
             }
-
             var author = _context.Authors.FirstOrDefault(x=> x.ID == id);
             _context.Authors.Remove(author);
-            _context.SaveChangesAsync();
+            _context.SaveChanges();
         }
-
-
     }
 }

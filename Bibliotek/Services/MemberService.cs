@@ -20,12 +20,9 @@ namespace Bibliotek.Services
             this._context = context;
         }
 
+        //Hämtar alla böcker för vald medlem
         public List<Book> GetAllMembersLoans(List<Loan> loans)
         {
-            //idOfBook =  select BookID FROM Loans Where MemberID == id
-            //select Book_Name From Book Where BookId = IdOfBook
-
-
             List<Book> books = new List<Book>();
 
             foreach (var loan in loans )
@@ -49,14 +46,8 @@ namespace Bibliotek.Services
                    Value = x.ID.ToString()
                });
         }
-        //public object GetDetails(int? id)
-        //{
-        //    return _context.Members
-        //        .Include(x => x.Loans)
-        //        .ToList()
-        //        .Where(m => m.ID == id);
-        //}
 
+        //Visar detaljer för vald medlem
         public Member GetDetails(int? id)
         {
             return _context.Members
@@ -64,7 +55,7 @@ namespace Bibliotek.Services
                 .FirstOrDefault(m => m.ID == id);
         }
 
-
+        //Kollar om en medlems personnummer är ändrat
         public bool CheckPersonNumber(int id, Member member)
         {
             bool personNumberChanged = false;
