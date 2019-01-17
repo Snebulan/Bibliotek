@@ -30,7 +30,6 @@ namespace Bibliotek.Services
                 .ToList();
         }
 
-
         /// <summary>
         /// Hämtar alla böcker som är tillgängliga
         /// </summary>
@@ -43,6 +42,7 @@ namespace Bibliotek.Services
                 .ToList()
                 .Where(x => IsAvailable(x));
         }
+
         /// <summary>
         /// Hämtar en SelectList av alla tillgängliga böcker.
         /// </summary>
@@ -66,9 +66,9 @@ namespace Bibliotek.Services
         }
 
         /// <summary>
-        /// Hämtar alla böcker från angiven författare
+        /// Hämtar alla tillgängliga böcker från angiven författare
         /// </summary>
-        /// <param name="author">Författare vars böcker ska hämtas</param>
+        /// <param name="author">Författare vars tillgängliga böcker ska hämtas</param>
         /// <returns></returns>
         public IEnumerable<Book> GetAvailableByAuthor(Author author)
         {
@@ -97,7 +97,6 @@ namespace Bibliotek.Services
         public Book Get(int? id)
         {
             return _context.Books.Include(x => x.Author).FirstOrDefault(m => m.ID == id);
-
         }
 
         /// <summary>
@@ -110,7 +109,6 @@ namespace Bibliotek.Services
                 _context.Add(book);
                 _context.SaveChanges();
         }
-
 
         /// <summary>
         /// Uppdaterar en bok
@@ -157,6 +155,11 @@ namespace Bibliotek.Services
             return _context.Books.Any(e => e.ID == id);
         }
 
+        /// <summary>
+        /// Tar bort en kopia av en bok
+        /// </summary>
+        /// <param name="id">bokkopians ID</param>
+        /// <returns></returns>
         public string RemoveCopy(int id)
         {
             string success;
@@ -175,10 +178,13 @@ namespace Bibliotek.Services
                 success = "false";
                 return success;
             }
-
         }
 
-        //Lägger till ett exemplar av vald bok
+        /// <summary>
+        /// Lägger till en kopia av en bok
+        /// </summary>
+        /// <param name="id">bokkopians ID</param>
+        /// <returns></returns>
         public string AddCopy(int id)
         {
             string adSuccess;

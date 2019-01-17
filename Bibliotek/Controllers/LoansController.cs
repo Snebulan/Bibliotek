@@ -37,7 +37,7 @@ namespace Bibliotek.Controllers
             return View(vm);
         }
 
-        //Visat alla lån till en medlem
+        //Visar alla lån till en medlem
         public IActionResult FilterOnMember(LoanIndexVM vm)
         {
             vm.Loans = _loanService.GetAllLoansForMember(vm.SelectMember.ID);
@@ -48,7 +48,11 @@ namespace Bibliotek.Controllers
             return View("Index", vm);
         }
 
-
+        /// <summary>
+        /// Filtrerar lånen på vald medlem och returnerar Return
+        /// </summary>
+        /// <param name="vm"></param>
+        /// <returns>Loans/Return</returns>
         public IActionResult FilterOnMemberReturn(LoanReturnVM vm)
         {
             vm.Loans = _loanService.GetAllActiveLoansForMember(vm.SelectMember.ID);
@@ -76,7 +80,10 @@ namespace Bibliotek.Controllers
             return View(vm);
         }
 
-        // GET: Loans/Create
+        /// <summary>
+        /// Visar en sida för att skapa ett lån
+        /// </summary>
+        /// <returns></returns>
         public IActionResult Create()
         {
             ViewBag.Members = _memberService.GetSelectListItems();
@@ -85,9 +92,11 @@ namespace Bibliotek.Controllers
             return View();
         }
 
-        // POST: Loans/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        /// <summary>
+        /// Skapar ett nytt lån
+        /// </summary>
+        /// <param name="loan"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Create(Loan loan)
@@ -113,7 +122,6 @@ namespace Bibliotek.Controllers
         //Returnerar lån
         public IActionResult ReturnAction(int id)
         {
-
             if (ModelState.IsValid)
             {
                 _loanService.ReturnLoan(id);
@@ -122,7 +130,7 @@ namespace Bibliotek.Controllers
             return View();
         }
 
-        //Redigerar lån
+        //Visar sida för redigera lån
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -140,9 +148,12 @@ namespace Bibliotek.Controllers
             return View(loan);
         }
 
-        // POST: Loans/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        /// <summary>
+        /// Redigerar ett lån
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="loan"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Edit(int id, [Bind("ID,MemberID,BookID,DateLoan")] Loan loan)
@@ -174,7 +185,11 @@ namespace Bibliotek.Controllers
             return View(loan);
         }
 
-        // GET: Loans/Delete
+        /// <summary>
+        /// Visar en sida för att ta bort ett lån
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public IActionResult Delete(int? id)
         {
             if (id == null)
@@ -204,6 +219,11 @@ namespace Bibliotek.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        /// <summary>
+        /// Kontrollerar att ett lån existerar
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         private bool LoanExists(int id)
         {
             return _context.Loans.Any(e => e.ID == id);

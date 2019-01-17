@@ -11,7 +11,15 @@ namespace Bibliotek.Services.Interfaces
         /// </summary>
         /// <returns></returns>
         IEnumerable<SelectListItem> GetSelectListItems();
+        /// <summary>
+        /// Hämtar författare på angivet ID
+        /// </summary>
+        /// <returns></returns>
         Author GetAuthor(int? id);
+        /// <summary>
+        /// Raderar Författare och alla object tillhörande författare
+        /// </summary>
+        /// <returns></returns>
         void DeleteAuthorAndConnectedItems(int id);
     }
 }

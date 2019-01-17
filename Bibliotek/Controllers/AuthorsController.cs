@@ -23,12 +23,20 @@ namespace Bibliotek.Controllers
             this._bookService = bookService;
         }
 
-        // GET: Authors
+        /// <summary>
+        /// Visa en dashboard för författare
+        /// </summary>
+        /// <returns></returns>
         public async Task<IActionResult> Index()
         {
             return View(await _context.Authors.ToListAsync());
         }
-        // GET: Members/Details/
+
+        /// <summary>
+        /// Visar detaljer om vald författare
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public IActionResult Details(int? id)
         {
             if (id == null)
@@ -40,13 +48,21 @@ namespace Bibliotek.Controllers
             vm.Books = _bookService.GetAllByAuthor(vm.Author).ToList();
             return View(vm);
         }
-        // GET: Authors/Create
+
+        /// <summary>
+        /// Visar en sida för att skapa en författare
+        /// </summary>
+        /// <returns></returns>
         public IActionResult Create()
         {
             return View();
         }
 
-        // GET: Authors/Delete
+        /// <summary>
+        /// Visar en sida för att ta bort en författare
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public IActionResult Delete(int? id)
         {
             if (id == null)
@@ -61,7 +77,11 @@ namespace Bibliotek.Controllers
             return View(author);
         }
 
-        // POST: Authors/Delete
+        /// <summary>
+        /// Tar bort en författare
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(int id)
@@ -71,7 +91,11 @@ namespace Bibliotek.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // GET: Authors/Edit/
+        /// <summary>
+        /// Visar en sida för att redigera en författare
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -86,9 +110,12 @@ namespace Bibliotek.Controllers
             return View(author);
         }
 
-        // POST: Author/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        /// <summary>
+        /// Redigerar en författare
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="author"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, Author author)
@@ -125,9 +152,11 @@ namespace Bibliotek.Controllers
             return View(author);
         }
 
-        // POST: Authors/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        /// <summary>
+        /// Skapar en ny författare
+        /// </summary>
+        /// <param name="author"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ID,FirstName,LastName")] Author author)
@@ -146,7 +175,11 @@ namespace Bibliotek.Controllers
             return View();
         }
 
-       
+        /// <summary>
+        /// Kontrollerar om en författare finns
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         private bool AuthorExists(int id)
         {
             return _context.Authors.Any(e => e.ID == id);

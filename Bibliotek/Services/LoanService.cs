@@ -27,14 +27,14 @@ namespace Bibliotek.Services
         }
 
         //?
-        public IEnumerable<SelectListItem> GetMemberLoanListItems()
-        {
-            return _context.Loans.ToList().OrderBy(x => x.BookID).Select(x =>
-               new SelectListItem
-               {
-                   Value = x.ID.ToString()
-               });
-        }
+        //public IEnumerable<SelectListItem> GetMemberLoanListItems()
+        //{
+        //    return _context.Loans.ToList().OrderBy(x => x.BookID).Select(x =>
+        //       new SelectListItem
+        //       {
+        //           Value = x.ID.ToString()
+        //       });
+        //}
 
         //Hämtar alla lån för vald medlem
         public IEnumerable<Loan> GetAllLoansForMember(int? id)
@@ -81,7 +81,7 @@ namespace Bibliotek.Services
             _context.SaveChanges();
         }
         /// <summary>
-        /// Tar bort ett lån eligt ID
+        /// Tar bort ett lån enligt ID
         /// </summary>
         /// <param name="id">ID på lånet som ska tas bort</param>
         public void Delete(int id)
@@ -159,7 +159,7 @@ namespace Bibliotek.Services
         }
 
         /// <summary>
-        /// 
+        /// Lån som är försenade, returnerar antal dagar
         /// </summary>
         /// <param name="loaned"></param>
         /// <returns></returns>
@@ -191,7 +191,7 @@ namespace Bibliotek.Services
         }
 
         /// <summary>
-        /// 
+        /// Räknar ut den totala skulden
         /// </summary>
         /// <param name="loans"></param>
         /// <returns></returns>

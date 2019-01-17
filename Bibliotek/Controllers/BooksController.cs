@@ -86,7 +86,6 @@ namespace Bibliotek.Controllers
             string success =_bookService.RemoveCopy(id);
             TempData["data"] = success;
             return RedirectToAction(nameof(Index), new { success });
-
         }
 
         //Lägger till exemplar av en bok
@@ -96,6 +95,7 @@ namespace Bibliotek.Controllers
             TempData["addSuccess"] = adSuccess;
             return RedirectToAction(nameof(Index));
         }
+
         /// <summary>
         /// Visar en sida för att skapa en bok
         /// </summary>
@@ -133,7 +133,6 @@ namespace Bibliotek.Controllers
                     TempData["Fail"] = "Fail";
                     return View(book);
                 }
-
             }
 
             return View(book);
@@ -146,7 +145,6 @@ namespace Bibliotek.Controllers
         /// <returns></returns>
         public IActionResult Edit(int id)
         {
-
             var book = _bookService.Get(id);
             ViewBag.Authors = _authorService.GetSelectListItems();
             if (book == null)
@@ -229,7 +227,6 @@ namespace Bibliotek.Controllers
             }
             catch (System.Exception)
             {
-
                 throw;
             }
             

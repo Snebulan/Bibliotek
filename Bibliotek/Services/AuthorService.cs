@@ -39,6 +39,10 @@ namespace Bibliotek.Services
             _context.SaveChanges();
         }
 
+        /// <summary>
+        /// Hämtar författare på angivet ID
+        /// </summary>
+        /// <param name="id">ID på författaren som ska hämtas</param>
         public Author GetAuthor(int? id)
         {
             return _context.Authors.FirstOrDefault(x => x.ID == id);

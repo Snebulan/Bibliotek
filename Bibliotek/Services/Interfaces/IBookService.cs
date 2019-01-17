@@ -33,12 +33,15 @@ namespace Bibliotek.Services.Interfaces
         /// </summary>
         /// <returns>en lista av alla böcker</returns>
         IList<Book> GetAll();
-        IEnumerable<Book> GetAllByAuthor(Author author);
-
         /// <summary>
-        /// Hämtar alla böcker från angiven författare
+        /// Hämtar alla böcker av en författare
         /// </summary>
-        /// <param name="author">Författare vars böcker ska hämtas</param>
+        /// <returns>en lista av alla böcker från vald författare</returns>
+        IEnumerable<Book> GetAllByAuthor(Author author);
+        /// <summary>
+        /// Hämtar alla tillgängliga böcker från angiven författare
+        /// </summary>
+        /// <param name="author">Författare vars tillgängliga böcker ska hämtas</param>
         /// <returns></returns>
         IEnumerable<Book> GetAvailableByAuthor(Author author);
         /// <summary>
@@ -62,8 +65,20 @@ namespace Bibliotek.Services.Interfaces
         /// </summary>
         /// <param name="book">Boken som ska uppdateras</param>
         void Update(Book book);
+        /// <summary>
+        /// Tar bort en kopia av en bok
+        /// </summary>
+        /// <param name="id">ID på kopian som ska tas bort</param>
         string RemoveCopy(int id);
+        /// <summary>
+        /// Lägger till en kopia av en bok
+        /// </summary>
+        /// <param name="id">ID på kopian som ska läggas till</param>
         string AddCopy(int id);
+        /// <summary>
+        /// Tar bort vald bok och alla lån knutna till vald bok
+        /// </summary>
+        /// <param name="id">ID på boken som ska tas bort</param>
         void RemoveBookAndLoans(int id);
     }
 }
