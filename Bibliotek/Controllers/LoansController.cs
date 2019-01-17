@@ -131,7 +131,7 @@ namespace Bibliotek.Controllers
         }
 
         //Visar sida för redigera lån
-        public async Task<IActionResult> Edit(int? id)
+        public IActionResult Edit(int? id)
         {
             if (id == null)
             {
@@ -140,7 +140,7 @@ namespace Bibliotek.Controllers
             
             ViewBag.Books = _bookService.GetAvailableListItems(id);
             ViewBag.Members = _memberService.GetSelectListItems();
-            var loan = await _context.Loans.FindAsync(id);
+            var loan = _context.Loans.Find(id);
             if (loan == null)
             {
                 return NotFound();
@@ -156,7 +156,7 @@ namespace Bibliotek.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, [Bind("ID,MemberID,BookID,DateLoan")] Loan loan)
+        public IActionResult Edit(int id, [Bind("ID,MemberID,BookID,DateLoan,DateReturn")] Loan loan)
         {
             if (id != loan.ID)
             {

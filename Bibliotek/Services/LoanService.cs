@@ -105,16 +105,21 @@ namespace Bibliotek.Services
         {
             var bookCopy = _context.BookCopies.AsNoTracking().
                 FirstOrDefault(x => x.BookID == loan.BookID && x.IsAvailable == 1);
+            var orginBookId = _context.Loans.AsNoTracking().FirstOrDefault(x => x.ID == loan.ID);
+            var bookCopyOrgin = _context.BookCopies.FirstOrDefault(x => x.BookID == orginBookId.BookID && x.IsAvailable == 0);
+
             if (bookCopy != null)
             {
-                var orginBookId = _context.Loans.AsNoTracking().FirstOrDefault(x => x.ID == loan.ID);
-                var bookCopyOrgin = _context.BookCopies.FirstOrDefault(x => x.BookID == orginBookId.BookID && x.IsAvailable == 0);
-                bookCopyOrgin.IsAvailable = 1;
-                _context.BookCopies.Update(bookCopyOrgin);
+                if (bookCopyOrgin != null)
+                {
+                    bookCopyOrgin.IsAvailable = 1;
+                    bookCopy.IsAvailable = 0;
+                    _context.BookCopies.Update(bookCopyOrgin);
+                    _context.BookCopies.Update(bookCopy);
+                }
 
-
-                bookCopy.IsAvailable = 0;
-                _context.BookCopies.Update(bookCopy);
+                
+                
                 _context.Loans.Update(loan);
                 _context.SaveChanges();
             }
