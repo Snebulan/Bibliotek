@@ -86,9 +86,20 @@ namespace Bibliotek.Controllers
         /// <returns></returns>
         public IActionResult Create()
         {
+            var MemberEmpty = _memberService.GetSelectListItems().Count();
+            var AvailableBookEmpty = _bookService.GetAvailableListItems().Count();
+
+            if (MemberEmpty == 0)
+            {
+                TempData["Fail"] = "Fail";
+            }
+            if (AvailableBookEmpty == 0)
+            {
+                TempData["BookFail"] = "BookFail";
+            }
+
             ViewBag.Members = _memberService.GetSelectListItems();
             ViewBag.Books = _bookService.GetAvailableListItems();
-
             return View();
         }
 
@@ -137,7 +148,7 @@ namespace Bibliotek.Controllers
             {
                 return NotFound();
             }
-            
+
             ViewBag.Books = _bookService.GetAvailableListItems(id);
             ViewBag.Members = _memberService.GetSelectListItems();
             var loan = _context.Loans.Find(id);
