@@ -93,7 +93,7 @@ namespace Bibliotek.Services
             {
                 bookCopy.IsAvailable = 1;
             }
-            
+
             _context.Loans.Remove(loan);
             _context.SaveChanges();
         }
@@ -118,8 +118,8 @@ namespace Bibliotek.Services
                     _context.BookCopies.Update(bookCopy);
                 }
 
-                
-                
+
+
                 _context.Loans.Update(loan);
                 _context.SaveChanges();
             }
@@ -177,19 +177,13 @@ namespace Bibliotek.Services
             List<string> ListOfDebts = new List<string>();
             foreach (var loan in loans)
             {
-                if ((loan.DateReturn.HasValue && loan.DateReturn.Value.Date < loan.DateLoan.AddDays(14).Date) ||
-                    loan.DateReturn == null && loan.DateLoan.AddDays(14).Date < DateTime.Now.Date)
+                if ((loan.DateReturn != null && (loan.DateReturn.Value.Date - loan.DateLoan.Date).TotalDays - 14 > 0) ||
+                    (loan.DateReturn == null && loan.DateLoan.AddDays(14).Date < DateTime.Now.Date))
                 {
-                    var days = Math.Abs((loan.DateLoan.AddDays(14).Date - DateTime.Now.Date).TotalDays);
-                    var debt = Math.Abs(Math.Ceiling((loan.DateLoan.AddDays(14).Date - DateTime.Now.Date).TotalDays * 12));
-                    if (days == 1)
-                    {
-                        ListOfDebts.Add($"{days} dag för sen, {debt}:-");
-                    }
-                    else
-                    {
-                        ListOfDebts.Add($"{days} dagar för sen, {debt}:-");
-                    }
+                    double days = (DateTime.Now.Date - loan.DateLoan.Date).TotalDays - 14;
+                    var debt = days * 12;
+                    string returnString = (days == 1) ? $"{days} dag för sen, {debt}:-" : $"{days} dagar för sen, {debt}:-";
+                    ListOfDebts.Add(returnString);
                 }
                 else
                 {
@@ -209,12 +203,9 @@ namespace Bibliotek.Services
             List<double> debts = new List<double>();
             foreach (var loan in loans)
             {
-                if ((loan.DateReturn.HasValue && loan.DateReturn.Value.Date < loan.DateLoan.AddDays(14).Date) ||
-                    loan.DateReturn == null && loan.DateLoan.AddDays(14) < DateTime.Now)
+                if ((loan.DateReturn != null && (loan.DateReturn.Value.Date - loan.DateLoan.Date).TotalDays - 14 > 0) ||
+                    (loan.DateReturn == null && loan.DateLoan.AddDays(14).Date < DateTime.Now.Date))
                 {
-                    //var days = Math.Abs((loan.DateLoan.AddDays(14).Date - DateTime.Now.Date).TotalDays);
-                    //var debt = Math.Abs(Math.Ceiling((loan.DateLoan.AddDays(14).Date - DateTime.Now).TotalDays * 12));
-
                     double days = (DateTime.Now.Date - loan.DateLoan.Date).TotalDays - 14;
                     var debt = days * 12;
                     debts.Add(debt);
