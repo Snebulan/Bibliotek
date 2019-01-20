@@ -20,6 +20,8 @@
                     @Html.DisplayNameFor(model => model.Book.FirstOrDefault().Title):
                     <br />
                     @Html.DisplayNameFor(model => model.Loan.DateLoan):
+                    <br />
+                    @Html.DisplayNameFor(model => model.Loan.DateReturn):
                 </strong>
             </td>
             <td>
@@ -28,6 +30,18 @@
                 @Html.DisplayFor(model => model.Book.FirstOrDefault(x => x.ID == model.Loan.BookID).Title)
                 <br>
                 @Html.DisplayFor(model => model.Loan.DateLoan)
+                <br>
+                @{
+                    if (Model.Loan.DateReturn==null)
+                    {
+                        @Html.Raw("Ej inlämnad!");
+                    }
+                    else
+                    {
+                        Html.DisplayFor(model => model.Loan.DateReturn);
+                    }
+                }
+                @Html.DisplayFor(model => model.Loan.DateReturn)
             </td>
         </tr>
     </tbody>
