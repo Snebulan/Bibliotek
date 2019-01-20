@@ -102,6 +102,12 @@ namespace Bibliotek.Controllers
         /// <returns></returns>
         public IActionResult Create()
         {
+            var AuthorEmpty = _authorService.GetSelectListItems().Count();
+
+            if (AuthorEmpty == 0)
+            {
+                TempData["AuthorFail"] = "AuthorFail";
+            }
             ViewBag.Authors = _authorService.GetSelectListItems();
             return View();
         }
