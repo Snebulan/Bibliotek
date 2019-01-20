@@ -6,7 +6,7 @@
 
 <div class="table-title">
     <div class="row">
-        <h2 style="margin: 15px;">Redigera Lån</h2>
+        <h2 class="table-title-h2">Redigera Lån</h2>
     </div>
 </div>
 <br />
@@ -16,6 +16,7 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="ID" />
             <input type="hidden" asp-for="DateLoan" />
+            <input type="hidden" asp-for="DateReturn" />
             <div class="form-group">
                 <label asp-for="MemberID" class="control-label"></label>
                 <select asp-for="MemberID" asp-items="ViewBag.Members" class="form-control"></select>

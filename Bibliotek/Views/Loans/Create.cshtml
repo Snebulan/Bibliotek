@@ -6,28 +6,40 @@
 
 <div class="table-title">
     <div class="row">
-        <h2 style="margin: 15px;">Registrera Lån</h2>
+        <h2 class="table-title-h2">Registrera Lån</h2>
     </div>
 </div>
 <br />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="MemberID" class="control-label"></label>
-                <select asp-for="MemberID" asp-items="ViewBag.Members" class="form-control"></select>
+        @if ((string)TempData["Fail"] == "Fail")
+        {
+            <div class="alert alert-danger" role="alert">
+                <p>Det finns inga medlemmar registrerade!</p>
             </div>
-            <div class="form-group">
-                <label asp-for="BookID" class="control-label">Titel</label>
-                <select asp-for="BookID" asp-items="ViewBag.Books" class="form-control"></select>
-            </div>
-            <br />
-            <div class="form-group">
-                <a asp-action="Index" class="btn btn-primary"><i class="glyphicon glyphicon-chevron-left"></i> Tillbaka</a>
-                <button type="submit" value="Skapa" class="btn btn-success"><i class="glyphicon glyphicon-saved"></i> Skapa</button>
-            </div>
-        </form>
+        }
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="MemberID" class="control-label"></label>
+                    <select asp-for="MemberID" asp-items="ViewBag.Members" class="form-control"></select>
+                </div>
+                @if ((string)TempData["BookFail"] == "BookFail")
+                {
+                    <div class="alert alert-danger" role="alert">
+                        <p>Det finns inga tillgängliga böcker!</p>
+                    </div>
+                }
+                <div class="form-group">
+                    <label asp-for="BookID" class="control-label">Titel</label>
+                    <select asp-for="BookID" asp-items="ViewBag.Books" class="form-control"></select>
+                </div>
+                <br />
+                <div class="form-group">
+                    <a asp-action="Index" class="btn btn-primary"><i class="glyphicon glyphicon-chevron-left"></i> Tillbaka</a>
+                    <button type="submit" value="Skapa" class="btn btn-success"><i class="glyphicon glyphicon-saved"></i> Skapa</button>
+                </div>
+            </form>
     </div>
 </div>
 

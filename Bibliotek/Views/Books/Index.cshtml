@@ -7,7 +7,7 @@
 <div>
     <div class="table-title">
         <div class="row">
-            <h2 style="margin: 15px;">Böcker</h2>
+            <h2 class="table-title-h2">Böcker</h2>
         </div>
     </div>
     <div class="row">
@@ -37,7 +37,7 @@
 @if ((string)TempData["data"] == "false")
 {
     <div class="alert alert-danger" role="alert">
-        <p><strong>Nu blev det fel!</strong> Kontrollera så att boken du vill avregistrera inte är utlånad eller att det finn någon bok att avregistrera.</p>
+        <p><strong>Nu blev det fel!</strong> Kontrollera så att boken du vill avregistrera inte är utlånad eller att det finns någon bok att avregistrera.</p>
     </div>
 }
 @if ((string)TempData["addSuccess"] == "true")
@@ -96,9 +96,9 @@
                     <a asp-action="RemoveCopy" asp-route-id="@item.ID"><img src="~/images/less.png" height="15" /></a>
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.ID" class="btn btn-warning btn-xs"><i class="glyphicon glyphicon-edit"></i></a>
-                    <a asp-action="Details" asp-route-id="@item.ID" class="btn btn-info btn-xs"><i class="glyphicon glyphicon-list-alt"></i></a>
-                    <a asp-action="Delete" asp-route-id="@item.ID" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-trash"></i></a>
+                    <a asp-action="Edit" asp-route-id="@item.ID" class="btn btn-warning btn-xs" title="Redigera"><i class="glyphicon glyphicon-edit"></i></a>
+                    <a asp-action="Details" asp-route-id="@item.ID" class="btn btn-info btn-xs" title="Detaljer"><i class="glyphicon glyphicon-list-alt"></i></a>
+                    <a asp-action="Delete" asp-route-id="@item.ID" class="btn btn-danger btn-xs" title="Radera"><i class="glyphicon glyphicon-trash"></i></a>
                 </td>
             </tr>
         }

@@ -25,13 +25,20 @@ namespace Bibliotek.Controllers
         }
         private readonly LibraryContext _context;
 
-        // GET: Members
+        /// <summary>
+        /// Visa en dashboard för medlemmar
+        /// </summary>
+        /// <returns></returns>
         public async Task<IActionResult> Index()
         {
             return View(model: await _context.Members.ToListAsync());
         }
 
-        // GET: Members/Details/5
+        /// <summary>
+        /// Visar detaljer om vald medlem
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public IActionResult Details(int? id)
         {
             if (id == null)
@@ -47,15 +54,20 @@ namespace Bibliotek.Controllers
             return View(vm);
         }
 
-        // GET: Members/Create
+        /// <summary>
+        /// Visar en sida för att skapa en medlem
+        /// </summary>
+        /// <returns></returns>
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Members/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        /// <summary>
+        /// Skapar en ny medlem
+        /// </summary>
+        /// <param name="member"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ID,FirstName,LastName,PersonNumber")] Member member)
@@ -75,7 +87,11 @@ namespace Bibliotek.Controllers
             return View(member);
         }
 
-        // GET: Members/Edit/5
+        /// <summary>
+        /// Visar en sida för att redigera en medlem
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -91,9 +107,12 @@ namespace Bibliotek.Controllers
             return View(member);
         }
 
-        // POST: Members/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        /// <summary>
+        /// Redigerar en medlem
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="member"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("ID,FirstName,LastName,LoanID,PersonNumber")] Member member)
@@ -132,7 +151,11 @@ namespace Bibliotek.Controllers
             return View(member);
         }
 
-        // GET: Members/Delete/5
+        /// <summary>
+        /// Visar en sida för att ta bort en medlem
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -150,7 +173,11 @@ namespace Bibliotek.Controllers
             return View(member);
         }
 
-        // POST: Members/Delete/5
+        /// <summary>
+        /// Tar bort en medlem
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -161,6 +188,11 @@ namespace Bibliotek.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        /// <summary>
+        /// Kontrollerar om en medlem finns
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         private bool MemberExists(int id)
         {
             return _context.Members.Any(e => e.ID == id);

@@ -40,10 +40,26 @@ namespace Bibliotek.Services.Interfaces
         /// <param name="id">ID på lånet som ska hämtas</param>
         /// <returns></returns>
         Loan Get(int? id);
+        /// <summary>
+        /// Hämtar alla aktiva lån i en lista
+        /// </summary>
+        /// <returns>en lista av alla aktiva lån</returns>
         IList<Loan> GetActiveLoans();
-        IEnumerable<SelectListItem> GetMemberLoanListItems();
+        /// <summary>
+        /// Hämtar alla aktiva lån på vald medlem
+        /// </summary>
+        /// <returns>en lista av alla aktiva lån på vald medlem</returns>
         IEnumerable<Loan> GetAllActiveLoansForMember(int? id);
+        /// <summary>
+        /// Lån som är försenade, returnerar antal dagar
+        /// </summary>
+        /// <returns>Lån som är försenade, returnerar antal dagar</returns>
         IEnumerable<string> LoanOverdue(IEnumerable<Loan> loans);
+        /// <summary>
+        /// Hämtar total skuld
+        /// </summary>
+        /// <returns>den totala skulden</returns>
         double GetTotalDebt(IEnumerable<Loan> loans);
+        //IEnumerable<SelectListItem> GetMemberLoanListItems();
     }
 }

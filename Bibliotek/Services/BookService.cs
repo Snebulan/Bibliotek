@@ -30,7 +30,6 @@ namespace Bibliotek.Services
                 .ToList();
         }
 
-
         /// <summary>
         /// Hämtar alla böcker som är tillgängliga
         /// </summary>
@@ -43,6 +42,7 @@ namespace Bibliotek.Services
                 .ToList()
                 .Where(x => IsAvailable(x));
         }
+
         /// <summary>
         /// Hämtar en SelectList av alla tillgängliga böcker.
         /// </summary>
@@ -66,9 +66,9 @@ namespace Bibliotek.Services
         }
 
         /// <summary>
-        /// Hämtar alla böcker från angiven författare
+        /// Hämtar alla tillgängliga böcker från angiven författare
         /// </summary>
-        /// <param name="author">Författare vars böcker ska hämtas</param>
+        /// <param name="author">Författare vars tillgängliga böcker ska hämtas</param>
         /// <returns></returns>
         public IEnumerable<Book> GetAvailableByAuthor(Author author)
         {
@@ -77,21 +77,16 @@ namespace Bibliotek.Services
             .Include(x => x.BookCopeis)
             .ToList()
             .Where(x => IsAvailable(x) && x.AuthorID == author.ID);
-            //return _context.Books
-            //    .Include("Author")
-            //    .Include(x => x.BookCopeis)
-            //    .ToList()
-            //    .Where(m => m.AuthorID == author.ID && m.ID == _context.BookCopies.Where(z => z.ID).Where(_context.BookCopies.Where(u => u.IsAvailable == 1)));
         }
 
+        //Hämtar alla böcker av vald författare
         public IEnumerable<Book> GetAllByAuthor(Author author)
         {
             return _context.Books
             .Include("Author")
             .Include(x => x.BookCopeis)
             .ToList()
-            .Where(x => x.AuthorID == author.ID).ToList();
-            
+            .Where(x => x.AuthorID == author.ID).ToList();    
         }
 
         /// <summary>
@@ -102,7 +97,6 @@ namespace Bibliotek.Services
         public Book Get(int? id)
         {
             return _context.Books.Include(x => x.Author).FirstOrDefault(m => m.ID == id);
-
         }
 
         /// <summary>
@@ -116,14 +110,12 @@ namespace Bibliotek.Services
                 _context.SaveChanges();
         }
 
-
         /// <summary>
         /// Uppdaterar en bok
         /// </summary>
         /// <param name="book">Boken som ska uppdateras</param>
         public void Update(Book book)
         {
-
             _context.Update(book);
             _context.SaveChanges();
         }
@@ -163,6 +155,11 @@ namespace Bibliotek.Services
             return _context.Books.Any(e => e.ID == id);
         }
 
+        /// <summary>
+        /// Tar bort en kopia av en bok
+        /// </summary>
+        /// <param name="id">bokkopians ID</param>
+        /// <returns></returns>
         public string RemoveCopy(int id)
         {
             string success;
@@ -181,9 +178,13 @@ namespace Bibliotek.Services
                 success = "false";
                 return success;
             }
-
         }
 
+        /// <summary>
+        /// Lägger till en kopia av en bok
+        /// </summary>
+        /// <param name="id">bokkopians ID</param>
+        /// <returns></returns>
         public string AddCopy(int id)
         {
             string adSuccess;
@@ -194,6 +195,7 @@ namespace Bibliotek.Services
             return adSuccess;
         }
 
+        //Tar bort vald bok och alla lån knutna till vald bok
         public void RemoveBookAndLoans(int id)
         {
             var books = _context.Books.Where(y => y.ID == id);

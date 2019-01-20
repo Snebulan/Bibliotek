@@ -11,13 +11,26 @@ namespace Bibliotek.Services.Interfaces
     {
 
         //object Details(int? id);
+
+        /// <summary>
+        /// Visar detaljer för vald medlem
+        /// </summary>
+        /// <returns></returns>
         Member GetDetails(int? id);
+        /// <summary>
+        /// Hämtar alla böcker för vald medlem
+        /// </summary>
+        /// <returns></returns>
         List<Book> GetAllMembersLoans(List<Loan> loans);
         /// <summary>
         /// Hämtar en SelectList av alla medlemmar
         /// </summary>
         /// <returns></returns>
         IEnumerable<SelectListItem> GetSelectListItems();
+        /// <summary>
+        /// Kollar om en medlems personnummer är ändrat
+        /// </summary>
+        /// <returns></returns
         bool CheckPersonNumber(int id, Member member);
     }
 }

@@ -6,7 +6,7 @@
 
 <div class="table-title">
     <div class="row">
-        <h2 style="margin: 15px;">Lägg till bok</h2>
+        <h2 class="table-title-h2">Lägg till bok</h2>
     </div>
 </div>
 <br />
@@ -29,6 +29,12 @@
                 <label asp-for="AuthorID" class="control-label"></label>
                 <select asp-for="AuthorID" asp-items="ViewBag.Authors" class="form-control"></select>
             </div>
+            @if ((string)TempData["AuthorFail"] == "AuthorFail")
+            {
+                <div class="alert alert-danger" role="alert">
+                    <p>Det finns inga författare registrerade!</p>
+                </div>
+            }
             @if ((string)TempData["Fail"] == "Fail")
             {
                 <div class="alert alert-danger" role="alert">
@@ -37,7 +43,7 @@
             }
             <div class="form-group">
                 <label asp-for="Description" class="control-label"></label>
-                <textarea asp-for="Description" class="form-control" ></textarea>
+                <textarea asp-for="Description" class="form-control"></textarea>
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
             <div class="form-group">

@@ -80,27 +80,34 @@ namespace Bibliotek.Controllers
             return View(book);
         }
 
-
+        //Tar bort exemplar av en bok
         public IActionResult RemoveCopy(int id)
         {
             string success =_bookService.RemoveCopy(id);
             TempData["data"] = success;
             return RedirectToAction(nameof(Index), new { success });
-
         }
 
+        //Lägger till exemplar av en bok
         public IActionResult AddCopy(int id)
         {
             string adSuccess = _bookService.AddCopy(id);
             TempData["addSuccess"] = adSuccess;
             return RedirectToAction(nameof(Index));
         }
+
         /// <summary>
         /// Visar en sida för att skapa en bok
         /// </summary>
         /// <returns></returns>
         public IActionResult Create()
         {
+            var AuthorEmpty = _authorService.GetSelectListItems().Count();
+
+            if (AuthorEmpty == 0)
+            {
+                TempData["AuthorFail"] = "AuthorFail";
+            }
             ViewBag.Authors = _authorService.GetSelectListItems();
             return View();
         }
@@ -132,7 +139,6 @@ namespace Bibliotek.Controllers
                     TempData["Fail"] = "Fail";
                     return View(book);
                 }
-
             }
 
             return View(book);
@@ -145,7 +151,6 @@ namespace Bibliotek.Controllers
         /// <returns></returns>
         public IActionResult Edit(int id)
         {
-
             var book = _bookService.Get(id);
             ViewBag.Authors = _authorService.GetSelectListItems();
             if (book == null)
@@ -228,7 +233,6 @@ namespace Bibliotek.Controllers
             }
             catch (System.Exception)
             {
-
                 throw;
             }
             
