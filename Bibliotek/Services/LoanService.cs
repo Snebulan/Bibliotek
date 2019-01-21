@@ -227,5 +227,10 @@ namespace Bibliotek.Services
                 .ToList()
                 .Where(m => m.MemberID == id);
         }
+
+        public bool Any(int id)
+        {
+            return _context.Loans.Any(e => e.ID == id);
+        }
     }
 }

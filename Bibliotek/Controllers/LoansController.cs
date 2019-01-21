@@ -236,7 +236,7 @@ namespace Bibliotek.Controllers
         /// <returns></returns>
         private bool LoanExists(int id)
         {
-            return _context.Loans.Any(e => e.ID == id);
+            return _loanService.Any(id);
         }
     }
 }
