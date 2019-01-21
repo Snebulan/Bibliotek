@@ -60,6 +60,7 @@ namespace Bibliotek.Services.Interfaces
         /// </summary>
         /// <returns>den totala skulden</returns>
         double GetTotalDebt(IEnumerable<Loan> loans);
+        bool Any(int id);
         //IEnumerable<SelectListItem> GetMemberLoanListItems();
     }
 }

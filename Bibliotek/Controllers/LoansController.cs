@@ -12,17 +12,15 @@ namespace Bibliotek.Controllers
 {
     public class LoansController : Controller
     {
-        private readonly LibraryContext _context;
         private readonly ILoanService _loanService;
         private readonly IMembersService _memberService;
         private readonly IBookService _bookService;
 
-        public LoansController(ILoanService loanService, IMembersService memberService, IBookService bookService, LibraryContext context)
+        public LoansController(ILoanService loanService, IMembersService memberService, IBookService bookService)
         {
             this._loanService = loanService;
             this._memberService = memberService;
             this._bookService = bookService;
-            _context = context;
         }
 
         //Visar all lån
@@ -151,7 +149,7 @@ namespace Bibliotek.Controllers
 
             ViewBag.Books = _bookService.GetAvailableListItems(id);
             ViewBag.Members = _memberService.GetSelectListItems();
-            var loan = _context.Loans.Find(id);
+            var loan = _loanService.Get(id);
             if (loan == null)
             {
                 return NotFound();
@@ -237,7 +235,7 @@ namespace Bibliotek.Controllers
         /// <returns></returns>
         private bool LoanExists(int id)
         {
-            return _context.Loans.Any(e => e.ID == id);
+            return _loanService.Any(id);
         }
     }
 }
