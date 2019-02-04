@@ -28,9 +28,7 @@ namespace Bibliotek.Controllers
         {
             var vm = new BookIndexVM();
             vm.Books = _bookService.GetAll();
-
             vm.Authors = _authorService.GetSelectListItems();
-
             return View(vm);
         }
         

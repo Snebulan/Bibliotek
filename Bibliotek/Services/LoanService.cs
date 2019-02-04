@@ -117,14 +117,9 @@ namespace Bibliotek.Services
                     _context.BookCopies.Update(bookCopyOrgin);
                     _context.BookCopies.Update(bookCopy);
                 }
-
-
-
                 _context.Loans.Update(loan);
                 _context.SaveChanges();
             }
-
-
         }
         /// <summary>
         /// Returnerar ett lån
@@ -143,7 +138,6 @@ namespace Bibliotek.Services
             _context.Loans.Update(returnBook);
             _context.BookCopies.Update(bookCopy);
             _context.SaveChanges();
-
         }
 
         /// <summary>

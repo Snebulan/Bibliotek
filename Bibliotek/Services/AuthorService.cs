@@ -40,6 +40,16 @@ namespace Bibliotek.Services
         }
 
         /// <summary>
+        /// Uppdaterar en författare
+        /// </summary>
+        /// <param name="author">Författaren som ska uppdateras</param>
+        public void Update(Author author)
+        {
+            _context.Update(author);
+            _context.SaveChanges();
+        }
+
+        /// <summary>
         /// Hämtar författare på angivet ID
         /// </summary>
         /// <param name="id">ID på författaren som ska hämtas</param>
@@ -69,5 +79,17 @@ namespace Bibliotek.Services
             _context.Authors.Remove(author);
             _context.SaveChanges();
         }
+
+        public IList<Author> GetAll()
+        {
+            return _context.Authors.ToList();
+                
+        }
+
+        public bool Any(int id)
+        {
+            return _context.Authors.Any(e => e.ID == id);
+        }
+
     }
 }

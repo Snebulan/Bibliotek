@@ -12,13 +12,11 @@ namespace Bibliotek.Controllers
 {
     public class AuthorsController : Controller
     {
-        private readonly LibraryContext _context;
         private readonly IAuthorService _authorService;
         private readonly IBookService _bookService;
 
-        public AuthorsController(LibraryContext context, IAuthorService authorService, IBookService bookService)
+        public AuthorsController(IAuthorService authorService, IBookService bookService)
         {
-            _context = context;
             this._authorService = authorService;
             this._bookService = bookService;
         }
@@ -27,9 +25,11 @@ namespace Bibliotek.Controllers
         /// Visa en dashboard för författare
         /// </summary>
         /// <returns></returns>
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            return View(await _context.Authors.ToListAsync());
+            var vm = new AuthorIndexVM();
+            vm.Authors =_authorService.GetAll();
+            return View(vm);
         }
 
         /// <summary>
@@ -87,7 +87,6 @@ namespace Bibliotek.Controllers
         public IActionResult DeleteConfirmed(int id)
         {
             _authorService.DeleteAuthorAndConnectedItems(id);
-
             return RedirectToAction(nameof(Index));
         }
 
@@ -96,13 +95,13 @@ namespace Bibliotek.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<IActionResult> Edit(int? id)
+        public IActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
-            var author = await _context.Authors.FindAsync(id);
+            var author = _authorService.GetAuthor(id);
             if (author == null)
             {
                 return NotFound();
@@ -118,7 +117,7 @@ namespace Bibliotek.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Author author)
+        public IActionResult Edit(int id, Author author)
         {
             if (id != author.ID)
             {
@@ -133,8 +132,7 @@ namespace Bibliotek.Controllers
                     {
                         return View(author);
                     }
-                    _context.Update(author);
-                    await _context.SaveChangesAsync();
+                    _authorService.Update(author);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -159,7 +157,7 @@ namespace Bibliotek.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,FirstName,LastName")] Author author)
+        public IActionResult Create([Bind("ID,FirstName,LastName")] Author author)
         {
             if (!ModelState.IsValid)
             {
@@ -168,8 +166,7 @@ namespace Bibliotek.Controllers
             }
             if (ModelState.IsValid)
             {
-                _context.Add(author);
-                await _context.SaveChangesAsync();
+                _authorService.Add(author);
                 return RedirectToAction(nameof(Index));
             }
             return View();
@@ -182,7 +179,7 @@ namespace Bibliotek.Controllers
         /// <returns></returns>
         private bool AuthorExists(int id)
         {
-            return _context.Authors.Any(e => e.ID == id);
+            return _authorService.Any(id);
         }
     }
 }

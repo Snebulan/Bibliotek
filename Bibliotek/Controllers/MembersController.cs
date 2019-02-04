@@ -15,23 +15,23 @@ namespace Bibliotek.Controllers
     {
         private readonly IMembersService _membersService;
         private readonly ILoanService _loanService;
-        //private readonly ILoanService _loanService;
 
-        public MembersController(LibraryContext context, IMembersService membersService, ILoanService loanService)
+        public MembersController(IMembersService membersService, ILoanService loanService)
         {
             this._membersService = membersService;
             this._loanService = loanService;
-            _context = context;
         }
-        private readonly LibraryContext _context;
 
         /// <summary>
         /// Visa en dashboard för medlemmar
         /// </summary>
         /// <returns></returns>
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            return View(model: await _context.Members.ToListAsync());
+            var vm = new MemberIndexVM();
+            vm.Members = _membersService.GetAll();
+
+            return View(vm);
         }
 
         /// <summary>
@@ -70,18 +70,18 @@ namespace Bibliotek.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,FirstName,LastName,PersonNumber")] Member member)
+        public IActionResult Create([Bind("ID,FirstName,LastName,PersonNumber")] Member member)
         {
-            if (_context.Members.Any(x => x.PersonNumber.Equals(member.PersonNumber)))
+            bool PnumberCompare = _membersService.ComparePersonNumber(member);
+
+            if (PnumberCompare == true)
             {
                 TempData["fail"] = "fail";
                 return View(member);
-
             }
             if (ModelState.IsValid)
             {
-                _context.Add(member);
-                await _context.SaveChangesAsync();
+                _membersService.Add(member);
                 return RedirectToAction(nameof(Index));
             }
             return View(member);
@@ -92,14 +92,14 @@ namespace Bibliotek.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<IActionResult> Edit(int? id)
+        public IActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
+            var member = _membersService.GetMember(id);
 
-            var member = await _context.Members.FindAsync(id);
             if (member == null)
             {
                 return NotFound();
@@ -115,7 +115,7 @@ namespace Bibliotek.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,FirstName,LastName,LoanID,PersonNumber")] Member member)
+        public IActionResult Edit(int id, [Bind("ID,FirstName,LastName,LoanID,PersonNumber")] Member member)
         {
             if (id != member.ID)
             {
@@ -132,8 +132,7 @@ namespace Bibliotek.Controllers
                         return RedirectToAction(nameof(Edit));
                     }
 
-                    _context.Update(member);
-                    await _context.SaveChangesAsync();
+                    _membersService.Update(member);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -156,15 +155,15 @@ namespace Bibliotek.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<IActionResult> Delete(int? id)
+        public IActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var member = await _context.Members
-                .FirstOrDefaultAsync(m => m.ID == id);
+            Member member = _membersService.GetMember(id);
+
             if (member == null)
             {
                 return NotFound();
@@ -180,11 +179,10 @@ namespace Bibliotek.Controllers
         /// <returns></returns>
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public IActionResult DeleteConfirmed(int id)
         {
-            var member = await _context.Members.FindAsync(id);
-            _context.Members.Remove(member);
-            await _context.SaveChangesAsync();
+            _membersService.DeleteMemberAndConnectedItems(id);
+
             return RedirectToAction(nameof(Index));
         }
 
@@ -195,7 +193,7 @@ namespace Bibliotek.Controllers
         /// <returns></returns>
         private bool MemberExists(int id)
         {
-            return _context.Members.Any(e => e.ID == id);
+            return _membersService.Any(id);
         }
     }
 }
