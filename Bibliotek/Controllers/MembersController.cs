@@ -8,6 +8,7 @@ using Bibliotek.Data;
 using Bibliotek.Models;
 using Bibliotek.Services.Interfaces;
 using Microsoft.EntityFrameworkCore.Internal;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Bibliotek.Controllers
 {
@@ -26,6 +27,7 @@ namespace Bibliotek.Controllers
         /// Visa en dashboard för medlemmar
         /// </summary>
         /// <returns></returns>
+        [Authorize]
         public IActionResult Index()
         {
             var vm = new MemberIndexVM();

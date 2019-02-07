@@ -12,7 +12,7 @@ body {
     padding-right: 15px;
 }
 
-.icons img{
+.icons img {
     height: 15px;
 }
 
@@ -39,13 +39,12 @@ body {
         display: none;
     }
 }
-
 .red {
     color: red;
 }
 
 .green {
-    color:green;
+    color: green;
 }
 
 .table-title {
@@ -55,7 +54,8 @@ body {
     margin-top: 20px;
     padding: 16px 25px 16px 25px;
 }
-.table-title-h2{
+
+.table-title-h2 {
     margin: 15px;
 }
 

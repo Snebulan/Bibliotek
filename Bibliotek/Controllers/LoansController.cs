@@ -7,6 +7,7 @@ using Bibliotek.Models;
 using Bibliotek.Data;
 using Bibliotek.Services.Interfaces;
 using Bibliotek.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Bibliotek.Controllers
 {
@@ -24,6 +25,7 @@ namespace Bibliotek.Controllers
         }
 
         //Visar all lån
+        [Authorize]
         public IActionResult Index()
         {
             var vm = new LoanIndexVM();

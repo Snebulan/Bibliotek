@@ -2,10 +2,12 @@
 using Bibliotek.Models;
 using Bibliotek.Models.ViewModels;
 using Bibliotek.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
+
 
 namespace Bibliotek.Controllers
 {
@@ -24,6 +26,7 @@ namespace Bibliotek.Controllers
         /// Visa en dashboard för böcker
         /// </summary>
         /// <returns></returns>
+        [Authorize]
         public IActionResult Index()
         {
             var vm = new BookIndexVM();

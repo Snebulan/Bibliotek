@@ -5,6 +5,7 @@ using Bibliotek.Data;
 using Bibliotek.Models;
 using Bibliotek.Models.ViewModels;
 using Bibliotek.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -25,6 +26,7 @@ namespace Bibliotek.Controllers
         /// Visa en dashboard för författare
         /// </summary>
         /// <returns></returns>
+        [Authorize]
         public IActionResult Index()
         {
             var vm = new AuthorIndexVM();
